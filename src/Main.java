@@ -3,13 +3,12 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -39,7 +38,7 @@ public class Main extends Application {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadLoginScreen(primaryStage);
+                loadCaptchaBFLoginScreen(primaryStage);
             }
         });
 
@@ -52,7 +51,7 @@ public class Main extends Application {
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadSignUp1Screen(primaryStage);
+                loadCaptchaBFSignUpScreen(primaryStage);
             }
         });
 
@@ -77,6 +76,201 @@ public class Main extends Application {
         pane.getChildren().add(productLabel);
 
         Scene scene = new Scene(pane, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static int randomNumber(){
+        return  (int) (Math.random() * 10) ;
+    }
+
+    public static String StringPath(String string){
+        switch (string){
+            case "0" :
+                return "0.jpg" ;
+            case "1" :
+                return "1.jpg" ;
+            case "2" :
+                return "2.jpg" ;
+            case "3" :
+                return "3.jpg" ;
+            case "4" :
+                return "4.jpg" ;
+            case "5" :
+                return "5.jpg" ;
+            case "6" :
+                return "6.jpg" ;
+            case "7" :
+                return "7.jpg" ;
+            case "8" :
+                return "8.jpg" ;
+            case "9" :
+                return "9.jpg" ;
+            default:
+                return "" ;
+        }
+    }
+
+    public void loadCaptchaBFLoginScreen(Stage primaryStage) {
+        Pane pane = new Pane();
+        pane.setPrefSize(600, 400);
+
+        String firstNumbr = Integer.toString(randomNumber());
+        Image firstImage = new Image(StringPath(firstNumbr));
+        ImageView firstImageView = new ImageView(firstImage);
+        firstImageView.setFitWidth(100);
+        firstImageView.setFitHeight(100);
+
+        String secondNumbr = Integer.toString(randomNumber());
+        Image secondImage = new Image(StringPath(secondNumbr));
+        ImageView secondImageView = new ImageView(secondImage);
+        secondImageView.setFitWidth(100);
+        secondImageView.setFitHeight(100);
+
+        String thirdNumbr = Integer.toString(randomNumber());
+        Image thirdImage = new Image(StringPath(thirdNumbr));
+        ImageView thirdImageView = new ImageView(thirdImage);
+        thirdImageView.setFitWidth(100);
+        thirdImageView.setFitHeight(100);
+
+        String fourthNumbr = Integer.toString(randomNumber());
+        Image fourthImage = new Image(StringPath(fourthNumbr));
+        ImageView fourthImageView = new ImageView(fourthImage);
+        fourthImageView.setFitWidth(100);
+        fourthImageView.setFitHeight(100);
+
+        String value = firstNumbr + secondNumbr + thirdNumbr + fourthNumbr;
+
+        TextField textField = new TextField();
+        textField.setPrefWidth(150);
+
+        Button buttonNext = new Button("Next");
+        buttonNext.setPrefSize(80,20);
+        Button buttonBack = new Button("Back");
+        buttonBack.setPrefSize(80,20);
+
+        HBox hBoxOne = new HBox(0, firstImageView, secondImageView, thirdImageView, fourthImageView);
+        hBoxOne.setAlignment(Pos.CENTER);
+        hBoxOne.setLayoutX(100);
+        hBoxOne.setLayoutY(110);
+
+        HBox hboxTwo = new HBox(20, textField, buttonNext, buttonBack);
+        hboxTwo.setAlignment(Pos.CENTER);
+        hboxTwo.setLayoutX(125);
+        hboxTwo.setLayoutY(220);
+
+        Label captchaLabel = new Label("Captcha Test");
+        captchaLabel.setFont(new Font(20));
+        captchaLabel.setLayoutX(230);
+        captchaLabel.setLayoutY(50);
+
+        Label notifLabel = new Label();
+        notifLabel.setLayoutX(130);
+        notifLabel.setLayoutY(250);
+        notifLabel.setFont(new Font(10));
+        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+
+        pane.getChildren().addAll(hBoxOne,hboxTwo, notifLabel, captchaLabel);
+        Scene scene = new Scene(pane);
+        buttonNext.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (textField.getText().equals(value))
+                    loadLoginScreen(primaryStage);
+                else {
+                    notifLabel.setText("Try again please, it's not true ...");
+                    textField.clear();
+                }
+            }
+        });
+        buttonBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadWellcomeScreen(primaryStage);
+            }
+        });
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void loadCaptchaBFSignUpScreen(Stage primaryStage){
+        Pane pane0 = new Pane();
+        pane0.setPrefSize(600, 400);
+
+        String firstNumbr = Integer.toString(randomNumber());
+        Image firstImage = new Image(StringPath(firstNumbr));
+        ImageView firstImageView = new ImageView(firstImage);
+        firstImageView.setFitWidth(100);
+        firstImageView.setFitHeight(100);
+
+        String secondNumbr = Integer.toString(randomNumber());
+        Image secondImage = new Image(StringPath(secondNumbr));
+        ImageView secondImageView = new ImageView(secondImage);
+        secondImageView.setFitWidth(100);
+        secondImageView.setFitHeight(100);
+
+        String thirdNumbr = Integer.toString(randomNumber());
+        Image thirdImage = new Image(StringPath(thirdNumbr));
+        ImageView thirdImageView = new ImageView(thirdImage);
+        thirdImageView.setFitWidth(100);
+        thirdImageView.setFitHeight(100);
+
+        String fourthNumbr = Integer.toString(randomNumber());
+        Image fourthImage = new Image(StringPath(fourthNumbr));
+        ImageView fourthImageView = new ImageView(fourthImage);
+        fourthImageView.setFitWidth(100);
+        fourthImageView.setFitHeight(100);
+
+        String value = firstNumbr + secondNumbr + thirdNumbr + fourthNumbr;
+
+        TextField textField = new TextField();
+        textField.setPrefWidth(150);
+
+        Button buttonNext = new Button("Next");
+        buttonNext.setPrefSize(80,20);
+        Button buttonBack = new Button("Back");
+        buttonBack.setPrefSize(80,20);
+
+        HBox hBoxOne = new HBox(0, firstImageView, secondImageView, thirdImageView, fourthImageView);
+        hBoxOne.setAlignment(Pos.CENTER);
+        hBoxOne.setLayoutX(100);
+        hBoxOne.setLayoutY(110);
+
+        HBox hboxTwo = new HBox(20, textField, buttonNext, buttonBack);
+        hboxTwo.setAlignment(Pos.CENTER);
+        hboxTwo.setLayoutX(125);
+        hboxTwo.setLayoutY(220);
+
+        Label captchaLabel = new Label("Captcha Test");
+        captchaLabel.setFont(new Font(20));
+        captchaLabel.setLayoutX(230);
+        captchaLabel.setLayoutY(50);
+
+        Label notifLabel = new Label();
+        notifLabel.setLayoutX(130);
+        notifLabel.setLayoutY(250);
+        notifLabel.setFont(new Font(10));
+        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+
+        pane0.getChildren().addAll(hBoxOne,hboxTwo, notifLabel, captchaLabel);
+        Scene scene = new Scene(pane0);
+        buttonNext.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (textField.getText().equals(value))
+                    loadSignUp1Screen(primaryStage);
+                else {
+                    notifLabel.setText("Try again please, it's not true ...");
+                    textField.clear();
+                }
+            }
+        });
+        buttonBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadWellcomeScreen(primaryStage);
+            }
+        });
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -149,7 +343,7 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadWellcomeScreen(primaryStage);
+                loadCaptchaBFLoginScreen(primaryStage);
             }
         });
 
@@ -591,7 +785,7 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadWellcomeScreen(primaryStage);
+                loadCaptchaBFSignUpScreen(primaryStage);
             }
         });
 
