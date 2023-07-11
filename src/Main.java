@@ -1,51 +1,42 @@
+import Functions.Functions;
+import Map.Map;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Separator;
-import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import Classes.*;
+import java.io.*;
+import Functions.StaticArrayLists ;
+
 
 public class Main extends Application {
-    String buttonStyle = "-fx-background-color: #e1ecf4; " +
-            "-fx-border-radius: 3px; " +
-            "-fx-border-width: 1px; " +
-            "-fx-border-color: #7aa7c7; " +
-            "-fx-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .7); " +
-            "-fx-color: #39739d; ";
+    StaticArrayLists staticArrayLists = new StaticArrayLists();
+    Map map = new Map("F:\\CP Projects\\OOP\\Phase2\\src\\graph.txt");
+
     public static void main(String[] args) {
         launch(args);
     }
 
     public void loadWellcomeScreen(Stage primaryStage) {
         Pane pane = new Pane();
+
         Label label = new Label("Wellcome to our program ....");
         label.setFont(Font.font("Calibri Bold", 25));
         label.setLayoutX(130);
         label.setLayoutY(40);
         label.setPrefSize(340, 40);
-        label.setTextFill(Color.rgb(57,115,157));
+        label.setTextFill(javafx.scene.paint.Color.valueOf("#3a648c"));
         pane.getChildren().add(label);
 
         Button loginButton = new Button("LOG IN");
@@ -60,22 +51,6 @@ public class Main extends Application {
                 loadCaptchaBFLoginScreen(primaryStage);
             }
         });
-        loginButton.setStyle("-fx-background-color: #e1ecf4; " +
-                "-fx-border-radius: 3px; " +
-                "-fx-border-width: 1px; " +
-                "-fx-border-color: #7aa7c7; " +
-                "-fx-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .7); " +
-                "-fx-color: #39739d; " +
-                "-fx-font-family: \"-apple-system\",system-ui,\"Segoe UI\",\"Liberation Sans\",sans-serif; " +
-                "-fx-font-size: 15px; " +
-                "-fx-font-weight: 400; " +
-                "-fx-line-spacing: 1.15385; " +
-                "-fx-padding: 8px .8em; " +
-                "-fx-text-align: center; " +
-                "-fx-text-decoration: none; " +
-                "-fx-cursor: hand; " +
-                "-fx-wrap-text: false;");
-        loginButton.setTextFill(Color.rgb(57,115,157));
 
         Button signUpButton = new Button("SIGN UP");
         signUpButton.setFont(Font.font("Calibri", 18));
@@ -89,22 +64,6 @@ public class Main extends Application {
                 loadCaptchaBFSignUpScreen(primaryStage);
             }
         });
-        signUpButton.setStyle("-fx-background-color: #e1ecf4; " +
-                "-fx-border-radius: 3px; " +
-                "-fx-border-width: 1px; " +
-                "-fx-border-color: #7aa7c7; " +
-                "-fx-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .7); " +
-                "-fx-color: #39739d; " +
-                "-fx-font-family: \"-apple-system\",system-ui,\"Segoe UI\",\"Liberation Sans\",sans-serif; " +
-                "-fx-font-size: 15px; " +
-                "-fx-font-weight: 400; " +
-                "-fx-line-spacing: 1.15385; " +
-                "-fx-padding: 8px .8em; " +
-                "-fx-text-align: center; " +
-                "-fx-text-decoration: none; " +
-                "-fx-cursor: hand; " +
-                "-fx-wrap-text: false;");
-        signUpButton.setTextFill(Color.rgb(57,115,157));
 
         Button exitButton = new Button("EXIT");
         exitButton.setFont(Font.font("Calibri", 18));
@@ -116,30 +75,15 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 primaryStage.close();
+                serializeObjects(staticArrayLists);
             }
         });
-        exitButton.setStyle("-fx-background-color: #e1ecf4; " +
-                "-fx-border-radius: 3px; " +
-                "-fx-border-width: 1px; " +
-                "-fx-border-color: #7aa7c7; " +
-                "-fx-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .7); " +
-                "-fx-color: #39739d; " +
-                "-fx-font-family: \"-apple-system\",system-ui,\"Segoe UI\",\"Liberation Sans\",sans-serif; " +
-                "-fx-font-size: 15px; " +
-                "-fx-font-weight: 400; " +
-                "-fx-line-spacing: 1.15385; " +
-                "-fx-padding: 8px .8em; " +
-                "-fx-text-align: center; " +
-                "-fx-text-decoration: none; " +
-                "-fx-cursor: hand; " +
-                "-fx-wrap-text: false;");
-        exitButton.setTextFill(Color.rgb(57,115,157));
 
         Label productLabel = new Label("Producted by Mahdi, MoMehdi, Seyedali");
         productLabel.setFont(Font.font(8));
         productLabel.setLayoutY(386);
         productLabel.setPrefSize(298, 17);
-        productLabel.setTextFill(Color.valueOf("#404040"));
+        productLabel.setTextFill(javafx.scene.paint.Color.valueOf("#404040"));
         pane.getChildren().add(productLabel);
 
         Scene scene = new Scene(pane, 600, 400);
@@ -213,12 +157,9 @@ public class Main extends Application {
 
         Button buttonNext = new Button("Next");
         buttonNext.setPrefSize(80,20);
-        buttonNext.setStyle(buttonStyle);
-        buttonNext.setTextFill(Color.rgb(57,115,157));
+
         Button buttonBack = new Button("Back");
         buttonBack.setPrefSize(80,20);
-        buttonBack.setStyle(buttonStyle);
-        buttonBack.setTextFill(Color.rgb(57,115,157));
 
         HBox hBoxOne = new HBox(0, firstImageView, secondImageView, thirdImageView, fourthImageView);
         hBoxOne.setAlignment(Pos.CENTER);
@@ -299,12 +240,9 @@ public class Main extends Application {
 
         Button buttonNext = new Button("Next");
         buttonNext.setPrefSize(80,20);
-        buttonNext.setStyle(buttonStyle);
-        buttonNext.setTextFill(Color.rgb(57,115,157));
+
         Button buttonBack = new Button("Back");
         buttonBack.setPrefSize(80,20);
-        buttonBack.setStyle(buttonStyle);
-        buttonBack.setTextFill(Color.rgb(57,115,157));
 
         HBox hBoxOne = new HBox(0, firstImageView, secondImageView, thirdImageView, fourthImageView);
         hBoxOne.setAlignment(Pos.CENTER);
@@ -409,8 +347,6 @@ public class Main extends Application {
                 loadForgetPass1Screen(primaryStage);
             }
         });
-        forgetPassButton.setStyle(buttonStyle);
-        forgetPassButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(280);
@@ -420,11 +356,9 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadCaptchaBFLoginScreen(primaryStage);
+                loadWellcomeScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Label errorLabel = new Label();
         errorLabel.setLayoutX(280);
@@ -452,18 +386,65 @@ public class Main extends Application {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if (toggleGroup1.getSelectedToggle() == asAdminRadioButton)
-                    loadAdminPanelScreen(primaryStage);
-                else if (toggleGroup1.getSelectedToggle() == asUserRadioButton)
-                    loadUserPanelScreen(primaryStage);
-                else if (toggleGroup1.getSelectedToggle() == asDeliveryRadioButton)
-                    loadDeliveryPanelScreen(primaryStage);
-                else
-                    errorLabel.setText("Please select your account type !!!");
+                String username = usernameTextField.getText();
+                String password = passwordTextField.getText();
+                if (username.equals("") || password.equals("")) {
+                    errorLabel.setText("please enter username and passowrd !!!");
+                } else {
+                    if (toggleGroup1.getSelectedToggle() == asAdminRadioButton) {
+                        String[] result = Functions.LogIn(password, "ADMIN", username, staticArrayLists);
+                        if (result[0].equals("false")) {
+                            usernameTextField.setText("");
+                            passwordTextField.setText("");
+                            errorLabel.setText("this username does not exist ... ");
+                        } else {
+                            if (result[1].equals("false")) {
+                                usernameTextField.setText("");
+                                passwordTextField.setText("");
+                                errorLabel.setText("password is not correct ...");
+                            } else {
+                                if (result[3].equals("1")) {
+                                    loadRestaurantScreen(primaryStage, Restaurant.loggedInRestaurantForAdmin.restaurantID);
+                                } else {
+                                    loadAdminPanelScreen(primaryStage, result[2]);
+                                }
+                            }
+                        }
+                    } else if (toggleGroup1.getSelectedToggle() == asUserRadioButton) {
+                        String[] result = Functions.LogIn(password, "USER", username, staticArrayLists);
+                        if (result[0].equals("false")) {
+                            usernameTextField.setText("");
+                            passwordTextField.setText("");
+                            errorLabel.setText("this username does not exist ... ");
+                        } else {
+                            if (result[1].equals("false")) {
+                                usernameTextField.setText("");
+                                passwordTextField.setText("");
+                                errorLabel.setText("password is not correct ...");
+                            } else {
+                                loadUserPanelScreen(primaryStage, result[2]);
+                            }
+                        }
+                    } else if (toggleGroup1.getSelectedToggle() == asDeliveryRadioButton) {
+                        String[] result = Functions.LogIn(password, "DELIVERY", username, staticArrayLists);
+                        if (result[0].equals("false")) {
+                            usernameTextField.setText("");
+                            passwordTextField.setText("");
+                            errorLabel.setText("this username does not exist ... ");
+                        } else {
+                            if (result[1].equals("false")) {
+                                usernameTextField.setText("");
+                                passwordTextField.setText("");
+                                errorLabel.setText("password is not correct ...");
+                            } else {
+                                loadDeliveryPanelScreen(primaryStage, result[2]);
+                            }
+                        }
+                    } else
+                        errorLabel.setText("Please select your account type !!!");
+                }
             }
         });
-        loginButton.setStyle(buttonStyle);
-        loginButton.setTextFill(Color.rgb(57,115,157));
 
         pane1.getChildren().addAll(asAdminRadioButton, asUserRadioButton, separator, usernameTextField,
                 usernameLabel, passwordLabel, passwordTextField, loginButton, forgetPassButton, backButton,
@@ -528,7 +509,6 @@ public class Main extends Application {
         labelError.setLayoutY(293.0);
         labelError.setPrefHeight(30.0);
         labelError.setPrefWidth(178.0);
-        labelError.setText("!!! ERROR SENTENCE");
         labelError.setTextFill(javafx.scene.paint.Color.RED);
         labelError.setFont(new Font("Calibri", 10.0));
         pane3.getChildren().add(labelError);
@@ -547,8 +527,6 @@ public class Main extends Application {
                 loadLoginScreen(primaryStage);
             }
         });
-        buttonBack.setStyle(buttonStyle);
-        buttonBack.setTextFill(Color.rgb(57,115,157));
 
         Button buttonNext = new Button("Next");
         buttonNext.setLayoutX(280.0);
@@ -560,11 +538,26 @@ public class Main extends Application {
         buttonNext.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadForgetPass2Screen(primaryStage);
+                if (toggleGroup2.getSelectedToggle() == radioBtnAdmin && !textFieldUsername.getText().equals("")) {
+                    if (!Functions.isUserNameUnique(textFieldUsername.getText(),"ADMIN", staticArrayLists))
+                        loadForgetPass2Screen(primaryStage, textFieldUsername.getText(), "ADMIN");
+                    else
+                        labelError.setText("Username not found !!!");
+                } else if (toggleGroup2.getSelectedToggle() == radioBtnUser && !textFieldUsername.getText().equals("")) {
+                    if (!Functions.isUserNameUnique(textFieldUsername.getText(),"USER", staticArrayLists))
+                        loadForgetPass2Screen(primaryStage, textFieldUsername.getText(), "USER");
+                    else
+                        labelError.setText("Username not found !!!");
+                } else if (toggleGroup2.getSelectedToggle() == radioBtnDelivery && !textFieldUsername.getText().equals("")) {
+                    if (!Functions.isUserNameUnique(textFieldUsername.getText(),"DELIVERY", staticArrayLists))
+                        loadForgetPass2Screen(primaryStage, textFieldUsername.getText(), "DELIVERY");
+                    else
+                        labelError.setText("Username not found !!!");
+                } else {
+                    labelError.setText("please select a Role and enter your username !!! ");
+                }
             }
         });
-        buttonNext.setStyle(buttonStyle);
-        buttonNext.setTextFill(Color.rgb(57,115,157));
 
         Label labelTitle = new Label();
         labelTitle.setLayoutY(30);
@@ -596,7 +589,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void loadForgetPass2Screen(Stage primaryStage) {
+    public void loadForgetPass2Screen(Stage primaryStage, String username, String RoleString) {
         Pane pane3 = new Pane();
 
         RadioButton radioBtnAdmin = new RadioButton();
@@ -636,6 +629,8 @@ public class Main extends Application {
         textFieldUsername.setPromptText("username");
         pane3.getChildren().add(textFieldUsername);
         textFieldUsername.setEditable(false);
+        textFieldUsername.setDisable(true);
+        textFieldUsername.setText(username);
 
         Label labelUsername = new Label("Username :");
         labelUsername.setLayoutX(198.0);
@@ -686,11 +681,24 @@ public class Main extends Application {
         questionLabel.setFont(new Font(11.7));
         pane3.getChildren().add(questionLabel);
 
+        int roleIndex = Functions.findRoleIndex(username, RoleString, staticArrayLists);
 
-        Label securityQuestionLabel = new Label("Security Question Label");
+        Label securityQuestionLabel = new Label();
         securityQuestionLabel.setLayoutX(198.0);
         securityQuestionLabel.setLayoutY(240.0);
         pane3.getChildren().add(securityQuestionLabel);
+
+        if (RoleString.equals("ADMIN")) {
+            System.out.println(staticArrayLists.adminStaticArrayList.size());
+            Admin admin = staticArrayLists.adminStaticArrayList.get(roleIndex);
+            securityQuestionLabel.setText(admin.securityQuestion);
+        } else if (RoleString.equals("USER")) {
+            User user = staticArrayLists.userStaticArrayList.get(roleIndex);
+            securityQuestionLabel.setText(user.securityQuestion);
+        } else if (RoleString.equals("DELIVERY")) {
+            Delivery delivery = staticArrayLists.deliveriesArraylist.get(roleIndex);
+            securityQuestionLabel.setText(delivery.securityQuestion);
+        }
 
         TextField securityAnswerTextField = new TextField();
         securityAnswerTextField.setLayoutX(198.0);
@@ -717,11 +725,30 @@ public class Main extends Application {
         resetButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadForgetPass3Screen(primaryStage);
+                if (RoleString.equals("ADMIN")) {
+                    Admin admin = staticArrayLists.adminStaticArrayList.get(roleIndex);
+                    if (securityAnswerTextField.getText().equals(admin.getSecurityQuestionAnswer())) {
+                        loadForgetPass3Screen(primaryStage, admin, username, RoleString);
+                    } else {
+                        errorLabel.setText("answer is wrong !!!");
+                    }
+                } else if (RoleString.equals("USER")) {
+                    User user = staticArrayLists.userStaticArrayList.get(roleIndex);
+                    if (securityAnswerTextField.getText().equals(user.getSecurityQuestionAnswer())) {
+                        loadForgetPass3Screen(primaryStage, user, username, RoleString);
+                    } else {
+                        errorLabel.setText("answer is wrong !!!");
+                    }
+                } else if (RoleString.equals("DELIVERY")) {
+                    Delivery delivery = staticArrayLists.deliveriesArraylist.get(roleIndex);
+                    if (securityAnswerTextField.getText().equals(delivery.getSecurityQuestionAnswer())) {
+                        loadForgetPass3Screen(primaryStage, delivery, username, RoleString);
+                    } else {
+                        errorLabel.setText("answer is wrong !!!");
+                    }
+                }
             }
         });
-        resetButton.setStyle(buttonStyle);
-        resetButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(298);
@@ -734,15 +761,13 @@ public class Main extends Application {
                 loadForgetPass1Screen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Scene scene = new Scene(pane3, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadForgetPass3Screen(Stage primaryStage) {
+    public void loadForgetPass3Screen(Stage primaryStage, Role role, String username, String roleString) {
         Pane pane6 = new Pane();
 
         Label newPasswordLabel = new Label("New Password:");
@@ -786,11 +811,30 @@ public class Main extends Application {
         resetButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                successLabel.setText("Password successfully changed");
+                if (!newPasswordField.getText().equals("") && !confirmNewPasswordField.getText().equals("")) {
+                    if (newPasswordField.getText().equals(confirmNewPasswordField.getText())) {
+                        if (role instanceof Admin) {
+                            int roleIndex = Functions.findRoleIndex(username, "ADMIN", staticArrayLists);
+                            Admin admin = staticArrayLists.adminStaticArrayList.get(roleIndex);
+                            admin.setPassword(newPasswordField.getText());
+                        } else if (role instanceof User) {
+                            int roleIndex = Functions.findRoleIndex(username, "USER", staticArrayLists);
+                            User user = staticArrayLists.userStaticArrayList.get(roleIndex);
+                            user.setPassword(newPasswordField.getText());
+                        } else if (role instanceof Delivery) {
+                            int roleIndex = Functions.findRoleIndex(username, "DELIVERY", staticArrayLists);
+                            Delivery delivery = staticArrayLists.deliveriesArraylist.get(roleIndex);
+                            delivery.setPassword(newPasswordField.getText());
+                        }
+                        successLabel.setText("Password successfully changed");
+                    } else {
+                        successLabel.setText("entered passwords are not the same !!!");
+                    }
+                } else {
+                    successLabel.setText("Please enter both of textfields !!! ");
+                }
             }
         });
-        resetButton.setStyle(buttonStyle);
-        resetButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(355);
@@ -800,11 +844,18 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadForgetPass2Screen(primaryStage);
+                if (role instanceof Admin) {
+                    Admin admin = (Admin) Role.loggedInRole;
+                    loadForgetPass2Screen(primaryStage, username, "ADMIN");
+                } else if (role instanceof User) {
+                    User user = (User) Role.loggedInRole;
+                    loadForgetPass2Screen(primaryStage, username, "USER");
+                } else if (role instanceof Delivery) {
+                    Delivery delivery = (Delivery) Role.loggedInRole;
+                    loadForgetPass2Screen(primaryStage, delivery.getUserName(), "DELIVERY");
+                }
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Scene scene = new Scene(pane6, 600, 400);
         primaryStage.setScene(scene);
@@ -858,6 +909,19 @@ public class Main extends Application {
         passwordPasswordField.setPrefSize(180, 20);
         passwordPasswordField.setPromptText("pass");
 
+        PasswordField confirmPasswordField = new PasswordField();
+        confirmPasswordField.setLayoutX(280.0);
+        confirmPasswordField.setLayoutY(154.0);
+        confirmPasswordField.setPrefSize(180, 20);
+        confirmPasswordField.setPromptText("enter your pass again");
+
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(280);
+        errorLabel.setLayoutY(290);
+        errorLabel.setPrefHeight( 30);
+        errorLabel.setTextFill(Color.RED);
+        errorLabel.setFont(new Font("Calibri", 10));
+
         Button nextButton = new Button("Next");
         nextButton.setLayoutX(280.0);
         nextButton.setLayoutY(215.0);
@@ -866,11 +930,91 @@ public class Main extends Application {
         nextButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadSignUp2Screen(primaryStage);
+                String username = usernameTextField.getText();
+                String password = passwordPasswordField.getText();
+                String confirmPassword = confirmPasswordField.getText();
+                if (toggleGroup3.getSelectedToggle() == asAdminRadioButton) {
+                    if (confirmPassword.equals(password)) {
+                        String[] answer = Functions.checkPassword(password, "ADMIN", username, staticArrayLists);
+                        if (answer[0].equals("true")) {
+                            if (answer[2].equals("false")) {
+                                Admin admin = new Admin(username, password, Functions.setID("admin", staticArrayLists));
+                                staticArrayLists.adminStaticArrayList.add(admin);
+                                loadSignUp2Screen(primaryStage, admin);
+                            } else {
+                                errorLabel.setText("this username exist !!!");
+                            }
+                        } else {
+                            if (answer[1].equals("1")) {
+                                errorLabel.setText("passowrd error : Passowrd must have at least one number!");
+                            } else if (answer[1].equals("2")) {
+                                errorLabel.setText("passowrd error : Password must have at least one capital letter!");
+                            } else if (answer[1].equals("3")) {
+                                errorLabel.setText("passowrd error : Password must have at least one small letter!");
+                            } else if (answer[1].equals("4")) {
+                                errorLabel.setText("passowrd error : Password must have at least 8 charecter!");
+                            }
+                        }
+                    } else {
+                        errorLabel.setText("passowords are not the same !!!");
+                    }
+                } else if (toggleGroup3.getSelectedToggle() == asUserRadioButton) {
+                    if (confirmPassword.equals(password)) {
+                        String[] answer = Functions.checkPassword(password, "USER", username, staticArrayLists);
+                        if (answer[0].equals("true")) {
+                            if (answer[2].equals("false")) {
+                                User user = new User(username, password, Functions.setID("user", staticArrayLists));
+                                user.userLocation = Functions.setRandomLocation(staticArrayLists);
+                                staticArrayLists.userStaticArrayList.add(user);
+                                loadSignUp2Screen(primaryStage, user);
+                            } else {
+                                errorLabel.setText("this username exist !!!");
+                            }
+                        } else {
+                            if (answer[1].equals("1")) {
+                                errorLabel.setText("passowrd error : Passowrd must have at least one number!");
+                            } else if (answer[1].equals("2")) {
+                                errorLabel.setText("passowrd error : Password must have at least one capital letter!");
+                            } else if (answer[1].equals("3")) {
+                                errorLabel.setText("passowrd error : Password must have at least one small letter!");
+                            } else if (answer[1].equals("4")) {
+                                errorLabel.setText("passowrd error : Password must have at least 8 charecter!");
+                            }
+                        }
+                    } else {
+                        errorLabel.setText("passowords are not the same !!!");
+                    }
+                } else if (toggleGroup3.getSelectedToggle() == asDeliveryRadioButton) {
+                    if (confirmPassword.equals(password)) {
+                        String[] answer = Functions.checkPassword(password, "DELIVERY", username, staticArrayLists);
+                        if (answer[0].equals("true")) {
+                            if (answer[2].equals("false")) {
+                                Delivery delivery = new Delivery(username, password, Functions.setID("delivery", staticArrayLists));
+                                staticArrayLists.deliveriesArraylist.add(delivery);
+                                delivery.deliveryLocation = Functions.setRandomLocation(staticArrayLists);
+                                loadSignUp2Screen(primaryStage, delivery);
+                            } else {
+                                errorLabel.setText("this username exist !!!");
+                            }
+                        } else {
+                            if (answer[1].equals("1")) {
+                                errorLabel.setText("passowrd error : Passowrd must have at least one number!");
+                            } else if (answer[1].equals("2")) {
+                                errorLabel.setText("passowrd error : Password must have at least one capital letter!");
+                            } else if (answer[1].equals("3")) {
+                                errorLabel.setText("passowrd error : Password must have at least one small letter!");
+                            } else if (answer[1].equals("4")) {
+                                errorLabel.setText("passowrd error : Password must have at least 8 charecter!");
+                            }
+                        }
+                    } else {
+                        errorLabel.setText("passowords are not the same !!!");
+                    }
+                } else {
+                    errorLabel.setText("Please select your account type !!!");
+                }
             }
         });
-        nextButton.setStyle(buttonStyle);
-        nextButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(380);
@@ -880,24 +1024,10 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadCaptchaBFSignUpScreen(primaryStage);
+                loadWellcomeScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
-        Label errorLabel = new Label("!!! ERROR SENTENCE");
-        errorLabel.setLayoutX(280);
-        errorLabel.setLayoutY(290);
-        errorLabel.setPrefSize(178, 30);
-        errorLabel.setTextFill(Color.RED);
-        errorLabel.setFont(new Font("Calibri", 10));
-
-        PasswordField confirmPasswordField = new PasswordField();
-        confirmPasswordField.setLayoutX(280.0);
-        confirmPasswordField.setLayoutY(154.0);
-        confirmPasswordField.setPrefSize(180, 20);
-        confirmPasswordField.setPromptText("enter your pass again");
 
         Label pageTitleLabel = new Label("SIGN UP PAGE");
         pageTitleLabel.setLayoutY(30);
@@ -917,9 +1047,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void loadSignUp2Screen(Stage primaryStage) {
+    public void loadSignUp2Screen(Stage primaryStage, Role role) {
         Pane pane5 = new Pane();
-
         RadioButton radioButton1 = new RadioButton("as Admin");
         radioButton1.setLayoutX(50.0);
         radioButton1.setLayoutY(100.0);
@@ -952,6 +1081,7 @@ public class Main extends Application {
         textField1.setPrefWidth(180.0);
         textField1.setPromptText("username");
         textField1.setEditable(false);
+        textField1.setDisable(true);
 
         Label label1 = new Label("Username :");
         label1.setLayoutX(198.0);
@@ -972,6 +1102,7 @@ public class Main extends Application {
         passField2.setPrefWidth(180.0);
         passField2.setPromptText("pass");
         passField2.setEditable(false);
+        passField2.setDisable(true);
 
         PasswordField passField3 = new PasswordField();
         passField3.setLayoutX(280.0);
@@ -980,6 +1111,7 @@ public class Main extends Application {
         passField3.setPrefWidth(180.0);
         passField3.setPromptText("enter your pass again");
         passField3.setEditable(false);
+        passField3.setDisable(true);
 
         TextField textField4 = new TextField();
         textField4.setLayoutX(198.0);
@@ -1014,7 +1146,7 @@ public class Main extends Application {
         label5.setPrefWidth(262.0);
         label5.setFont(new Font(11.7));
 
-        Label label6 = new Label("Security Question Label");
+        Label label6 = new Label(Functions.makeSecurityQuestion(role));
         label6.setLayoutX(198.0);
         label6.setLayoutY(240.0);
         label6.setPrefHeight(20.0);
@@ -1033,11 +1165,14 @@ public class Main extends Application {
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                label7.setText("Signed up successfully, you can login using login page now!");
+                if (!textField4.getText().equals("")) {
+                    role.setSecurityQuestionAnswer(textField4.getText());
+                    label7.setText("Signed up successfully, you can login using login page now!");
+                } else {
+                    label7.setText("Signed up successfully, you can login using login page now!");
+                }
             }
         });
-        signUpButton.setStyle(buttonStyle);
-        signUpButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(298);
@@ -1046,11 +1181,9 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadSignUp1Screen(primaryStage);
+                loadWellcomeScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         pane5.getChildren().addAll(signUpButton, label1, label2, label3, label4, label5, label6, label7, separator, separator2, radioButton1, radioButton2,
                 radioButton3, textField1, passField2, passField3, textField4, backButton);
@@ -1060,14 +1193,21 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void loadAdminPanelScreen(Stage primaryStage) {
+    public void loadAdminPanelScreen(Stage primaryStage, String adminID) {
         Pane pane7 = new Pane();
-
+        int adminIndex = 0;
+        for (int i = 0; i < staticArrayLists.adminStaticArrayList.size(); i++) {
+            if (staticArrayLists.adminStaticArrayList.get(i).adminID.equals(adminID)) {
+                adminIndex = i;
+            }
+        }
+        Admin admin = staticArrayLists.adminStaticArrayList.get(adminIndex);
         ListView<String> listView = new ListView<>();
         listView.setLayoutX(200);
         listView.setLayoutY(75);
         listView.setPrefHeight(250);
         listView.setPrefWidth(375);
+        listView.getItems().addAll(Functions.showRestaurantList(admin));
         pane7.getChildren().add(listView);
 
         TextField textField = new TextField();
@@ -1084,6 +1224,13 @@ public class Main extends Application {
         label.setText("please enter restaurant ID");
         pane7.getChildren().add(label);
 
+        Label notifLabel = new Label();
+        notifLabel.setLayoutX(25);
+        notifLabel.setLayoutY(290);
+        notifLabel.setFont(new Font(10));
+        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+        pane7.getChildren().add(notifLabel);
+
         Button selectButton = new Button();
         selectButton.setLayoutX(25);
         selectButton.setLayoutY(165);
@@ -1094,11 +1241,14 @@ public class Main extends Application {
         selectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantScreen(primaryStage);
+                boolean restaurantIdExistance = Functions.searchRestaurant(admin, textField.getText());
+                if (restaurantIdExistance) {
+                    loadRestaurantScreen(primaryStage, textField.getText());
+                } else {
+                    notifLabel.setText("Restaurant not found !!!");
+                }
             }
         });
-        selectButton.setStyle(buttonStyle);
-        selectButton.setTextFill(Color.rgb(57,115,157));
 
         Label restaurantsLabel = new Label();
         restaurantsLabel.setLayoutX(25);
@@ -1121,8 +1271,6 @@ public class Main extends Application {
                 loadAddRestaurantScreen(primaryStage);
             }
         });
-        addRestaurantButton.setStyle(buttonStyle);
-        addRestaurantButton.setTextFill(Color.rgb(57,115,157));
 
         Button logoutButton = new Button();
         logoutButton.setLayoutX(25);
@@ -1137,16 +1285,17 @@ public class Main extends Application {
                 loadLoginScreen(primaryStage);
             }
         });
-        logoutButton.setStyle(buttonStyle);
-        logoutButton.setTextFill(Color.rgb(57,115,157));
 
         Scene scene = new Scene(pane7, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadRestaurantScreen(Stage primaryStage) {
+    public void loadRestaurantScreen(Stage primaryStage, String restaurantID) {
         Pane pane8 = new Pane();
+        Admin admin = (Admin) Role.loggedInRole;
+
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
 
         GridPane gridPane = new GridPane();
         gridPane.setLayoutX(25.0);
@@ -1199,8 +1348,6 @@ public class Main extends Application {
                 loadMenuScreenForAdmin(primaryStage);
             }
         });
-        button1.setStyle(buttonStyle);
-        button1.setTextFill(Color.rgb(57,115,157));
 
         Button button2 = new Button();
         button2.setMnemonicParsing(false);
@@ -1213,11 +1360,9 @@ public class Main extends Application {
         button2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadOpenOrderScreen(primaryStage);
+                loadOpenOrderScreen(primaryStage, restaurantID);
             }
         });
-        button2.setStyle(buttonStyle);
-        button2.setTextFill(Color.rgb(57,115,157));
 
         Button button3 = new Button();
         button3.setMnemonicParsing(false);
@@ -1234,8 +1379,6 @@ public class Main extends Application {
                 loadCommentsScreen(primaryStage);
             }
         });
-        button3.setStyle(buttonStyle);
-        button3.setTextFill(Color.rgb(57,115,157));
 
         Button button4 = new Button();
         button4.setMnemonicParsing(false);
@@ -1252,8 +1395,6 @@ public class Main extends Application {
                 loadOrderHistoryForAdminScreen(primaryStage);
             }
         });
-        button4.setStyle(buttonStyle);
-        button4.setTextFill(Color.rgb(57,115,157));
 
         Button button5 = new Button();
         button5.setMnemonicParsing(false);
@@ -1270,8 +1411,6 @@ public class Main extends Application {
                 loadShowFoodtypeScreen(primaryStage);
             }
         });
-        button5.setStyle(buttonStyle);
-        button5.setTextFill(Color.rgb(57,115,157));
 
         Button button6 = new Button();
         button6.setMnemonicParsing(false);
@@ -1288,8 +1427,6 @@ public class Main extends Application {
                 loadEditLocationForAdminScreen(primaryStage);
             }
         });
-        button6.setStyle(buttonStyle);
-        button6.setTextFill(Color.rgb(57,115,157));
 
         Button button7 = new Button();
         button7.setMnemonicParsing(false);
@@ -1306,8 +1443,6 @@ public class Main extends Application {
                 loadEditFoodtypeScreen(primaryStage);
             }
         });
-        button7.setStyle(buttonStyle);
-        button7.setTextFill(Color.rgb(57,115,157));
 
         Button button8 = new Button();
         button8.setMnemonicParsing(false);
@@ -1317,12 +1452,9 @@ public class Main extends Application {
         button8.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadAdminPanelScreen(primaryStage);
+                loadAdminPanelScreen(primaryStage, restaurant.restaurantOwner.adminID);
             }
         });
-        button8.setStyle(buttonStyle);
-        button8.setTextFill(Color.rgb(57,115,157));
-
         GridPane.setColumnIndex(button8, 3);
         GridPane.setRowIndex(button8, 1);
         GridPane.setHalignment(button8, javafx.geometry.HPos.CENTER);
@@ -1344,24 +1476,24 @@ public class Main extends Application {
         separator2.setPrefHeight(10.0);
         separator2.setPrefWidth(550.0);
 
-        Label restaurantNameLabel = new Label("Restaurant Name");
+        Label restaurantNameLabel = new Label(restaurant.restaurantName);
         restaurantNameLabel.setLayoutX(25.0);
         restaurantNameLabel.setLayoutY(50.0);
         restaurantNameLabel.setFont(new Font(20.0));
 
-        Label restaurantRatingLabel = new Label("Restaurant rating");
+        Label restaurantRatingLabel = new Label("RATE : " + restaurant.getRating());
         restaurantRatingLabel.setLayoutX(25.0);
         restaurantRatingLabel.setLayoutY(100.0);
         restaurantRatingLabel.setPrefHeight(20.0);
         restaurantRatingLabel.setPrefWidth(100.0);
 
-        Label restaurantLocationLabel = new Label("Restaurant location");
+        Label restaurantLocationLabel = new Label("LOCATION : " + restaurant.restaurantLocation);
         restaurantLocationLabel.setLayoutX(200.0);
         restaurantLocationLabel.setLayoutY(100.0);
         restaurantLocationLabel.setPrefHeight(20.0);
         restaurantLocationLabel.setPrefWidth(105.0);
 
-        Label notificationLabel = new Label("Please set your location and foodtype first !!!");
+        Label notificationLabel = new Label();
         notificationLabel.setLayoutX(25.0);
         notificationLabel.setLayoutY(133.0);
         notificationLabel.setTextFill(javafx.scene.paint.Color.RED);
@@ -1387,12 +1519,13 @@ public class Main extends Application {
 
     public void loadMenuScreenForAdmin(Stage primaryStage) {
         Pane pane9 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
         ListView<String> listView = new ListView<>();
         listView.setLayoutX(200.0);
         listView.setLayoutY(75.0);
         listView.setPrefHeight(250.0);
         listView.setPrefWidth(375.0);
+        listView.getItems().addAll(Functions.showMenuForAdmin());
         pane9.getChildren().add(listView);
 
         TextField textField = new TextField();
@@ -1409,6 +1542,11 @@ public class Main extends Application {
         label1.setText("please enter food ID");
         pane9.getChildren().add(label1);
 
+        Label noticeLabel = new Label();
+        noticeLabel.setLayoutX(25.0);
+        noticeLabel.setLayoutY(285.0);
+        pane9.getChildren().add(noticeLabel);
+
         Button button1 = new Button();
         button1.setLayoutX(25.0);
         button1.setLayoutY(165.0);
@@ -1420,11 +1558,21 @@ public class Main extends Application {
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadFoodScreen(primaryStage);
+                if (!textField.getText().equals("")) {
+                    String foodID = textField.getText();
+                    boolean foodIDExistance = Functions.foodIDExistanceChecker(restaurant, foodID);
+                    if (foodIDExistance) {
+                        Food food = Functions.foodIDfounder(restaurant, foodID);
+                        Food.selectedFoodForAdmin = food;
+                        loadFoodScreen(primaryStage);
+                    } else {
+                        noticeLabel.setText("this food ID does not exist !!!");
+                    }
+                } else {
+                    noticeLabel.setText("please enter food ID !!!");
+                }
             }
         });
-        button1.setStyle(buttonStyle);
-        button1.setTextFill(Color.rgb(57,115,157));
 
         Label label2 = new Label();
         label2.setLayoutX(25.0);
@@ -1448,8 +1596,6 @@ public class Main extends Application {
                 loadAddFoodScreen(primaryStage);
             }
         });
-        button2.setStyle(buttonStyle);
-        button2.setTextFill(Color.rgb(57,115,157));
 
         Button button3 = new Button();
         button3.setLayoutX(25.0);
@@ -1462,22 +1608,15 @@ public class Main extends Application {
         button3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantScreen(primaryStage);
+                loadRestaurantScreen(primaryStage, restaurant.restaurantID);
             }
         });
-        button3.setStyle(buttonStyle);
-        button3.setTextFill(Color.rgb(57,115,157));
 
         Label label3 = new Label("MENU");
         label3.setLayoutX(25.0);
         label3.setLayoutY(35.0);
         label3.setFont(new Font(20.0));
         pane9.getChildren().add(label3);
-
-        Label label4 = new Label("foods must print here with ID");
-        label4.setLayoutX(310);
-        label4.setLayoutY(195);
-        pane9.getChildren().add(label4);
 
         Scene scene = new Scene(pane9, 600, 400);
         primaryStage.setScene(scene);
@@ -1486,12 +1625,13 @@ public class Main extends Application {
 
     public void loadCommentsScreen(Stage primaryStage) {
         Pane pane10 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
         ListView<String> listView = new ListView<>();
         listView.setLayoutX(200.0);
         listView.setLayoutY(75.0);
         listView.setPrefHeight(250.0);
         listView.setPrefWidth(375.0);
+        listView.getItems().addAll(Functions.displayCommentsForAdmin());
         pane10.getChildren().add(listView);
 
         TextField textField = new TextField();
@@ -1508,6 +1648,13 @@ public class Main extends Application {
         label1.setText("to add or edit its response");
         pane10.getChildren().add(label1);
 
+        Label noticeLabel = new Label();
+        noticeLabel.setLayoutX(25.0);
+        noticeLabel.setLayoutY(325.0);
+        noticeLabel.setFont(new Font(10.0));
+        noticeLabel.setTextFill(javafx.scene.paint.Color.RED);
+        pane10.getChildren().add(noticeLabel);
+
         Button addButton = new Button();
         addButton.setLayoutX(25.0);
         addButton.setLayoutY(205.0);
@@ -1518,11 +1665,20 @@ public class Main extends Application {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadAddResponseScreen(primaryStage);
+                if (!textField.getText().equals("")) {
+                    String[] answer = Functions.commentIdExistance(textField.getText());
+                    if (answer[0].equals("true")) {
+                        int commentIndex = Integer.parseInt(answer[1]);
+                        Comment comment = restaurant.restaurantCommentsArrayList.get(commentIndex);
+                        loadAddResponseScreen(primaryStage, comment);
+                    } else {
+                        noticeLabel.setText("there is no comments with this id !!!");
+                    }
+                } else {
+                    noticeLabel.setText("please enter order id !!!");
+                }
             }
         });
-        addButton.setStyle(buttonStyle);
-        addButton.setTextFill(Color.rgb(57,115,157));
 
         Label label2 = new Label();
         label2.setLayoutX(25.0);
@@ -1542,17 +1698,24 @@ public class Main extends Application {
         editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadEditResponseScreen(primaryStage);
+                if (!textField.getText().equals("")) {
+                    String[] answer = Functions.commentIdExistance(textField.getText());
+                    if (answer[0].equals("true")) {
+                        int commentIndex = Integer.parseInt(answer[1]);
+                        Comment comment = restaurant.restaurantCommentsArrayList.get(commentIndex);
+                        if (comment.commentResponse.equals("")) {
+                            loadEditResponseScreen(primaryStage, comment);
+                        } else {
+                            noticeLabel.setText("there is no response to edit !!!");
+                        }
+                    } else {
+                        noticeLabel.setText("there is no comments with this id !!!");
+                    }
+                } else {
+                    noticeLabel.setText("please enter order id !!!");
+                }
             }
         });
-        editButton.setStyle(buttonStyle);
-        editButton.setTextFill(Color.rgb(57,115,157));
-
-        Label label3 = new Label();
-        label3.setLayoutX(271.0);
-        label3.setLayoutY(192.0);
-        label3.setText("comment must print here with ID and userID");
-        pane10.getChildren().add(label3);
 
         Label label4 = new Label();
         label4.setLayoutX(25.0);
@@ -1570,25 +1733,24 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantScreen(primaryStage);
+                loadRestaurantScreen(primaryStage, restaurant.restaurantID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Scene scene = new Scene(pane10, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadOpenOrderScreen(Stage primaryStage) {
+    public void loadOpenOrderScreen(Stage primaryStage, String restaurantID) {
         Pane pane11 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
         ListView<String> listView = new ListView<>();
         listView.setLayoutX(200.0);
         listView.setLayoutY(75.0);
         listView.setPrefHeight(250.0);
         listView.setPrefWidth(375.0);
+        listView.getItems().addAll(Functions.displayOpenOrders());
         pane11.getChildren().add(listView);
 
         TextField textField = new TextField();
@@ -1613,6 +1775,12 @@ public class Main extends Application {
         label2.setText("Please enter order ID");
         pane11.getChildren().add(label2);
 
+
+        Label labelError = new Label();
+        labelError.setLayoutX(25.0);
+        labelError.setLayoutY(285.0);
+        pane11.getChildren().add(labelError);
+
         Button editOrderButton = new Button();
         editOrderButton.setLayoutX(25.0);
         editOrderButton.setLayoutY(205.0);
@@ -1624,11 +1792,22 @@ public class Main extends Application {
         editOrderButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadEditOrderScreen(primaryStage);
+                if (!textField.getText().equals("")) {
+                    String orderID = textField.getText();
+                    int k = -1;
+                    for (int i = 0; i < restaurant.restaurantOrders.size(); i++)
+                        if (restaurant.restaurantOrders.get(i).orderID.equals(orderID))
+                            k = i;
+                    if (k != -1) {
+                        Order.LoggedInOrderForAdmin = restaurant.restaurantOrders.get(k);
+                        loadEditOrderScreen(primaryStage);
+                    } else
+                        labelError.setText("there is no order with this id !!!");
+                } else {
+                    labelError.setText("please enter orderID !!!");
+                }
             }
         });
-        editOrderButton.setStyle(buttonStyle);
-        editOrderButton.setTextFill(Color.rgb(57,115,157));
 
         Label label3 = new Label();
         label3.setLayoutX(215.0);
@@ -1653,11 +1832,9 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantScreen(primaryStage);
+                loadRestaurantScreen(primaryStage, restaurant.restaurantID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Scene scene = new Scene(pane11, 600, 400);
         primaryStage.setScene(scene);
@@ -1666,7 +1843,7 @@ public class Main extends Application {
 
     public void loadOrderHistoryForAdminScreen(Stage primaryStage) {
         Pane pane12 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
         Label titleLabel = new Label("SHOW ORDER HISTORY");
         titleLabel.setLayoutX(50.0);
         titleLabel.setLayoutY(40.0);
@@ -1676,6 +1853,7 @@ public class Main extends Application {
         orderListView.setLayoutX(50.0);
         orderListView.setLayoutY(80.0);
         orderListView.setPrefHeight(275.0);
+        orderListView.getItems().addAll(Functions.showOrderHistory());
         orderListView.setPrefWidth(500.0);
 
         Label orderDetailsLabel = new Label("order details must print here");
@@ -1690,23 +1868,20 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantScreen(primaryStage);
+                loadRestaurantScreen(primaryStage, restaurant.restaurantID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         pane12.getChildren().addAll(titleLabel, orderListView, orderDetailsLabel, backButton);
 
         Scene scene = new Scene(pane12, 600, 400);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Order History");
         primaryStage.show();
     }
 
     public void loadShowFoodtypeScreen(Stage primaryStage) {
         Pane pane13 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
         Label label = new Label("Foodtype");
         label.setLayoutX(50.0);
         label.setLayoutY(60.0);
@@ -1716,6 +1891,7 @@ public class Main extends Application {
         listView.setLayoutX(200.0);
         listView.setLayoutY(55.0);
         listView.setPrefHeight(200.0);
+        listView.getItems().addAll(Functions.showFoodType());
         listView.setPrefWidth(300.0);
 
         Button backButton = new Button("Back");
@@ -1726,11 +1902,9 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantScreen(primaryStage);
+                loadRestaurantScreen(primaryStage, restaurant.restaurantID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         pane13.getChildren().addAll(label, listView, backButton);
 
@@ -1741,6 +1915,7 @@ public class Main extends Application {
 
     public void loadEditFoodtypeScreen(Stage primaryStage) {
         Pane pane14 = new Pane();
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
 
         Label label1 = new Label();
         label1.setLayoutX(50.0);
@@ -1752,52 +1927,113 @@ public class Main extends Application {
         Label label2 = new Label();
         label2.setLayoutX(50.0);
         label2.setLayoutY(110.0);
-        label2.setText("Enter the number of foodtype that you want");
+        label2.setText("Enter foodtype you want to add");
         pane14.getChildren().add(label2);
 
-        TextField textField = new TextField();
-        textField.setLayoutX(50.0);
-        textField.setLayoutY(140.0);
-        textField.setPrefHeight(25.0);
-        textField.setPrefWidth(300.0);
-        textField.setPromptText("foodtype1, foodtype2, ...");
-        pane14.getChildren().add(textField);
+        TextField textField1 = new TextField();
+        textField1.setLayoutX(50.0);
+        textField1.setLayoutY(140.0);
+        textField1.setPrefWidth(200.0);
+        textField1.setPromptText("foodtype");
+        pane14.getChildren().add(textField1);
+
+        Separator separator1 = new Separator();
+        separator1.setLayoutX(50.0);
+        separator1.setLayoutY(220.0);
+        separator1.setPrefHeight(5.0);
+        separator1.setPrefWidth(200.0);
+        pane14.getChildren().add(separator1);
 
         Label label3 = new Label();
         label3.setLayoutX(50.0);
-        label3.setLayoutY(225.0);
+        label3.setLayoutY(240.0);
+        label3.setText("Do you want to delete your foodtypes?");
         pane14.getChildren().add(label3);
-        label3.setTextFill(javafx.scene.paint.Color.RED);
 
-        Button confirmButton = new Button();
-        confirmButton.setLayoutX(50.0);
-        confirmButton.setLayoutY(185.0);
-        confirmButton.setPrefWidth(100.0);
-        confirmButton.setText("Confirm");
-        pane14.getChildren().add(confirmButton);
-        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+        RadioButton radioButton1 = new RadioButton();
+        radioButton1.setLayoutX(50.0);
+        radioButton1.setLayoutY(270.0);
+        radioButton1.setText("Yes");
+        pane14.getChildren().add(radioButton1);
+
+        RadioButton radioButton2 = new RadioButton();
+        radioButton2.setLayoutX(135.0);
+        radioButton2.setLayoutY(270.0);
+        radioButton2.setText("No");
+        pane14.getChildren().add(radioButton2);
+
+        ToggleGroup toggleGroup = new ToggleGroup();
+        radioButton1.setToggleGroup(toggleGroup);
+        radioButton2.setToggleGroup(toggleGroup);
+
+        Label label4 = new Label();
+        label4.setLayoutX(155.0);
+        label4.setLayoutY(185.0);
+        label4.setTextFill(javafx.scene.paint.Color.RED);
+        label4.setFont(new Font(10.0));
+        pane14.getChildren().add(label4);
+
+        Label label5 = new Label();
+        label5.setLayoutX(50);
+        label5.setLayoutY(345);
+        label5.setTextFill(javafx.scene.paint.Color.RED);
+        label5.setFont(new Font(10.0));
+        pane14.getChildren().add(label5);
+
+
+        Button confirmBtn = new Button();
+        confirmBtn.setLayoutX(50.0);
+        confirmBtn.setLayoutY(305.0);
+        confirmBtn.setText("Confirm");
+        pane14.getChildren().add(confirmBtn);
+        confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                label3.setText("New foodtypes successfully confirmed !!!");
+                if (toggleGroup.getSelectedToggle() != null) {
+                    if (toggleGroup.getSelectedToggle() == radioButton1) {
+                        int size1 = restaurant.restaurantFoodType.size();
+                        if (size1 > 0)
+                            restaurant.restaurantFoodType.subList(0, size1).clear();
+                        int size2 = restaurant.restaurantMenu.size();
+                        if (size2 > 0)
+                            restaurant.restaurantMenu.subList(0, size2).clear();
+                        label5.setText("Menu and foodtypes deleted successfully !!!");
+                    } else
+                        label5.setText("Foodtypes didn't deleted !!!");
+                } else
+                    label5.setText("Select yes/no please !!!");
             }
         });
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
 
-        Button backButton = new Button();
-        backButton.setLayoutX(180.0);
-        backButton.setLayoutY(185.0);
-        backButton.setPrefWidth(100.0);
-        backButton.setText("Back");
-        pane14.getChildren().add(backButton);
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
+        Button addBtn = new Button();
+        addBtn.setLayoutX(50.0);
+        addBtn.setLayoutY(180.0);
+        addBtn.setText("Add");
+        pane14.getChildren().add(addBtn);
+        addBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantScreen(primaryStage);
+                if (!textField1.getText().equals("")) {
+                    restaurant.restaurantFoodType.add(textField1.getText());
+                    label4.setText("Added successfully !!!");
+                    textField1.setText("");
+                }
+                else
+                    label4.setText("Enter at least one foodtype !!!");
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
+
+        Button backBtn = new Button();
+        backBtn.setLayoutX(170.0);
+        backBtn.setLayoutY(305.0);
+        backBtn.setText("Back");
+        pane14.getChildren().add(backBtn);
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadRestaurantScreen(primaryStage, restaurant.restaurantID);
+            }
+        });
 
         Scene scene = new Scene(pane14, 600, 400);
         primaryStage.setScene(scene);
@@ -1806,7 +2042,7 @@ public class Main extends Application {
 
     public void loadEditLocationForAdminScreen(Stage primaryStage) {
         Pane pane15 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
         Label titleLabel = new Label("EDIT LOCATION");
         titleLabel.setFont(new Font(20));
         titleLabel.setLayoutX(50);
@@ -1840,11 +2076,23 @@ public class Main extends Application {
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("New location successfully confirmed !!!");
+                if (!locationTextField.getText().equals("")) {
+                    try {
+                        int location = Integer.parseInt(locationTextField.getText());
+                        if (location < 1000 && location > 0) {
+                            restaurant.restaurantLocation = location;
+                            notifLabel.setText("New location successfully confirmed !!!");
+                        } else {
+                            notifLabel.setText("Please enter a number between 0 and 1000 for location !!!");
+                        }
+                    } catch (Exception e) {
+                        notifLabel.setText("Please enter a number for location !!!");
+                    }
+                } else {
+                    notifLabel.setText("Please enter a number for location !!!");
+                }
             }
         });
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(170);
@@ -1854,11 +2102,9 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantScreen(primaryStage);
+                loadRestaurantScreen(primaryStage, restaurant.restaurantID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Scene scene = new Scene(pane15, 600, 400);
         primaryStage.setScene(scene);
@@ -1867,7 +2113,7 @@ public class Main extends Application {
 
     public void loadAddFoodScreen(Stage primaryStage) {
         Pane pane16 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
         Label label1 = new Label("ADD NEW FOOD");
         label1.setFont(new Font(20));
         label1.setLayoutX(75);
@@ -1907,11 +2153,30 @@ public class Main extends Application {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Food successfully added to the menu !!!");
+                if (!foodNameField.getText().equals("") && !foodPriceField.getText().equals("")) {
+                    boolean foodIdExistance = Functions.addFood(foodNameField.getText(), Integer.parseInt(foodPriceField.getText()), staticArrayLists);
+                    if (foodIdExistance) {
+                        notifLabel.setText("a food with this name exist in the menu !!!");
+                    } else {
+                        try {
+                            int foodPrice = Integer.parseInt(foodPriceField.getText());
+                            String foodName = foodNameField.getText();
+                            Food food = new Food(foodName, foodPrice);
+                            food.foodID = Functions.setID("food", staticArrayLists);
+                            restaurant.restaurantMenu.add(food);
+                            staticArrayLists.allFoodsArrayList.add(food);
+                            notifLabel.setText("Food successfully added to the menu !!!");
+                            foodNameField.setText("");
+                            foodPriceField.setText("");
+                        } catch (Exception e) {
+                            notifLabel.setText("Food price must be a number !!!");
+                        }
+                    }
+                } else {
+                    notifLabel.setText("Please enter foodname and foodcost correctly !!!");
+                }
             }
         });
-        addButton.setStyle(buttonStyle);
-        addButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(185);
@@ -1924,8 +2189,6 @@ public class Main extends Application {
                 loadMenuScreenForAdmin(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Scene scene = new Scene(pane16, 600, 400);
         primaryStage.setScene(scene);
@@ -1934,7 +2197,8 @@ public class Main extends Application {
 
     public void loadFoodScreen(Stage primaryStage) {
         Pane pane17 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
+        Food food = Food.selectedFoodForAdmin;
         GridPane gridPane = new GridPane();
         gridPane.setLayoutX(25.0);
         gridPane.setLayoutY(180.0);
@@ -1981,8 +2245,6 @@ public class Main extends Application {
                 loadEditFoodScreen(primaryStage);
             }
         });
-        editBtn.setStyle(buttonStyle);
-        editBtn.setTextFill(Color.rgb(57,115,157));
 
         Button activeBtn = new Button("Active");
         activeBtn.setFont(new Font(15));
@@ -1995,8 +2257,6 @@ public class Main extends Application {
                 loadActivateFoodScreen(primaryStage);
             }
         });
-        activeBtn.setStyle(buttonStyle);
-        activeBtn.setTextFill(Color.rgb(57,115,157));
 
         Button discountBtn = new Button("Discount");
         discountBtn.setFont(new Font(15));
@@ -2009,8 +2269,6 @@ public class Main extends Application {
                 loadDiscountScreen(primaryStage);
             }
         });
-        discountBtn.setStyle(buttonStyle);
-        discountBtn.setTextFill(Color.rgb(57,115,157));
 
         Button deactiveBtn = new Button("Deactive");
         deactiveBtn.setFont(new Font(15));
@@ -2023,8 +2281,6 @@ public class Main extends Application {
                 loadDeactivateFoodScreen(primaryStage);
             }
         });
-        deactiveBtn.setStyle(buttonStyle);
-        deactiveBtn.setTextFill(Color.rgb(57,115,157));
 
         Button deleteBtn = new Button("Delete");
         deleteBtn.setFont(new Font(15));
@@ -2037,8 +2293,6 @@ public class Main extends Application {
                 loadDeleteFoodScreen(primaryStage);
             }
         });
-        deleteBtn.setStyle(buttonStyle);
-        deleteBtn.setTextFill(Color.rgb(57,115,157));
 
         Button backBtn = new Button("Back");
         backBtn.setFont(new Font(15));
@@ -2052,9 +2306,6 @@ public class Main extends Application {
                 loadMenuScreenForAdmin(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
         gridPane.getColumnConstraints().addAll(column1, column2, column3);
         gridPane.getRowConstraints().addAll(row1, row2);
         gridPane.add(editBtn, 0, 0);
@@ -2070,9 +2321,9 @@ public class Main extends Application {
         sep2.setPrefWidth(550);
         pane17.getChildren().addAll(sep1, sep2);
 
-        Label foodNameLbl = new Label("Food Name");
+        Label foodNameLbl = new Label(food.foodName);
         foodNameLbl.setFont(new Font(20));
-        Label foodRatingLbl = new Label("Food rating ");
+        Label foodRatingLbl = new Label("Rate : " + Double.toString(food.getRating()));
 
         ImageView logoImg = new ImageView();
 
@@ -2104,17 +2355,18 @@ public class Main extends Application {
 
     public void loadEditFoodScreen(Stage primaryStage) {
         Pane pane18 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
+        Food food = Food.selectedFoodForAdmin;
         Label labelEditFood = new Label("Edit Food");
         labelEditFood.setLayoutX(75.0);
         labelEditFood.setLayoutY(60.0);
         labelEditFood.setFont(new Font(20.0));
 
-        Label labelCurrentName = new Label("current name : name");
+        Label labelCurrentName = new Label("current name : " + food.foodName);
         labelCurrentName.setLayoutX(75.0);
         labelCurrentName.setLayoutY(175.0);
 
-        Label labelCurrentPrice = new Label("current price : price");
+        Label labelCurrentPrice = new Label("current price : " + food.foodCost);
         labelCurrentPrice.setLayoutX(75.0);
         labelCurrentPrice.setLayoutY(215.0);
 
@@ -2134,19 +2386,38 @@ public class Main extends Application {
         labelInstruction.setLayoutX(75.0);
         labelInstruction.setLayoutY(125.0);
 
+        Label noticeLabel = new Label();
+        noticeLabel.setLayoutX(75.0);
+        noticeLabel.setLayoutY(270.0);
+
         Button buttonConfirm = new Button("Confirm");
         buttonConfirm.setLayoutX(350.0);
         buttonConfirm.setLayoutY(270.0);
         buttonConfirm.setPrefSize(80, 20);
-        buttonConfirm.setStyle(buttonStyle);
-        buttonConfirm.setTextFill(Color.rgb(57,115,157));
+        buttonConfirm.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (!textFieldNewName.getText().equals("") && !textFieldNewPrice.getText().equals("")) {
+                    try {
+                        int foodprice = Integer.parseInt(textFieldNewPrice.getText());
+                        String foodname = textFieldNewName.getText();
+                        food.foodName = foodname;
+                        food.foodCost = foodprice;
+                        noticeLabel.setText("food edited succesfully !!!");
+                    } catch (Exception e) {
+                        noticeLabel.setText("please enter a number as food price !!!");
+                    }
+                } else {
+                    noticeLabel.setText("please enter both fields !!!");
+                }
+            }
+        });
+
 
         Button buttonBack = new Button("Back");
         buttonBack.setLayoutX(470.0);
         buttonBack.setLayoutY(270.0);
         buttonBack.setPrefSize(80, 20);
-        buttonBack.setStyle(buttonStyle);
-        buttonBack.setTextFill(Color.rgb(57,115,157));
         buttonBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2164,7 +2435,7 @@ public class Main extends Application {
 
     public void loadDiscountScreen(Stage primaryStage) {
         Pane pane19 = new Pane();
-
+        Food food = Food.selectedFoodForAdmin;
         Label discountLabel = new Label("Discount");
         discountLabel.setLayoutX(75.0);
         discountLabel.setLayoutY(60.0);
@@ -2191,11 +2462,19 @@ public class Main extends Application {
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Discount successfully confirmed !!!");
+                if (!discountTextField.getText().equals("")) {
+                    try {
+                        int discount = Integer.parseInt(discountTextField.getText());
+                        food.discountValue = discount;
+                        food.discountActivation = true;
+                        notifLabel.setText("discount set successfully !!");
+                    } catch (Exception e) {
+                        notifLabel.setText("please enter a number !!!");
+                    }
+                } else
+                    notifLabel.setText("please enter a number !!!");
             }
         });
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(195.0);
@@ -2207,12 +2486,8 @@ public class Main extends Application {
                 loadFoodScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
-
 
         pane19.getChildren().addAll(discountLabel, questionLabel, notifLabel, discountTextField, confirmButton, backButton);
-
         Scene scene = new Scene(pane19, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -2220,7 +2495,8 @@ public class Main extends Application {
 
     public void loadDeleteFoodScreen(Stage primaryStage) {
         Pane pane20 = new Pane();
-
+        Restaurant restaurant = Restaurant.loggedInRestaurantForAdmin;
+        Food food = Food.selectedFoodForAdmin;
         Label label1 = new Label("Delete");
         label1.setLayoutX(75.0);
         label1.setLayoutY(60.0);
@@ -2235,32 +2511,6 @@ public class Main extends Application {
         notifLabel.setLayoutY(220);
         notifLabel.setTextFill(javafx.scene.paint.Color.RED);
 
-        Button confirmButton = new Button("Confirm");
-        confirmButton.setLayoutX(75.0);
-        confirmButton.setLayoutY(175.0);
-        confirmButton.setPrefSize(80, 20);
-        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Food successfully deleted !!!");
-            }
-        });
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
-
-        Button backButton = new Button("Back");
-        backButton.setLayoutX(170.0);
-        backButton.setLayoutY(175.0);
-        backButton.setPrefSize(80, 20);
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadFoodScreen(primaryStage);
-            }
-        });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
-
         RadioButton yesRadioButton = new RadioButton("Yes");
         yesRadioButton.setLayoutX(300.0);
         yesRadioButton.setLayoutY(130.0);
@@ -2273,6 +2523,34 @@ public class Main extends Application {
         yesRadioButton.setToggleGroup(toggleGroup);
         noRadioButton.setToggleGroup(toggleGroup);
 
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setLayoutX(75.0);
+        confirmButton.setLayoutY(175.0);
+        confirmButton.setPrefSize(80, 20);
+        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (toggleGroup.getSelectedToggle() == yesRadioButton) {
+                    restaurant.restaurantMenu.remove(food);
+                    loadMenuScreenForAdmin(primaryStage);
+                } else if (toggleGroup.getSelectedToggle() == noRadioButton)
+                    loadFoodScreen(primaryStage);
+                else
+                    notifLabel.setText("please select yes or no !!!");
+            }
+        });
+
+        Button backButton = new Button("Back");
+        backButton.setLayoutX(170.0);
+        backButton.setLayoutY(175.0);
+        backButton.setPrefSize(80, 20);
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadFoodScreen(primaryStage);
+            }
+        });
+
         pane20.getChildren().addAll(label1, label2, notifLabel, confirmButton, backButton, yesRadioButton, noRadioButton);
 
         Scene scene = new Scene(pane20, 600, 400);
@@ -2282,7 +2560,7 @@ public class Main extends Application {
 
     public void loadActivateFoodScreen(Stage primaryStage) {
         Pane pane21 = new Pane();
-
+        Food food = Food.selectedFoodForAdmin;
         Label activeLabel = new Label("Active");
         activeLabel.setLayoutX(75);
         activeLabel.setLayoutY(60);
@@ -2292,12 +2570,46 @@ public class Main extends Application {
         promptLabel.setLayoutX(75);
         promptLabel.setLayoutY(130);
 
+        RadioButton yesRadioButton = new RadioButton("Yes");
+        yesRadioButton.setLayoutX(300);
+        yesRadioButton.setLayoutY(130);
+        yesRadioButton.setCache(true);
+
+        RadioButton noRadioButton = new RadioButton("No");
+        noRadioButton.setLayoutX(351);
+        noRadioButton.setLayoutY(130);
+
+        ToggleGroup toggleGroup = new ToggleGroup();
+        yesRadioButton.setToggleGroup(toggleGroup);
+        noRadioButton.setToggleGroup(toggleGroup);
+
+        Label alreadyActiveLabel = new Label("");
+        alreadyActiveLabel.setLayoutX(75);
+        alreadyActiveLabel.setLayoutY(230);
+        alreadyActiveLabel.setTextFill(javafx.scene.paint.Color.RED);
+        alreadyActiveLabel.setFont(new Font(10));
+
         Button confirmButton = new Button("Confirm");
         confirmButton.setLayoutX(75);
         confirmButton.setLayoutY(175);
         confirmButton.setPrefSize(80, 20);
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
+        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (toggleGroup.getSelectedToggle() == yesRadioButton) {
+                    if (food.possibilityOfOrdering) {
+                        alreadyActiveLabel.setText("food is already active !!!");
+                    } else {
+                        food.possibilityOfOrdering = true;
+                        alreadyActiveLabel.setText("food actived successfully !!!");
+                    }
+                } else if (toggleGroup.getSelectedToggle() == noRadioButton)
+                    loadFoodScreen(primaryStage);
+                else
+                    alreadyActiveLabel.setText("please select yes or no !!!");
+
+            }
+        });
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(170);
@@ -2309,39 +2621,17 @@ public class Main extends Application {
                 loadFoodScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
-
-        RadioButton yesRadioButton = new RadioButton("Yes");
-        yesRadioButton.setLayoutX(300);
-        yesRadioButton.setLayoutY(130);
-
-        RadioButton noRadioButton = new RadioButton("No");
-        noRadioButton.setLayoutX(351);
-        noRadioButton.setLayoutY(130);
-
-        ToggleGroup toggleGroup = new ToggleGroup();
-        yesRadioButton.setToggleGroup(toggleGroup);
-        noRadioButton.setToggleGroup(toggleGroup);
-
-        Label alreadyActiveLabel = new Label("This food is already active !!!");
-        alreadyActiveLabel.setLayoutX(75);
-        alreadyActiveLabel.setLayoutY(230);
-        alreadyActiveLabel.setTextFill(javafx.scene.paint.Color.RED);
-        alreadyActiveLabel.setFont(new Font(10));
 
         pane21.getChildren().addAll(activeLabel, promptLabel, confirmButton,
                 backButton, yesRadioButton, noRadioButton, alreadyActiveLabel);
-
         Scene scene = new Scene(pane21, 600, 400);
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public void loadDeactivateFoodScreen(Stage primaryStage) {
         Pane pane22 = new Pane();
-
+        Food food = Food.selectedFoodForAdmin;
         Label deactiveLabel = new Label("Deactive");
         deactiveLabel.setLayoutX(75);
         deactiveLabel.setLayoutY(60);
@@ -2351,26 +2641,6 @@ public class Main extends Application {
         promptLabel.setLayoutX(75);
         promptLabel.setLayoutY(130);
 
-        Button confirmButton = new Button("Confirm");
-        confirmButton.setLayoutX(75);
-        confirmButton.setLayoutY(175);
-        confirmButton.setPrefSize(80, 20);
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
-
-        Button backButton = new Button("Back");
-        backButton.setLayoutX(170);
-        backButton.setLayoutY(175);
-        backButton.setPrefSize(80, 20);
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadFoodScreen(primaryStage);
-            }
-        });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
-
         RadioButton yesRadioButton = new RadioButton("Yes");
         yesRadioButton.setLayoutX(300);
         yesRadioButton.setLayoutY(130);
@@ -2383,24 +2653,56 @@ public class Main extends Application {
         yesRadioButton.setToggleGroup(toggleGroup);
         noRadioButton.setToggleGroup(toggleGroup);
 
-        Label alreadyDeactiveLabel = new Label("This food is already deactive !!!");
+        Label alreadyDeactiveLabel = new Label("");
         alreadyDeactiveLabel.setLayoutX(75);
         alreadyDeactiveLabel.setLayoutY(230);
         alreadyDeactiveLabel.setTextFill(javafx.scene.paint.Color.RED);
         alreadyDeactiveLabel.setFont(new Font(10));
 
+
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setLayoutX(75);
+        confirmButton.setLayoutY(175);
+        confirmButton.setPrefSize(80, 20);
+        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (toggleGroup.getSelectedToggle() == yesRadioButton) {
+                    if (!food.possibilityOfOrdering) {
+                        alreadyDeactiveLabel.setText("food is already deactive !!!");
+                    } else {
+                        food.possibilityOfOrdering = false;
+                        alreadyDeactiveLabel.setText("food deactived successfully !!!");
+                    }
+                } else if (toggleGroup.getSelectedToggle() == noRadioButton)
+                    loadFoodScreen(primaryStage);
+                else
+                    alreadyDeactiveLabel.setText("please select yes or no !!!");
+
+            }
+        });
+
+        Button backButton = new Button("Back");
+        backButton.setLayoutX(170);
+        backButton.setLayoutY(175);
+        backButton.setPrefSize(80, 20);
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadFoodScreen(primaryStage);
+            }
+        });
+
         pane22.getChildren().addAll(deactiveLabel, promptLabel, confirmButton,
                 backButton, yesRadioButton, noRadioButton, alreadyDeactiveLabel);
-
         Scene scene = new Scene(pane22, 600, 400);
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public void loadEditOrderScreen(Stage primaryStage) {
         Pane pane23 = new Pane();
-
+        Order order = Order.LoggedInOrderForAdmin;
         Label editOrderLabel = new Label("Edit Order");
         editOrderLabel.setLayoutX(75);
         editOrderLabel.setLayoutY(60);
@@ -2420,12 +2722,70 @@ public class Main extends Application {
         promptLabel.setLayoutX(75);
         promptLabel.setLayoutY(125);
 
+        Label noticeLabel = new Label();
+        noticeLabel.setLayoutX(75);
+        noticeLabel.setLayoutY(325);
+
+        RadioButton cookingRadioButton = new RadioButton("COOKING");
+        cookingRadioButton.setLayoutX(330);
+        cookingRadioButton.setLayoutY(220);
+
+        RadioButton sentRadioButton = new RadioButton("SENT");
+        sentRadioButton.setLayoutX(435);
+        sentRadioButton.setLayoutY(220);
+
+        RadioButton deliveredRadioButton = new RadioButton("DELIVERED");
+        deliveredRadioButton.setLayoutX(330);
+        deliveredRadioButton.setLayoutY(250);
+
+        RadioButton readyRadioButton = new RadioButton("READY FOR SENDING");
+        readyRadioButton.setLayoutX(435);
+        readyRadioButton.setLayoutY(250);
+
+        ToggleGroup toggleGroup = new ToggleGroup();
+        cookingRadioButton.setToggleGroup(toggleGroup);
+        sentRadioButton.setToggleGroup(toggleGroup);
+        deliveredRadioButton.setToggleGroup(toggleGroup);
+        readyRadioButton.setToggleGroup(toggleGroup);
+
         Button confirmButton = new Button("Confirm");
         confirmButton.setLayoutX(75);
         confirmButton.setLayoutY(270);
         confirmButton.setPrefSize(80, 20);
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
+        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (!newDeliveryTimeTextField.getText().equals("") || toggleGroup.getSelectedToggle() == null) {
+                    if (!newDeliveryTimeTextField.getText().equals("") && toggleGroup.getSelectedToggle() == null) {
+                        long time = Long.parseLong(newDeliveryTimeTextField.getText());
+                        order.deliveryTimeRemains = time;
+                    } else if (newDeliveryTimeTextField.getText().equals("") && toggleGroup.getSelectedToggle() != null) {
+                        if (toggleGroup.getSelectedToggle() == cookingRadioButton)
+                            order.orderStatus = STATUS.COOKING;
+                        else if (toggleGroup.getSelectedToggle() == sentRadioButton)
+                            order.orderStatus = STATUS.SENT;
+                        else if (toggleGroup.getSelectedToggle() == deliveredRadioButton)
+                            order.orderStatus = STATUS.DELIVERED;
+                        else if (toggleGroup.getSelectedToggle() == readyRadioButton)
+                            order.orderStatus = STATUS.READYFORSENDING;
+                    } else {
+                        long time = Long.parseLong(newDeliveryTimeTextField.getText());
+                        order.deliveryTimeRemains = time;
+
+                        if (toggleGroup.getSelectedToggle() == cookingRadioButton)
+                            order.orderStatus = STATUS.COOKING;
+                        else if (toggleGroup.getSelectedToggle() == sentRadioButton)
+                            order.orderStatus = STATUS.SENT;
+                        else if (toggleGroup.getSelectedToggle() == deliveredRadioButton)
+                            order.orderStatus = STATUS.DELIVERED;
+                        else if (toggleGroup.getSelectedToggle() == readyRadioButton)
+                            order.orderStatus = STATUS.READYFORSENDING;
+                    }
+                } else {
+                    noticeLabel.setText("please enter at least one value !!! ");
+                }
+            }
+        });
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(195);
@@ -2434,32 +2794,22 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadOpenOrderScreen(primaryStage);
+                loadOpenOrderScreen(primaryStage, Restaurant.loggedInRestaurantForAdmin.restaurantID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
-
-        TextField newStatusTextField = new TextField();
-        newStatusTextField.setLayoutX(329);
-        newStatusTextField.setLayoutY(215);
-        newStatusTextField.setPrefWidth(200);
-        newStatusTextField.setPromptText("new status");
 
         Label currentOrderStatusLabel = new Label("Current order status : order status");
-        currentOrderStatusLabel.setLayoutX(329);
+        currentOrderStatusLabel.setLayoutX(330);
         currentOrderStatusLabel.setLayoutY(175);
 
         pane23.getChildren().addAll(editOrderLabel, currentDeliveryTimeLabel, newDeliveryTimeTextField,
-                promptLabel, confirmButton, backButton, newStatusTextField, currentOrderStatusLabel);
-
+                promptLabel, confirmButton, backButton, cookingRadioButton, sentRadioButton, deliveredRadioButton, readyRadioButton, currentOrderStatusLabel);
         Scene scene = new Scene(pane23, 600, 400);
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadAddResponseScreen(Stage primaryStage) {
+    public void loadAddResponseScreen(Stage primaryStage, Comment comment) {
         Pane pane24 = new Pane();
 
         Label addNewResponseLabel = new Label("ADD NEW RESPONSE");
@@ -2490,11 +2840,18 @@ public class Main extends Application {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("New response successdully added !!!");
+                if (!newResponseTextField.getText().equals("")) {
+                    if (!comment.commentResponse.equals("")) {
+                        comment.commentResponse = newResponseTextField.getText();
+                        notifLabel.setText("you responsed to this comment successfully !!!");
+                    } else {
+                        notifLabel.setText("you have responsed this comment before , now you can edit it !!!");
+                    }
+                } else {
+                    notifLabel.setText("please enter your response !!!");
+                }
             }
         });
-        addButton.setStyle(buttonStyle);
-        addButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(185);
@@ -2506,18 +2863,14 @@ public class Main extends Application {
                 loadCommentsScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         pane24.getChildren().addAll(addNewResponseLabel, promptLabel, notifLabel, newResponseTextField, addButton, backButton);
-
         Scene scene = new Scene(pane24, 600, 400);
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadEditResponseScreen(Stage primaryStage) {
+    public void loadEditResponseScreen(Stage primaryStage, Comment comment) {
         Pane pane25 = new Pane();
 
         Label editResponseLabel = new Label("Edit Response");
@@ -2525,7 +2878,7 @@ public class Main extends Application {
         editResponseLabel.setLayoutY(60);
         editResponseLabel.setFont(new Font(20));
 
-        Label currentResponseLabel = new Label("current response : response");
+        Label currentResponseLabel = new Label("current response : " + comment.commentResponse);
         currentResponseLabel.setLayoutX(75);
         currentResponseLabel.setLayoutY(175);
 
@@ -2543,8 +2896,13 @@ public class Main extends Application {
         confirmButton.setLayoutX(75);
         confirmButton.setLayoutY(270);
         confirmButton.setPrefSize(80, 20);
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
+        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                comment.commentResponse = newResponseTextField.getText();
+                currentResponseLabel.setText("response changed to : " + newResponseTextField.getText());
+            }
+        });
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(195);
@@ -2556,22 +2914,17 @@ public class Main extends Application {
                 loadCommentsScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         pane25.getChildren().addAll(editResponseLabel, currentResponseLabel, newResponseTextField,
                 promptLabel, confirmButton, backButton);
-
         Scene scene = new Scene(pane25, 600, 400);
-
-        primaryStage.setTitle("My Application");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public void loadAddRestaurantScreen(Stage primaryStage) {
         Pane pane26 = new Pane();
-
+        Admin admin = (Admin) Role.loggedInRole;
         Label titleLabel = new Label("ADD NEW RESTAURANT");
         titleLabel.setLayoutX(75.0);
         titleLabel.setLayoutY(60.0);
@@ -2587,55 +2940,79 @@ public class Main extends Application {
         restaurantNameField.setPrefWidth(190.0);
         restaurantNameField.setPromptText("restaurant name");
 
+        Label infoLabel2 = new Label("Please enter restaurant food type");
+        infoLabel2.setLayoutX(75.0);
+        infoLabel2.setLayoutY(215.0);
+
+        TextField restaurantFoodTypeField = new TextField();
+        restaurantFoodTypeField.setLayoutX(75.0);
+        restaurantFoodTypeField.setLayoutY(260.0);
+        restaurantFoodTypeField.setPrefWidth(190.0);
+        restaurantFoodTypeField.setPromptText("restaurant foodtype");
+
         Label successLabel = new Label();
         successLabel.setLayoutX(75.0);
-        successLabel.setLayoutY(270.0);
+        successLabel.setLayoutY(360.0);
         successLabel.setTextFill(javafx.scene.paint.Color.RED);
         successLabel.setFont(new Font(10.0));
 
         Button addButton = new Button("Add");
         addButton.setLayoutX(75.0);
-        addButton.setLayoutY(220.0);
+        addButton.setLayoutY(310.0);
         addButton.setPrefSize(80, 20);
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                successLabel.setText("Restaurant added to the panel successfully !!!");
+                if (!restaurantFoodTypeField.getText().equals("") && !restaurantNameField.getText().equals("")) {
+                    Admin admin = (Admin) Role.loggedInRole;
+                    String foodtype = restaurantFoodTypeField.getText();
+                    String restaurantName = restaurantNameField.getText();
+                    boolean restaurantExistance = false;
+                    for (int i = 0; i < admin.adminRestaurants.size(); i++)
+                        if (admin.adminRestaurants.get(i).restaurantName.equals(restaurantName))
+                            restaurantExistance = true;
+                    if (restaurantExistance)
+                        successLabel.setText("You have another restaurant with this name !!!");
+                    else {
+                        Restaurant restaurant = new Restaurant(restaurantName);
+                        restaurant.restaurantOwner = admin;
+                        restaurant.restaurantLocation = Functions.setRandomLocation(staticArrayLists);
+                        restaurant.restaurantFoodType.add(foodtype);
+                        restaurant.restaurantID = Functions.setID("restaurant", staticArrayLists);
+                        admin.adminRestaurants.add(restaurant);
+                        staticArrayLists.allRestaurantsArrayList.add(restaurant);
+                        successLabel.setText("Restaurant added to the panel successfully !!!");
+                    }
+                }
             }
         });
-        addButton.setStyle(buttonStyle);
-        addButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(185.0);
-        backButton.setLayoutY(220.0);
+        backButton.setLayoutY(310.0);
         backButton.setPrefSize(80, 20);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadAdminPanelScreen(primaryStage);
+                loadAdminPanelScreen(primaryStage, admin.adminID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
-        pane26.getChildren().addAll(titleLabel, infoLabel, restaurantNameField, addButton, backButton, successLabel);
-
+        pane26.getChildren().addAll(titleLabel, infoLabel, infoLabel2, restaurantFoodTypeField, restaurantNameField, addButton, backButton, successLabel);
         Scene scene = new Scene(pane26, 600, 400);
-
-        primaryStage.setTitle("Add Restaurant");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public void loadRestaurantListForUserScreen(Stage primaryStage) {
         Pane pane27 = new Pane();
-
-        ListView<String> restaurantListView = new ListView<>();
-        restaurantListView.setLayoutX(200.0);
-        restaurantListView.setLayoutY(75.0);
-        restaurantListView.setPrefWidth(375.0);
-        restaurantListView.setPrefHeight(250.0);
+        User user = (User) Role.loggedInRole;
+        ListView<String> restaurantsListView = new ListView<>();
+        restaurantsListView.setLayoutX(200.0);
+        restaurantsListView.setLayoutY(75.0);
+        restaurantsListView.setPrefWidth(375.0);
+        restaurantsListView.setPrefHeight(250.0);
+        restaurantsListView.getItems().addAll(Functions.showAllAvailableRestaurants(staticArrayLists,"Normal"));
 
         TextField restaurantIdField = new TextField();
         restaurantIdField.setLayoutX(25.0);
@@ -2644,9 +3021,20 @@ public class Main extends Application {
         restaurantIdField.setPrefHeight(25.0);
         restaurantIdField.setPromptText("restaurant ID");
 
+        TextField restaurantNameField = new TextField();
+        restaurantNameField.setLayoutX(25.0);
+        restaurantNameField.setLayoutY(235.0);
+        restaurantNameField.setPromptText("restaurant name");
+
         Label restaurantIdLabel = new Label("please enter restaurant ID");
         restaurantIdLabel.setLayoutX(25.0);
         restaurantIdLabel.setLayoutY(100.0);
+
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(25);
+        errorLabel.setLayoutY(340);
+        errorLabel.setTextFill(Color.RED);
+        errorLabel.setFont(new Font(10));
 
         Button selectButton = new Button("Select");
         selectButton.setLayoutX(25.0);
@@ -2656,27 +3044,44 @@ public class Main extends Application {
         selectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantForUserScreen(primaryStage);
+                if (!restaurantIdField.getText().equals("")) {
+                    int k = Functions.selectRestaurant(restaurantIdField.getText(), staticArrayLists);
+                    if (k != -1) {
+                        Restaurant.loggedInRestaurantForUser = staticArrayLists.allRestaurantsArrayList.get(k);
+                        loadRestaurantForUserScreen(primaryStage);
+                    } else
+                        errorLabel.setText("Restaurant not found !!!");
+                } else
+                    errorLabel.setText("Enter an ID !!!");
             }
         });
-        selectButton.setStyle(buttonStyle);
-        selectButton.setTextFill(Color.rgb(57,115,157));
 
         Button searchButton = new Button("Search");
         searchButton.setLayoutX(25.0);
         searchButton.setLayoutY(268.0);
         searchButton.setPrefWidth(150.0);
         searchButton.setPrefHeight(25.0);
-        searchButton.setStyle(buttonStyle);
-        searchButton.setTextFill(Color.rgb(57,115,157));
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                restaurantsListView.getItems().clear();
+                restaurantsListView.getItems().addAll(Functions.showRelatedRestaurants(restaurantNameField.getText(),staticArrayLists));
+            }
+        });
+
 
         Button suggestButton = new Button("Show suggested restaurant");
         suggestButton.setLayoutX(25.0);
         suggestButton.setLayoutY(185.0);
         suggestButton.setPrefWidth(150.0);
         suggestButton.setPrefHeight(25.0);
-        suggestButton.setStyle(buttonStyle);
-        suggestButton.setTextFill(Color.rgb(57,115,157));
+        suggestButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                restaurantsListView.getItems().clear();
+                restaurantsListView.getItems().addAll(Functions.showAllAvailableRestaurants(staticArrayLists,"Suggested"));
+            }
+        });
 
 
         Label restaurantListLabel = new Label("To see the restaurants");
@@ -2693,34 +3098,27 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadUserPanelScreen(primaryStage);
+                loadUserPanelScreen(primaryStage, user.userID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
-
-        TextField restaurantNameField = new TextField();
-        restaurantNameField.setLayoutX(26.0);
-        restaurantNameField.setLayoutY(235.0);
-        restaurantNameField.setPromptText("restaurant name");
 
         Separator separator = new Separator();
         separator.setLayoutX(25.0);
         separator.setLayoutY(223.0);
         separator.setPrefWidth(150.0);
 
-        pane27.getChildren().addAll(restaurantListView, restaurantIdField, restaurantIdLabel, selectButton,
+        pane27.getChildren().addAll(restaurantsListView, restaurantIdField, restaurantIdLabel, selectButton,
                 restaurantListLabel, suggestButton, backButton, restaurantNameField,
-                separator, searchButton);
+                separator, searchButton, errorLabel);
 
         Scene scene = new Scene(pane27, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadUserPanelScreen(Stage primaryStage) {
+    public void loadUserPanelScreen(Stage primaryStage, String userID) {
         Pane pane28 = new Pane();
-
+        User user = (User) Role.loggedInRole;
         GridPane gridPane = new GridPane();
         gridPane.setLayoutX(45.0);
         gridPane.setLayoutY(180.0);
@@ -2771,8 +3169,6 @@ public class Main extends Application {
                 loadRestaurantListForUserScreen(primaryStage);
             }
         });
-        restaurantListButton.setStyle(buttonStyle);
-        restaurantListButton.setTextFill(Color.rgb(57,115,157));
 
         Button cartStatusButton = new Button("Cart status");
         cartStatusButton.setMnemonicParsing(false);
@@ -2788,8 +3184,6 @@ public class Main extends Application {
                 loadCartStatusScreen(primaryStage);
             }
         });
-        cartStatusButton.setStyle(buttonStyle);
-        cartStatusButton.setTextFill(Color.rgb(57,115,157));
 
         Button orderHistoryButton = new Button("Order history");
         orderHistoryButton.setMnemonicParsing(false);
@@ -2805,8 +3199,6 @@ public class Main extends Application {
                 loadOrderHistoryForUserScreen(primaryStage);
             }
         });
-        orderHistoryButton.setStyle(buttonStyle);
-        orderHistoryButton.setTextFill(Color.rgb(57,115,157));
 
         Button chargeAccountButton = new Button("Charge account");
         chargeAccountButton.setMnemonicParsing(false);
@@ -2823,8 +3215,6 @@ public class Main extends Application {
                 loadChargeAccountScreen(primaryStage);
             }
         });
-        chargeAccountButton.setStyle(buttonStyle);
-        chargeAccountButton.setTextFill(Color.rgb(57,115,157));
 
         Button editLocationButton = new Button("Edit location");
         editLocationButton.setMnemonicParsing(false);
@@ -2840,8 +3230,6 @@ public class Main extends Application {
                 loadEditLocationForUserScreen(primaryStage);
             }
         });
-        editLocationButton.setStyle(buttonStyle);
-        editLocationButton.setTextFill(Color.rgb(57,115,157));
 
         Button logoutButton = new Button("LOGOUT");
         logoutButton.setMnemonicParsing(false);
@@ -2855,11 +3243,11 @@ public class Main extends Application {
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                Role.loggedInRole = null;
+                Role.loggedInRoleExistance = false;
                 loadLoginScreen(primaryStage);
             }
         });
-        logoutButton.setStyle(buttonStyle);
-        logoutButton.setTextFill(Color.rgb(57,115,157));
 
         gridPane.getChildren().addAll(restaurantListButton, cartStatusButton, orderHistoryButton,
                 chargeAccountButton, editLocationButton, logoutButton);
@@ -2870,12 +3258,12 @@ public class Main extends Application {
         separator1.setPrefWidth(550.0);
         separator1.setPrefHeight(10.0);
 
-        Label userPanelLabel = new Label("User Panel");
+        Label userPanelLabel = new Label("Welcome " + user.getUserName());
         userPanelLabel.setLayoutX(40.0);
         userPanelLabel.setLayoutY(50.0);
         userPanelLabel.setFont(new Font(20.0));
 
-        Label userChargeLabel = new Label("User account charge");
+        Label userChargeLabel = new Label("charge : " + user.getAccountCharge() + "$");
         userChargeLabel.setLayoutX(40.0);
         userChargeLabel.setLayoutY(100.0);
         userChargeLabel.setPrefWidth(111.0);
@@ -2898,12 +3286,12 @@ public class Main extends Application {
         logoLabel.setLayoutX(495.0);
         logoLabel.setLayoutY(90.0);
 
-        Label userLocationLabel = new Label("User location");
+        Label userLocationLabel = new Label("location : " + user.userLocation);
         userLocationLabel.setLayoutX(228.0);
         userLocationLabel.setLayoutY(100.0);
         userLocationLabel.setPrefWidth(145.0);
 
-        Label setLocationLabel = new Label("Please set your location first !!!");
+        Label setLocationLabel = new Label();
         setLocationLabel.setLayoutX(40.0);
         setLocationLabel.setLayoutY(130.0);
         setLocationLabel.setPrefWidth(300.0);
@@ -2920,12 +3308,13 @@ public class Main extends Application {
 
     public void loadOrderHistoryForUserScreen(Stage primaryStage) {
         Pane pane29 = new Pane();
-
+        User user = (User) Role.loggedInRole;
         ListView<String> orderListView = new ListView<>();
         orderListView.setLayoutX(200.0);
         orderListView.setLayoutY(75.0);
         orderListView.setPrefWidth(375.0);
         orderListView.setPrefHeight(250.0);
+        orderListView.getItems().addAll(Functions.showOrderHistoryForUser());
 
         TextField orderTextField = new TextField();
         orderTextField.setLayoutX(25.0);
@@ -2938,6 +3327,10 @@ public class Main extends Application {
         orderLabel.setLayoutX(25.0);
         orderLabel.setLayoutY(100.0);
 
+        Label noticeLabel = new Label();
+        noticeLabel.setLayoutX(25.0);
+        noticeLabel.setLayoutY(235.0);
+
         Button selectButton = new Button("Select");
         selectButton.setLayoutX(25.0);
         selectButton.setLayoutY(165.0);
@@ -2947,15 +3340,19 @@ public class Main extends Application {
         selectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadOrderDetailsForUserScreen(primaryStage);
+                if (!orderTextField.getText().equals("")) {
+                    String[] answer = Functions.orderIdExistanceChecker(orderTextField.getText());
+                    if (answer[0].equals("true")) {
+                        Order order = user.userOrders.get(Integer.parseInt(answer[1]));
+                        loadOrderDetailsForUserScreen(primaryStage, order);
+                    } else {
+                        noticeLabel.setText("order Id does not exist !!!");
+                    }
+                } else {
+                    noticeLabel.setText("Please enter orderID !!!");
+                }
             }
         });
-        selectButton.setStyle(buttonStyle);
-        selectButton.setTextFill(Color.rgb(57,115,157));
-
-        Label orderDetailsLabel = new Label("order details must print here");
-        orderDetailsLabel.setLayoutX(312.0);
-        orderDetailsLabel.setLayoutY(192.0);
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(25.0);
@@ -2966,28 +3363,24 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadUserPanelScreen(primaryStage);
+                loadUserPanelScreen(primaryStage, user.userID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Label orderHistoryLabel = new Label("Order History");
         orderHistoryLabel.setLayoutX(25.0);
         orderHistoryLabel.setLayoutY(31.0);
         orderHistoryLabel.setFont(new Font(20.0));
 
-        pane29.getChildren().addAll(orderListView, orderTextField, orderLabel, selectButton, orderDetailsLabel,
+        pane29.getChildren().addAll(orderListView, orderTextField, orderLabel, selectButton,
                 backButton, orderHistoryLabel);
 
         Scene scene = new Scene(pane29, 600, 400);
-
-        primaryStage.setTitle("Order History");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadOrderDetailsForUserScreen(Stage primaryStage) {
+    public void loadOrderDetailsForUserScreen(Stage primaryStage, Order order) {
         Pane pane30 = new Pane();
 
         Label orderDetailsLabel = new Label("Order Details");
@@ -3000,26 +3393,19 @@ public class Main extends Application {
         orderDetailsListView.setLayoutY(80.0);
         orderDetailsListView.setPrefWidth(500.0);
         orderDetailsListView.setPrefHeight(275.0);
-
-        Label orderDetailsPrintLabel = new Label("order details must print here");
-        orderDetailsPrintLabel.setLayoutX(224.0);
-        orderDetailsPrintLabel.setLayoutY(209.0);
+        orderDetailsListView.getItems().addAll(Functions.orderDetailsList(order));
 
         Button showPathButton = new Button("Show Path");
         showPathButton.setLayoutX(290.0);
         showPathButton.setLayoutY(42.0);
         showPathButton.setMnemonicParsing(false);
         showPathButton.setPrefWidth(80.0);
-        showPathButton.setStyle(buttonStyle);
-        showPathButton.setTextFill(Color.rgb(57,115,157));
 
         Button showTimeButton = new Button("Show estimated delivery time");
         showTimeButton.setLayoutX(380.0);
         showTimeButton.setLayoutY(42.0);
         showTimeButton.setMnemonicParsing(false);
         showTimeButton.setPrefWidth(80.0);
-        showTimeButton.setStyle(buttonStyle);
-        showTimeButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(470.0);
@@ -3032,10 +3418,8 @@ public class Main extends Application {
                 loadOrderHistoryForUserScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
-        pane30.getChildren().addAll(orderDetailsLabel, orderDetailsListView, orderDetailsPrintLabel, backButton, showPathButton, showTimeButton);
+        pane30.getChildren().addAll(orderDetailsLabel, orderDetailsListView, backButton, showPathButton, showTimeButton);
 
         Scene scene = new Scene(pane30, 600, 400);
         primaryStage.setScene(scene);
@@ -3044,7 +3428,7 @@ public class Main extends Application {
 
     public void loadEditLocationForUserScreen(Stage primaryStage) {
         Pane pane31 = new Pane();
-
+        User user = (User) Role.loggedInRole;
         Label titleLabel = new Label("EDIT LOCATION");
         titleLabel.setFont(new Font(20));
         titleLabel.setLayoutX(50);
@@ -3078,11 +3462,23 @@ public class Main extends Application {
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("New location successfully confirmed !!!");
+                if (!locationTextField.getText().equals("")) {
+                    try {
+                        int location = Integer.parseInt(locationTextField.getText());
+                        if (location > 0 && location < 1000) {
+                            user.userLocation = location;
+                            notifLabel.setText("New location successfully confirmed !!!");
+                        } else {
+                            notifLabel.setText("location must be a number between 0 and 1000 !!!");
+                        }
+                    } catch (Exception exception) {
+                        notifLabel.setText("please enter a number !!!");
+                    }
+                } else {
+                    notifLabel.setText("please enter a number !!!");
+                }
             }
         });
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(170);
@@ -3092,11 +3488,9 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadUserPanelScreen(primaryStage);
+                loadUserPanelScreen(primaryStage, user.userID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Scene scene = new Scene(pane31, 600, 400);
         primaryStage.setScene(scene);
@@ -3105,7 +3499,7 @@ public class Main extends Application {
 
     public void loadChargeAccountScreen(Stage primaryStage) {
         Pane pane32 = new Pane();
-
+        User user = (User) Role.loggedInRole;
         Label discountLabel = new Label("Charge Account");
         discountLabel.setLayoutX(75.0);
         discountLabel.setLayoutY(60.0);
@@ -3132,11 +3526,19 @@ public class Main extends Application {
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Account charged successfully !!!");
+                if (!discountTextField.getText().equals("")) {
+                    try {
+                        double value = Double.parseDouble(discountTextField.getText());
+                        user.setAccountCharge(user.getAccountCharge() + value);
+                        notifLabel.setText("Account charged successfully !!!");
+                    } catch (Exception exception) {
+                        notifLabel.setText("Please enter a number !!!");
+                    }
+                } else {
+                    notifLabel.setText("Please enter a number !!!");
+                }
             }
         });
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(195.0);
@@ -3145,11 +3547,9 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadUserPanelScreen(primaryStage);
+                loadUserPanelScreen(primaryStage, user.userID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         pane32.getChildren().addAll(discountLabel, questionLabel, notifLabel, discountTextField, confirmButton, backButton);
 
@@ -3160,7 +3560,7 @@ public class Main extends Application {
 
     public void loadCartStatusScreen(Stage primaryStage) {
         Pane pane33 = new Pane();
-
+        User user = (User) Role.loggedInRole;
         Label userCartLabel = new Label("User Cart");
         userCartLabel.setLayoutX(25.0);
         userCartLabel.setLayoutY(35.0);
@@ -3171,6 +3571,7 @@ public class Main extends Application {
         orderListView.setLayoutY(75.0);
         orderListView.setPrefWidth(375.0);
         orderListView.setPrefHeight(250.0);
+        orderListView.getItems().addAll(Functions.showCartStatus((User) Role.loggedInRole));
 
         Label orderIdLabel = new Label("please enter order ID");
         orderIdLabel.setLayoutX(25.0);
@@ -3183,6 +3584,12 @@ public class Main extends Application {
         orderIdTextField.setPrefHeight(25.0);
         orderIdTextField.setPromptText("order ID");
 
+        Label noticeLabel = new Label();
+        noticeLabel.setLayoutX(25.0);
+        noticeLabel.setLayoutY(270.0);
+        noticeLabel.setPrefWidth(150.0);
+        noticeLabel.setPrefHeight(25.0);
+
         Button editButton = new Button("Edit");
         editButton.setLayoutX(25.0);
         editButton.setLayoutY(165.0);
@@ -3192,11 +3599,16 @@ public class Main extends Application {
         editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadOrderDetailsInCartForUserScreen(primaryStage);
+                int k = -1;
+                for (int i = 0; i < ((User) Role.loggedInRole).userCart.cartorders.size(); i++)
+                    if (((User) Role.loggedInRole).userCart.cartorders.get(i).orderID.equals(orderIdTextField.getText()))
+                        k = i;
+                if(k == -1)
+                    noticeLabel.setText("Order not found !!!");
+                else
+                    loadOrderDetailsInCartForUserScreen(primaryStage,((User)Role.loggedInRole).userCart.cartorders.get(k));
             }
         });
-        editButton.setStyle(buttonStyle);
-        editButton.setTextFill(Color.rgb(57,115,157));
 
         Label toSeeOrdersLabel = new Label("To see your orders");
         toSeeOrdersLabel.setLayoutX(25.0);
@@ -3210,8 +3622,23 @@ public class Main extends Application {
         confirmButton.setPrefWidth(150.0);
         confirmButton.setPrefHeight(25.0);
         confirmButton.setMnemonicParsing(false);
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
+        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                int k = Functions.confirmOrder(user,orderIdTextField.getText());
+                if (k == -1)
+                    noticeLabel.setText("Order not found !!!");
+                else if (k != -1 && user.userCart.cartorders.get(k).getOrderCost() > user.getAccountCharge())
+                    noticeLabel.setText("Please charge your account !!!");
+                else {
+                    user.setAccountCharge(user.getAccountCharge() - user.userCart.cartorders.get(k).getOrderCost()) ;
+                    user.userCart.cartorders.get(k).orderedRestaurant.restaurantOrders.add(user.userCart.cartorders.get(k)) ;
+                    user.userCart.cartorders.get(k).orderStatus = STATUS.COOKING ;
+                    user.userOrders.add(user.userCart.cartorders.get(k));
+                    user.userCart.cartorders.remove(k) ;
+                }
+            }
+        });
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(25.0);
@@ -3222,24 +3649,18 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadUserPanelScreen(primaryStage);
+                loadUserPanelScreen(primaryStage, user.userID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
-        Label orderPrintLabel = new Label("orders must print here with orderID and orderedRestaurant");
-        orderPrintLabel.setLayoutX(231.0);
-        orderPrintLabel.setLayoutY(192.0);
-
-        pane33.getChildren().addAll(userCartLabel, orderListView, orderIdLabel, orderIdTextField, editButton, toSeeOrdersLabel, confirmButton, backButton, orderPrintLabel);
+        pane33.getChildren().addAll(userCartLabel, orderListView, orderIdLabel, orderIdTextField, editButton, toSeeOrdersLabel, confirmButton, backButton, noticeLabel);
 
         Scene scene = new Scene(pane33, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadOrderDetailsInCartForUserScreen(Stage primaryStage) {
+    public void loadOrderDetailsInCartForUserScreen(Stage primaryStage,Order order) {
         Pane pane34 = new Pane();
 
         Label orderLabel = new Label("Order");
@@ -3247,7 +3668,7 @@ public class Main extends Application {
         orderLabel.setLayoutY(60.0);
         orderLabel.setFont(new Font(20.0));
 
-        Label orderedRestaurantLabel = new Label("orderedRestaurant");
+        Label orderedRestaurantLabel = new Label("orderedRestaurant:" + order.orderedRestaurant.restaurantName);
         orderedRestaurantLabel.setLayoutX(200.0);
         orderedRestaurantLabel.setLayoutY(65.0);
 
@@ -3256,10 +3677,7 @@ public class Main extends Application {
         orderDetailsListView.setLayoutY(110.0);
         orderDetailsListView.setPrefWidth(375.0);
         orderDetailsListView.setPrefHeight(200.0);
-
-        Label orderDetailsPrintLabel = new Label("order details must print here with foodID and number of each food");
-        orderDetailsPrintLabel.setLayoutX(210.0);
-        orderDetailsPrintLabel.setLayoutY(199.0);
+        orderDetailsListView.getItems().addAll(Functions.showOrderDetailsForUser(order));
 
         Label orderIdLabel = new Label("please enter order ID");
         orderIdLabel.setLayoutX(25.0);
@@ -3272,6 +3690,12 @@ public class Main extends Application {
         foodIdTextField.setPrefHeight(25.0);
         foodIdTextField.setPromptText("food ID");
 
+        Label noticeLabel = new Label();
+        noticeLabel.setLayoutX(25);
+        noticeLabel.setLayoutY(300);
+        noticeLabel.setFont(new Font(10));
+        noticeLabel.setTextFill(Color.RED);
+
         Button editButton = new Button("Edit number of this food");
         editButton.setLayoutX(25.0);
         editButton.setLayoutY(195.0);
@@ -3281,11 +3705,16 @@ public class Main extends Application {
         editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadEditNumberScreen(primaryStage);
+                int k = -1;
+                for (int i = 0; i < order.orderFoods.size(); i++)
+                    if (order.orderFoods.get(i).foodID.equals(foodIdTextField.getText()))
+                        k = i;
+                if (k == -1)
+                    noticeLabel.setText("Food not found");
+                else
+                    loadEditNumberScreen(primaryStage, order, order.orderFoods.get(k));
             }
         });
-        editButton.setStyle(buttonStyle);
-        editButton.setTextFill(Color.rgb(57,115,157));
 
         Label toSeeOrdersLabel = new Label("To see your orders");
         toSeeOrdersLabel.setLayoutX(25.0);
@@ -3299,8 +3728,22 @@ public class Main extends Application {
         deleteButton.setPrefWidth(150.0);
         deleteButton.setPrefHeight(25.0);
         deleteButton.setMnemonicParsing(false);
-        deleteButton.setStyle(buttonStyle);
-        deleteButton.setTextFill(Color.rgb(57,115,157));
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                int k = -1;
+                for (int i = 0; i < order.orderFoods.size(); i++)
+                    if (order.orderFoods.get(i).foodID.equals(foodIdTextField.getText()))
+                        k = i;
+                if (k == -1)
+                    noticeLabel.setText("Food not found");
+                else {
+                    noticeLabel.setText("Food successfully deleted !!!");
+                    order.orderFoods.remove(k);
+                    orderDetailsListView.getItems().addAll(Functions.showOrderDetailsForUser(order));
+                }
+            }
+        });
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(25.0);
@@ -3314,21 +3757,19 @@ public class Main extends Application {
                 loadCartStatusScreen(primaryStage);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
-        Label totalCostLabel = new Label("Total cost : totalCost$");
+        Label totalCostLabel = new Label("Total cost: " + order.getOrderCost() + "$");
         totalCostLabel.setLayoutX(200.0);
         totalCostLabel.setLayoutY(335.0);
 
-        pane34.getChildren().addAll(orderLabel, orderedRestaurantLabel, orderDetailsListView, orderDetailsPrintLabel, orderIdLabel, foodIdTextField, editButton, toSeeOrdersLabel, deleteButton, backButton, totalCostLabel);
+        pane34.getChildren().addAll(orderLabel, noticeLabel, orderedRestaurantLabel, orderDetailsListView, orderIdLabel, foodIdTextField, editButton, toSeeOrdersLabel, deleteButton, backButton, totalCostLabel);
 
         Scene scene = new Scene(pane34, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadEditNumberScreen(Stage primaryStage) {
+    public void loadEditNumberScreen(Stage primaryStage,Order order, Food food) {
         Pane pane35 = new Pane();
 
         Label numberOfFoodLabel = new Label("Number of Food");
@@ -3346,11 +3787,11 @@ public class Main extends Application {
         choiceBox.setLayoutY(126.0);
         choiceBox.setPrefWidth(150.0);
 
-        Label notifLabel = new Label();
-        notifLabel.setLayoutX(75);
-        notifLabel.setLayoutY(215);
-        notifLabel.setFont(new Font(10));
-        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+        Label noticeLabel = new Label();
+        noticeLabel.setLayoutX(75);
+        noticeLabel.setLayoutY(215);
+        noticeLabel.setFont(new Font(10));
+        noticeLabel.setTextFill(javafx.scene.paint.Color.RED);
 
         Button confirmButton = new Button("Confirm");
         confirmButton.setLayoutX(75.0);
@@ -3360,11 +3801,10 @@ public class Main extends Application {
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Successfully confirmed !!!");
+                food.number = choiceBox.getValue();
+                noticeLabel.setText("Successfully confirmed !!!");
             }
         });
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(310.0);
@@ -3374,22 +3814,20 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadOrderDetailsInCartForUserScreen(primaryStage);
+                loadOrderDetailsInCartForUserScreen(primaryStage, order);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
-        pane35.getChildren().addAll(numberOfFoodLabel, howManyLabel, notifLabel, choiceBox, confirmButton, backButton);
+        pane35.getChildren().addAll(numberOfFoodLabel, howManyLabel, noticeLabel, choiceBox, confirmButton, backButton);
 
         Scene scene = new Scene(pane35, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadDeliveryPanelScreen(Stage primaryStage){
+    public void loadDeliveryPanelScreen(Stage primaryStage, String deliverID) {
         Pane pane36 = new Pane();
-
+        Delivery delivery = (Delivery) Role.loggedInRole;
         Label deliveryPanelLabel = new Label("Delivery Panel");
         deliveryPanelLabel.setLayoutX(40.0);
         deliveryPanelLabel.setLayoutY(50.0);
@@ -3446,30 +3884,29 @@ public class Main extends Application {
         showOrdersButton.setPrefHeight(50.0);
         showOrdersButton.setFont(new Font(15.0));
         GridPane.setConstraints(showOrdersButton, 0, 0);
-        showOrdersButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadConfirmOrderForDeliveryScreen(primaryStage);
-            }
-        });
-        showOrdersButton.setStyle(buttonStyle);
-        showOrdersButton.setTextFill(Color.rgb(57,115,157));
+
+        if (delivery.activeOrderBoolean) {
+            showOrdersButton.setDisable(true);
+        } else {
+            showOrdersButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    loadConfirmOrderForDeliveryScreen(primaryStage);
+                }
+            });
+        }
 
         Button pathToRestaurantButton = new Button("Path to restaurant");
         pathToRestaurantButton.setPrefWidth(145.0);
         pathToRestaurantButton.setPrefHeight(50.0);
         pathToRestaurantButton.setFont(new Font(15.0));
         GridPane.setConstraints(pathToRestaurantButton, 1, 0);
-        pathToRestaurantButton.setStyle(buttonStyle);
-        pathToRestaurantButton.setTextFill(Color.rgb(57,115,157));
 
         Button pathToUserButton = new Button("Path to user");
         pathToUserButton.setPrefWidth(145.0);
         pathToUserButton.setPrefHeight(50.0);
         pathToUserButton.setFont(new Font(15.0));
         GridPane.setConstraints(pathToUserButton, 2, 0);
-        pathToUserButton.setStyle(buttonStyle);
-        pathToUserButton.setTextFill(Color.rgb(57,115,157));
 
         Button logoutButton = new Button("LOGOUT");
         logoutButton.setPrefWidth(145.0);
@@ -3482,8 +3919,6 @@ public class Main extends Application {
                 loadLoginScreen(primaryStage);
             }
         });
-        logoutButton.setStyle(buttonStyle);
-        logoutButton.setTextFill(Color.rgb(57,115,157));
 
         gridPane.getChildren().addAll(showOrdersButton, pathToRestaurantButton, pathToUserButton, logoutButton);
 
@@ -3494,9 +3929,9 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void loadConfirmOrderForDeliveryScreen(Stage primaryStage){
+    public void loadConfirmOrderForDeliveryScreen(Stage primaryStage) {
         Pane pane37 = new Pane();
-
+        Delivery delivery = (Delivery) Role.loggedInRole;
         Label confirmOrderLabel = new Label("Confirm order for delivering");
         confirmOrderLabel.setLayoutX(25.0);
         confirmOrderLabel.setLayoutY(30.0);
@@ -3513,6 +3948,8 @@ public class Main extends Application {
         listView.setLayoutY(75.0);
         listView.setPrefWidth(375.0);
         listView.setPrefHeight(250.0);
+        listView.getItems().addAll(Functions.showOrdersListForDelivery(staticArrayLists));
+
 
         Label pleaseEnterOrderIdLabel = new Label("please enter order ID");
         pleaseEnterOrderIdLabel.setLayoutX(25.0);
@@ -3549,12 +3986,21 @@ public class Main extends Application {
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                errorLabel1.setText("Order successfully confirmed");
-                errorLabel2.setText("for delivering !!!");
+                if (!orderIdTextField.getText().equals("")) {
+                    String orderID = orderIdTextField.getText();
+                    String[] answer = Functions.selectOrderForDelivery(staticArrayLists, orderID, map);
+                    if (!answer[0].equals("true")) {
+                        errorLabel1.setText("There is no order exist");
+                        errorLabel2.setText("with this id !!!");
+                    } else {
+                        // show path to restaurant
+                    }
+                } else {
+                    errorLabel1.setText("Please enter order id");
+                    errorLabel2.setText("correctly !!!");
+                }
             }
         });
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setTextFill(Color.rgb(57,115,157));
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(25.0);
@@ -3565,11 +4011,9 @@ public class Main extends Application {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadDeliveryPanelScreen(primaryStage);
+                loadDeliveryPanelScreen(primaryStage, delivery.deliveryID);
             }
         });
-        backButton.setStyle(buttonStyle);
-        backButton.setTextFill(Color.rgb(57,115,157));
 
         Label ordersLabel = new Label("orders that should be delivered must print here with order ID and user location");
         ordersLabel.setLayoutX(213.0);
@@ -3578,16 +4022,14 @@ public class Main extends Application {
 
         pane37.getChildren().addAll(confirmOrderLabel, toConfirmLabel, listView, pleaseEnterOrderIdLabel,
                 orderIdTextField, confirmButton, backButton, ordersLabel, errorLabel1, errorLabel2);
-
         Scene scene = new Scene(pane37, 600, 400);
-
-        primaryStage.setTitle("Confirm Order");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadRestaurantForUserScreen(Stage primaryStage){
+    public void loadRestaurantForUserScreen(Stage primaryStage) {
         Pane pane38 = new Pane();
+        Restaurant restaurant = Restaurant.loggedInRestaurantForUser;
 
         GridPane gridPane = new GridPane();
         gridPane.setLayoutX(25);
@@ -3618,8 +4060,6 @@ public class Main extends Application {
                 loadMenuForUserScreen(primaryStage);
             }
         });
-        menuBtn.setStyle(buttonStyle);
-        menuBtn.setTextFill(Color.rgb(57,115,157));
 
         Button commentsBtn = new Button("Display comments");
         commentsBtn.setPrefSize(130, 50);
@@ -3630,8 +4070,6 @@ public class Main extends Application {
                 loadCommentsForRestaurantForUserScreen(primaryStage);
             }
         });
-        commentsBtn.setStyle(buttonStyle);
-        commentsBtn.setTextFill(Color.rgb(57,115,157));
 
         Button ratingsBtn = new Button("Display Ratings");
         ratingsBtn.setPrefSize(130, 50);
@@ -3642,8 +4080,6 @@ public class Main extends Application {
                 loadRatingsForRestaurantForUserScreen(primaryStage);
             }
         });
-        ratingsBtn.setStyle(buttonStyle);
-        ratingsBtn.setTextFill(Color.rgb(57,115,157));
 
         Button backBtn = new Button("Back");
         backBtn.setPrefSize(130, 50);
@@ -3651,26 +4087,24 @@ public class Main extends Application {
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                Restaurant.loggedInRestaurantForUser = null;
                 loadRestaurantListForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
 
         Separator separator1 = new Separator();
         separator1.setLayoutX(25);
         separator1.setLayoutY(170);
         separator1.setPrefSize(550, 10);
 
-        Label nameLabel = new Label("Restaurant Name");
+        Label nameLabel = new Label(restaurant.restaurantName);
         nameLabel.setLayoutX(25);
         nameLabel.setLayoutY(50);
         nameLabel.setFont(new Font(20));
 
-        Label locationLabel = new Label("Restaurant location");
+        Label locationLabel = new Label("Restaurant location: " + restaurant.restaurantLocation.toString());
         locationLabel.setLayoutX(25);
         locationLabel.setLayoutY(107);
-        locationLabel.setPrefSize(105, 20);
 
         Separator separator2 = new Separator();
         separator2.setLayoutX(25);
@@ -3696,13 +4130,15 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void loadMenuForUserScreen(Stage primaryStage){
+    public void loadMenuForUserScreen(Stage primaryStage) {
         Pane pane39 = new Pane();
+        Restaurant restaurant = Restaurant.loggedInRestaurantForUser;
 
         ListView<String> foodListView = new ListView<>();
         foodListView.setLayoutX(200);
         foodListView.setLayoutY(75);
         foodListView.setPrefSize(375, 250);
+        foodListView.getItems().addAll(Functions.showMenuForUser(restaurant));
 
         TextField foodIdTextField = new TextField();
         foodIdTextField.setLayoutX(25);
@@ -3710,9 +4146,21 @@ public class Main extends Application {
         foodIdTextField.setPrefSize(150, 25);
         foodIdTextField.setPromptText("food ID");
 
+        TextField foodNameTextField = new TextField();
+        foodNameTextField.setLayoutX(25);
+        foodNameTextField.setLayoutY(195);
+        foodNameTextField.setPrefSize(150, 25);
+        foodNameTextField.setPromptText("food name");
+
         Label foodIdLabel = new Label("please enter food ID");
         foodIdLabel.setLayoutX(25);
         foodIdLabel.setLayoutY(100);
+
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(25);
+        errorLabel.setLayoutY(295);
+        errorLabel.setFont(new Font(10));
+        errorLabel.setTextFill(Color.RED);
 
         Button selectBtn = new Button("Select");
         selectBtn.setLayoutX(25);
@@ -3721,43 +4169,54 @@ public class Main extends Application {
         selectBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadFoodForUserScreen(primaryStage);
+                int k = Functions.selectFood(foodIdTextField.getText());
+                if (k != -1){
+                    Food.selectedFoodForUser = Restaurant.loggedInRestaurantForUser.restaurantMenu.get(k);
+                    loadFoodForUserScreen(primaryStage);
+                } else
+                    errorLabel.setText("Food not found !!!");
             }
         });
-        selectBtn.setStyle(buttonStyle);
-        selectBtn.setTextFill(Color.rgb(57,115,157));
 
         Label foodListLabel = new Label("To see the foods");
         foodListLabel.setLayoutX(25);
         foodListLabel.setLayoutY(75);
         foodListLabel.setPrefSize(150, 25);
 
+        Button searchBtn = new Button("Search");
+        searchBtn.setLayoutX(25);
+        searchBtn.setLayoutY(230);
+        searchBtn.setPrefSize(150, 20);
+        searchBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                foodListView.getItems().clear();
+                foodListView.getItems().addAll(Functions.showRelatedFoods(foodNameTextField.getText()));
+            }
+        });
+
         Button backBtn = new Button("Back");
         backBtn.setLayoutX(25);
-        backBtn.setLayoutY(200);
-        backBtn.setPrefSize(150, 25);
+        backBtn.setLayoutY(260);
+        backBtn.setPrefSize(150, 20);
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 loadRestaurantForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
 
-        Label selectedFoodLabel = new Label("food must print here with the ID");
-        selectedFoodLabel.setLayoutX(302);
-        selectedFoodLabel.setLayoutY(192);
-
-        pane39.getChildren().addAll(foodListView, foodIdTextField, foodIdLabel, selectBtn, foodListLabel, backBtn, selectedFoodLabel);
+        pane39.getChildren().addAll(foodListView, foodIdTextField, foodIdLabel, selectBtn, foodListLabel, backBtn, foodNameTextField, errorLabel, searchBtn);
 
         Scene scene = new Scene(pane39, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadFoodForUserScreen(Stage primaryStage){
+    public void loadFoodForUserScreen(Stage primaryStage) {
         Pane pane40 = new Pane();
+        User user = (User)Role.loggedInRole;
+        Food food = Food.selectedFoodForUser;
 
         GridPane gridPane = new GridPane();
         gridPane.setLayoutX(25);
@@ -3779,9 +4238,22 @@ public class Main extends Application {
         gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
         gridPane.getRowConstraints().addAll(row1);
 
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(45);
+        errorLabel.setLayoutY(133);
+        errorLabel.setFont(new Font(10));
+        errorLabel.setTextFill(Color.RED);
+
         Button addToCartBtn = new Button("Add this food to cart");
         addToCartBtn.setPrefSize(130, 50);
         gridPane.add(addToCartBtn, 0, 0);
+        addToCartBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                errorLabel.setText("Food added to the cart successfully !!!");
+                Functions.addFoodToCart((User)Role.loggedInRole, Restaurant.loggedInRestaurantForUser, Food.selectedFoodForUser, staticArrayLists);
+            }
+        });
 
         Button commentsBtn = new Button("Display comments");
         commentsBtn.setPrefSize(130, 50);
@@ -3792,8 +4264,6 @@ public class Main extends Application {
                 loadCommentsForFoodForUserScreen(primaryStage);
             }
         });
-        commentsBtn.setStyle(buttonStyle);
-        commentsBtn.setTextFill(Color.rgb(57,115,157));
 
         Button ratingsBtn = new Button("Display Ratings");
         ratingsBtn.setPrefSize(130, 50);
@@ -3804,8 +4274,6 @@ public class Main extends Application {
                 loadRatingsForFoodForUserScreen(primaryStage);
             }
         });
-        ratingsBtn.setStyle(buttonStyle);
-        ratingsBtn.setTextFill(Color.rgb(57,115,157));
 
         Button backBtn = new Button("Back");
         backBtn.setPrefSize(130, 50);
@@ -3813,18 +4281,17 @@ public class Main extends Application {
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                Food.selectedFoodForUser = null;
                 loadMenuForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
 
         Separator separator1 = new Separator();
         separator1.setLayoutX(25);
         separator1.setLayoutY(170);
         separator1.setPrefSize(550, 10);
 
-        Label foodNameLabel = new Label("Food Name");
+        Label foodNameLabel = new Label(food.foodName);
         foodNameLabel.setLayoutX(45);
         foodNameLabel.setLayoutY(75);
         foodNameLabel.setFont(new Font(20));
@@ -3846,25 +4313,22 @@ public class Main extends Application {
         logoLabel.setLayoutX(495);
         logoLabel.setLayoutY(90);
 
-        Label foodDetailsLabel = new Label();
-        foodDetailsLabel.setLayoutX(45);
-        foodDetailsLabel.setLayoutY(133);
-        foodDetailsLabel.setPrefWidth(200);
-
-        pane40.getChildren().addAll(gridPane, separator1, foodNameLabel, separator2, logoImg, logoLabel, foodDetailsLabel);
+        pane40.getChildren().addAll(gridPane, separator1, foodNameLabel, separator2, logoImg, logoLabel, errorLabel);
 
         Scene scene = new Scene(pane40, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadCommentsForFoodForUserScreen(Stage primaryStage){
-        Pane pane41 = new Pane();
+    public void loadCommentsForFoodForUserScreen(Stage primaryStage) {
+        Food food = Food.selectedFoodForUser;
+        Pane pane47 = new Pane();
 
         ListView<String> commentsListView = new ListView<>();
         commentsListView.setLayoutX(200);
         commentsListView.setLayoutY(75);
         commentsListView.setPrefSize(375, 250);
+        commentsListView.getItems().addAll(Functions.showFoodComments());
 
         TextField commentIdTextField = new TextField();
         commentIdTextField.setLayoutX(25);
@@ -3882,14 +4346,18 @@ public class Main extends Application {
                 loadAddCommentForFoodForUserScreen(primaryStage);
             }
         });
-        addCommentBtn.setStyle(buttonStyle);
-        addCommentBtn.setTextFill(Color.rgb(57,115,157));
 
         Label editCommentIdLabel = new Label("Please enter comment ID to edit ");
         editCommentIdLabel.setLayoutX(25);
         editCommentIdLabel.setLayoutY(120);
         editCommentIdLabel.setPrefSize(150, 25);
         editCommentIdLabel.setFont(new Font(10));
+
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(25);
+        errorLabel.setLayoutY(300);
+        errorLabel.setFont(new Font(10));
+        errorLabel.setTextFill(Color.RED);
 
         Button editCommentBtn = new Button("Edit comments");
         editCommentBtn.setLayoutX(25);
@@ -3898,15 +4366,17 @@ public class Main extends Application {
         editCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadEditCommentForFoodForUserScreen(primaryStage);
+                int k = Functions.editFoodComment(commentIdTextField.getText());
+                if (k == -1)
+                    errorLabel.setText("Comment not found !!!");
+                else {
+                    if (Role.loggedInRole.equals(Food.selectedFoodForUser.foodCommentsArrayList.get(k).commentedUser))
+                        loadEditCommentForFoodForUserScreen(primaryStage,food.foodCommentsArrayList.get(k));
+                    else
+                        errorLabel.setText("This comment is Not yours !!!");
+                }
             }
         });
-        editCommentBtn.setStyle(buttonStyle);
-        editCommentBtn.setTextFill(Color.rgb(57,115,157));
-
-        Label selectedCommentLabel = new Label("comment must print here with id and userId");
-        selectedCommentLabel.setLayoutX(271);
-        selectedCommentLabel.setLayoutY(192);
 
         Label commentsLabel = new Label("COMMENTS");
         commentsLabel.setLayoutX(25);
@@ -3923,406 +4393,16 @@ public class Main extends Application {
                 loadFoodForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
 
-        pane41.getChildren().addAll(commentsListView, commentIdTextField, addCommentBtn, editCommentIdLabel, editCommentBtn, selectedCommentLabel,
-                commentsLabel, backBtn);
-
-        Scene scene = new Scene(pane41, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public void loadAddCommentForFoodForUserScreen(Stage primaryStage){
-        Pane pane42 = new Pane();
-
-        Label addCommentLabel = new Label("ADD NEW COMMENTS");
-        addCommentLabel.setLayoutX(75);
-        addCommentLabel.setLayoutY(60);
-        addCommentLabel.setFont(new Font(20));
-
-        Label enterCommentLabel = new Label("Please enter your new comments ....");
-        enterCommentLabel.setLayoutX(75);
-        enterCommentLabel.setLayoutY(125);
-
-        TextField newCommentTextField = new TextField();
-        newCommentTextField.setLayoutX(75);
-        newCommentTextField.setLayoutY(170);
-        newCommentTextField.setPrefWidth(190);
-        newCommentTextField.setPromptText("new comments");
-
-        Label notifLabel = new Label();
-        notifLabel.setLayoutX(75);
-        notifLabel.setLayoutY(260);
-        notifLabel.setFont(new Font(10));
-        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
-
-        Button addCommentBtn = new Button("Add");
-        addCommentBtn.setLayoutX(75);
-        addCommentBtn.setLayoutY(220);
-        addCommentBtn.setPrefWidth(80);
-        addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Comments added successfully !!!");
-            }
-        });
-        addCommentBtn.setStyle(buttonStyle);
-        addCommentBtn.setTextFill(Color.rgb(57,115,157));
-
-        Button backBtn = new Button("Back");
-        backBtn.setLayoutX(185);
-        backBtn.setLayoutY(220);
-        backBtn.setPrefWidth(80);
-        backBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadCommentsForFoodForUserScreen(primaryStage);
-            }
-        });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
-        pane42.getChildren().addAll(addCommentLabel, enterCommentLabel, notifLabel, newCommentTextField, addCommentBtn, backBtn);
-
-        Scene scene = new Scene(pane42, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public void loadEditCommentForFoodForUserScreen(Stage primaryStage){
-        Pane pane43 = new Pane();
-
-        Label editCommentLabel = new Label("Edit Comment");
-        editCommentLabel.setLayoutX(75);
-        editCommentLabel.setLayoutY(60);
-        editCommentLabel.setFont(new Font(20));
-
-        Label currentCommentLabel = new Label("current comment : comment");
-        currentCommentLabel.setLayoutX(75);
-        currentCommentLabel.setLayoutY(175);
-
-        TextField newCommentTextField = new TextField();
-        newCommentTextField.setLayoutX(75);
-        newCommentTextField.setLayoutY(215);
-        newCommentTextField.setPrefWidth(200);
-        newCommentTextField.setPromptText("new comment");
-
-        Label instructionLabel = new Label("You can enter new comment on the fields and click confirm to set");
-        instructionLabel.setLayoutX(75);
-        instructionLabel.setLayoutY(125);
-
-        Label notifLabel = new Label();
-        notifLabel.setLayoutX(75);
-        notifLabel.setLayoutY(310);
-        notifLabel.setFont(new Font(10));
-        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
-
-        Button confirmBtn = new Button("Confirm");
-        confirmBtn.setLayoutX(75);
-        confirmBtn.setLayoutY(270);
-        confirmBtn.setPrefWidth(80);
-        confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Comment successfully edited !!!");
-                currentCommentLabel.setText("current comment : new comment");
-            }
-        });
-        confirmBtn.setStyle(buttonStyle);
-        confirmBtn.setTextFill(Color.rgb(57,115,157));
-
-        Button backBtn = new Button("Back");
-        backBtn.setLayoutX(195);
-        backBtn.setLayoutY(270);
-        backBtn.setPrefWidth(80);
-        backBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadCommentsForFoodForUserScreen(primaryStage);
-            }
-        });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
-        pane43.getChildren().addAll(editCommentLabel, currentCommentLabel, notifLabel, newCommentTextField, instructionLabel, confirmBtn, backBtn);
-
-        Scene scene = new Scene(pane43, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public void loadRatingsForFoodForUserScreen(Stage primaryStage){
-        Pane pane44 = new Pane();
-
-        Label addRatingLabel = new Label("ADD NEW RATINGS");
-        addRatingLabel.setLayoutX(85);
-        addRatingLabel.setLayoutY(70);
-        addRatingLabel.setFont(new Font(20));
-
-        Label currentRatingLabel = new Label("Restaurant current rating : rating");
-        currentRatingLabel.setLayoutX(85);
-        currentRatingLabel.setLayoutY(125);
-
-        Button addRatingBtn = new Button("Add new rating");
-        addRatingBtn.setLayoutX(85);
-        addRatingBtn.setLayoutY(185);
-        addRatingBtn.setPrefWidth(100);
-        addRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadSubmitRatingForFoodForUserScreen(primaryStage);
-            }
-        });
-        addRatingBtn.setStyle(buttonStyle);
-        addRatingBtn.setTextFill(Color.rgb(57,115,157));
-
-        Button editRatingBtn = new Button("Edit rating");
-        editRatingBtn.setLayoutX(85);
-        editRatingBtn.setLayoutY(220);
-        editRatingBtn.setPrefWidth(100);
-        editRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadEditRatingForFoodForUserScreen(primaryStage);
-            }
-        });
-        editRatingBtn.setStyle(buttonStyle);
-        editRatingBtn.setTextFill(Color.rgb(57,115,157));
-
-        Button backBtn = new Button("Back");
-        backBtn.setLayoutX(85);
-        backBtn.setLayoutY(255);
-        backBtn.setPrefWidth(100);
-        backBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadFoodForUserScreen(primaryStage);
-            }
-        });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
-        ListView<String> ratingsListView = new ListView<>();
-        ratingsListView.setLayoutX(250);
-        ratingsListView.setLayoutY(170);
-        ratingsListView.setPrefWidth(260);
-        ratingsListView.setPrefHeight(150);
-
-        pane44.getChildren().addAll(addRatingLabel, currentRatingLabel, addRatingBtn, editRatingBtn, backBtn, ratingsListView);
-
-        Scene scene = new Scene(pane44, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public void loadSubmitRatingForFoodForUserScreen(Stage primaryStage){
-        Pane pane45 = new Pane();
-
-        Label addRatingLabel = new Label("ADD NEW RATING");
-        addRatingLabel.setLayoutX(75);
-        addRatingLabel.setLayoutY(60);
-        addRatingLabel.setFont(new Font(20));
-
-        Label instructionLabel = new Label("Please enter your new rating ....");
-        instructionLabel.setLayoutX(75);
-        instructionLabel.setLayoutY(125);
-
-        Label notifLabel = new Label();
-        notifLabel.setLayoutX(75);
-        notifLabel.setLayoutY(210);
-        notifLabel.setFont(new Font(10));
-        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
-
-        Button submitBtn = new Button("Submit");
-        submitBtn.setLayoutX(75);
-        submitBtn.setLayoutY(170);
-        submitBtn.setPrefWidth(80);
-        submitBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Rating submited !!!");
-            }
-        });
-        submitBtn.setStyle(buttonStyle);
-        submitBtn.setTextFill(Color.rgb(57,115,157));
-
-        Button backBtn = new Button("Back");
-        backBtn.setLayoutX(178);
-        backBtn.setLayoutY(170);
-        backBtn.setPrefWidth(80);
-        backBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadRatingsForFoodForUserScreen(primaryStage);
-            }
-        });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
-        Slider ratingSlider = new Slider();
-        ratingSlider.setLayoutX(313);
-        ratingSlider.setLayoutY(125);
-        ratingSlider.setMax(5);
-        ratingSlider.setPrefSize(200,20);
-
-        Label ratingRangeLabel = new Label("0 ............... 1 ............... 2 ............... 3 ............... 4 ............... 5");
-        ratingRangeLabel.setLayoutX(330);
-        ratingRangeLabel.setLayoutY(143);
-        ratingRangeLabel.setFont(new Font(8));
-
-        pane45.getChildren().addAll(addRatingLabel, instructionLabel, notifLabel, submitBtn, backBtn, ratingSlider, ratingRangeLabel);
-
-        Scene scene = new Scene(pane45, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public void loadEditRatingForFoodForUserScreen(Stage primaryStage){
-        Pane pane46 = new Pane();
-
-        Label editRatingLabel = new Label("Edit Rating");
-        editRatingLabel.setLayoutX(75);
-        editRatingLabel.setLayoutY(60);
-        editRatingLabel.setFont(new Font(20));
-
-        Label currentRatingLabel = new Label("current rating : rating");
-        currentRatingLabel.setLayoutX(75);
-        currentRatingLabel.setLayoutY(175);
-
-        Label instructionLabel = new Label("You can enter new rating ...");
-        instructionLabel.setLayoutX(75);
-        instructionLabel.setLayoutY(125);
-
-        Label notifLabel = new Label();
-        notifLabel.setLayoutX(75);
-        notifLabel.setLayoutY(310);
-        notifLabel.setFont(new Font(10));
-        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
-
-        Button confirmBtn = new Button("Confirm");
-        confirmBtn.setLayoutX(75);
-        confirmBtn.setLayoutY(270);
-        confirmBtn.setPrefWidth(80);
-        confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Rating successfully edited !!!");
-                currentRatingLabel.setText("current rating : new rating");
-            }
-        });
-        confirmBtn.setStyle(buttonStyle);
-        confirmBtn.setTextFill(Color.rgb(57,115,157));
-
-        Button backBtn = new Button("Back");
-        backBtn.setLayoutX(195);
-        backBtn.setLayoutY(270);
-        backBtn.setPrefWidth(80);
-        backBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadRatingsForFoodForUserScreen(primaryStage);
-            }
-        });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
-        Slider ratingSlider = new Slider();
-        ratingSlider.setLayoutX(75);
-        ratingSlider.setLayoutY(220);
-        ratingSlider.setMax(5);
-        ratingSlider.setPrefSize(200,20);
-
-        Label ratingRangeLabel = new Label("0 ............... 1 ............... 2 ............... 3 ............... 4 ............... 5");
-        ratingRangeLabel.setLayoutX(90);
-        ratingRangeLabel.setLayoutY(235);
-        ratingRangeLabel.setFont(new Font(8));
-
-        pane46.getChildren().addAll(editRatingLabel, currentRatingLabel, instructionLabel, notifLabel, confirmBtn, backBtn, ratingSlider, ratingRangeLabel);
-
-        Scene scene = new Scene(pane46, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public void loadCommentsForRestaurantForUserScreen(Stage primaryStage){
-        Pane pane47 = new Pane();
-
-        ListView<String> commentsListView = new ListView<>();
-        commentsListView.setLayoutX(200);
-        commentsListView.setLayoutY(75);
-        commentsListView.setPrefSize(375, 250);
-
-        TextField commentIdTextField = new TextField();
-        commentIdTextField.setLayoutX(25);
-        commentIdTextField.setLayoutY(145);
-        commentIdTextField.setPrefSize(150, 25);
-        commentIdTextField.setPromptText("comment ID");
-
-        Button addCommentBtn = new Button("Add new comments");
-        addCommentBtn.setLayoutX(25);
-        addCommentBtn.setLayoutY(225);
-        addCommentBtn.setPrefSize(150, 20);
-        addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadAddCommentForRestaurantForUserScreen(primaryStage);
-            }
-        });
-        addCommentBtn.setStyle(buttonStyle);
-        addCommentBtn.setTextFill(Color.rgb(57,115,157));
-
-        Label editCommentIdLabel = new Label("Please enter comment ID to edit ");
-        editCommentIdLabel.setLayoutX(25);
-        editCommentIdLabel.setLayoutY(120);
-        editCommentIdLabel.setPrefSize(150, 25);
-        editCommentIdLabel.setFont(new Font(10));
-
-        Button editCommentBtn = new Button("Edit comments");
-        editCommentBtn.setLayoutX(25);
-        editCommentBtn.setLayoutY(185);
-        editCommentBtn.setPrefSize(150, 25);
-        editCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadEditCommentForRestaurantForUserScreen(primaryStage);
-            }
-        });
-        editCommentBtn.setStyle(buttonStyle);
-        editCommentBtn.setTextFill(Color.rgb(57,115,157));
-
-        Label selectedCommentLabel = new Label("comment must print here with id and userId");
-        selectedCommentLabel.setLayoutX(271);
-        selectedCommentLabel.setLayoutY(192);
-
-        Label commentsLabel = new Label("COMMENTS");
-        commentsLabel.setLayoutX(25);
-        commentsLabel.setLayoutY(80);
-        commentsLabel.setFont(new Font(20));
-
-        Button backBtn = new Button("Back");
-        backBtn.setLayoutX(25);
-        backBtn.setLayoutY(265);
-        backBtn.setPrefWidth(150);
-        backBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                loadRestaurantForUserScreen(primaryStage);
-            }
-        });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
-        pane47.getChildren().addAll(commentsListView, commentIdTextField, addCommentBtn, editCommentIdLabel, editCommentBtn, selectedCommentLabel,
-                commentsLabel, backBtn);
+        pane47.getChildren().addAll(commentsListView, commentIdTextField, addCommentBtn, editCommentIdLabel, editCommentBtn,
+                commentsLabel, backBtn, errorLabel);
 
         Scene scene = new Scene(pane47, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadAddCommentForRestaurantForUserScreen(Stage primaryStage){
+    public void loadAddCommentForFoodForUserScreen(Stage primaryStage) {
         Pane pane48 = new Pane();
 
         Label addCommentLabel = new Label("ADD NEW COMMENTS");
@@ -4353,11 +4433,10 @@ public class Main extends Application {
         addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Comments added successfully !!!");
+                Functions.addFoodComment(staticArrayLists,newCommentTextField.getText());
+                notifLabel.setText("Thanks for your oponion :)");
             }
         });
-        addCommentBtn.setStyle(buttonStyle);
-        addCommentBtn.setTextFill(Color.rgb(57,115,157));
 
         Button backBtn = new Button("Back");
         backBtn.setLayoutX(185);
@@ -4366,11 +4445,9 @@ public class Main extends Application {
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadCommentsForRestaurantForUserScreen(primaryStage);
+                loadCommentsForFoodForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
 
         pane48.getChildren().addAll(addCommentLabel, enterCommentLabel, notifLabel, newCommentTextField, addCommentBtn, backBtn);
 
@@ -4379,7 +4456,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void loadEditCommentForRestaurantForUserScreen(Stage primaryStage){
+    public void loadEditCommentForFoodForUserScreen(Stage primaryStage,Comment comment) {
         Pane pane49 = new Pane();
 
         Label editCommentLabel = new Label("Edit Comment");
@@ -4387,7 +4464,7 @@ public class Main extends Application {
         editCommentLabel.setLayoutY(60);
         editCommentLabel.setFont(new Font(20));
 
-        Label currentCommentLabel = new Label("current comment : comment");
+        Label currentCommentLabel = new Label("current comment : " + comment.comment);
         currentCommentLabel.setLayoutX(75);
         currentCommentLabel.setLayoutY(175);
 
@@ -4414,12 +4491,11 @@ public class Main extends Application {
         confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                comment.comment = newCommentTextField.getText();
                 notifLabel.setText("Comment successfully edited !!!");
-                currentCommentLabel.setText("current comment : new comment");
+                currentCommentLabel.setText("current comment : " + comment.comment);
             }
         });
-        confirmBtn.setStyle(buttonStyle);
-        confirmBtn.setTextFill(Color.rgb(57,115,157));
 
         Button backBtn = new Button("Back");
         backBtn.setLayoutX(195);
@@ -4428,11 +4504,9 @@ public class Main extends Application {
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadCommentsForRestaurantForUserScreen(primaryStage);
+                loadCommentsForFoodForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
 
         pane49.getChildren().addAll(editCommentLabel, currentCommentLabel, notifLabel, newCommentTextField, instructionLabel, confirmBtn, backBtn);
 
@@ -4441,17 +4515,24 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void loadRatingsForRestaurantForUserScreen(Stage primaryStage){
+    public void loadRatingsForFoodForUserScreen(Stage primaryStage) {
         Pane pane50 = new Pane();
+        User user = (User)Role.loggedInRole;
 
         Label addRatingLabel = new Label("ADD NEW RATINGS");
         addRatingLabel.setLayoutX(85);
         addRatingLabel.setLayoutY(70);
         addRatingLabel.setFont(new Font(20));
 
-        Label currentRatingLabel = new Label("Restaurant current rating : rating");
+        Label currentRatingLabel = new Label("Food current rating : " + Food.selectedFoodForUser.getRating());
         currentRatingLabel.setLayoutX(85);
-        currentRatingLabel.setLayoutY(125);
+        currentRatingLabel.setLayoutY(115);
+
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(85);
+        errorLabel.setLayoutY(130);
+        errorLabel.setFont(new Font(10));
+        errorLabel.setTextFill(Color.RED);
 
         Button addRatingBtn = new Button("Add new rating");
         addRatingBtn.setLayoutX(85);
@@ -4460,11 +4541,13 @@ public class Main extends Application {
         addRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadSubmitRatingForRestaurantForUserScreen(primaryStage);
+                int k = Functions.getFoodRating(user);
+                if (k != -1)
+                    errorLabel.setText("You have already rated this food");
+                else
+                    loadSubmitRatingForFoodForUserScreen(primaryStage);
             }
         });
-        addRatingBtn.setStyle(buttonStyle);
-        addRatingBtn.setTextFill(Color.rgb(57,115,157));
 
         Button editRatingBtn = new Button("Edit rating");
         editRatingBtn.setLayoutX(85);
@@ -4473,11 +4556,13 @@ public class Main extends Application {
         editRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadEditRatingForRestaurantForUserScreen(primaryStage);
+                int k = Functions.getFoodRating(user);
+                if (k == -1)
+                    errorLabel.setText("You should submit rating first !!!");
+                else
+                    loadEditRatingForFoodForUserScreen(primaryStage, Food.selectedFoodForUser.foodRatingsArrayList.get(k));
             }
         });
-        editRatingBtn.setStyle(buttonStyle);
-        editRatingBtn.setTextFill(Color.rgb(57,115,157));
 
         Button backBtn = new Button("Back");
         backBtn.setLayoutX(85);
@@ -4486,34 +4571,34 @@ public class Main extends Application {
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRestaurantForUserScreen(primaryStage);
+                loadFoodForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
 
         ListView<String> ratingsListView = new ListView<>();
         ratingsListView.setLayoutX(250);
         ratingsListView.setLayoutY(170);
         ratingsListView.setPrefWidth(260);
         ratingsListView.setPrefHeight(150);
+        ratingsListView.getItems().addAll(Functions.showFoodRatings());
 
-        pane50.getChildren().addAll(addRatingLabel, currentRatingLabel, addRatingBtn, editRatingBtn, backBtn, ratingsListView);
+        pane50.getChildren().addAll(addRatingLabel, currentRatingLabel, addRatingBtn, editRatingBtn, backBtn, ratingsListView, errorLabel);
 
         Scene scene = new Scene(pane50, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void loadSubmitRatingForRestaurantForUserScreen(Stage primaryStage){
+    public void loadSubmitRatingForFoodForUserScreen(Stage primaryStage) {
         Pane pane51 = new Pane();
+        User user = (User)Role.loggedInRole;
 
         Label addRatingLabel = new Label("ADD NEW RATING");
         addRatingLabel.setLayoutX(75);
         addRatingLabel.setLayoutY(60);
         addRatingLabel.setFont(new Font(20));
 
-        Label instructionLabel = new Label("Please enter your new rating ....");
+        Label instructionLabel = new Label("Please submit your new rating ....");
         instructionLabel.setLayoutX(75);
         instructionLabel.setLayoutY(125);
 
@@ -4523,6 +4608,12 @@ public class Main extends Application {
         notifLabel.setFont(new Font(10));
         notifLabel.setTextFill(javafx.scene.paint.Color.RED);
 
+        Slider ratingSlider = new Slider();
+        ratingSlider.setLayoutX(313);
+        ratingSlider.setLayoutY(125);
+        ratingSlider.setMax(5);
+        ratingSlider.setPrefSize(200, 20);
+
         Button submitBtn = new Button("Submit");
         submitBtn.setLayoutX(75);
         submitBtn.setLayoutY(170);
@@ -4530,11 +4621,14 @@ public class Main extends Application {
         submitBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                Food.selectedFoodForUser.foodRatingsArrayList.add(new Rating());
+                Food.selectedFoodForUser.foodRatingsArrayList.get(Food.selectedFoodForUser.foodRatingsArrayList.size()-1).rating = ratingSlider.getValue();
+                Food.selectedFoodForUser.foodRatingsArrayList.get(Food.selectedFoodForUser.foodRatingsArrayList.size()-1).ratingID = Functions.setID("rating",staticArrayLists);
+                Food.selectedFoodForUser.foodRatingsArrayList.get(Food.selectedFoodForUser.foodRatingsArrayList.size()-1).ratedUser = user;
+                ratingSlider.setDisable(true);
                 notifLabel.setText("Rating submited !!!");
             }
         });
-        submitBtn.setStyle(buttonStyle);
-        submitBtn.setTextFill(Color.rgb(57,115,157));
 
         Button backBtn = new Button("Back");
         backBtn.setLayoutX(178);
@@ -4543,17 +4637,9 @@ public class Main extends Application {
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                loadRatingsForRestaurantForUserScreen(primaryStage);
+                loadRatingsForFoodForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
-        Slider ratingSlider = new Slider();
-        ratingSlider.setLayoutX(313);
-        ratingSlider.setLayoutY(125);
-        ratingSlider.setMax(5);
-        ratingSlider.setPrefSize(200,20);
 
         Label ratingRangeLabel = new Label("0 ............... 1 ............... 2 ............... 3 ............... 4 ............... 5");
         ratingRangeLabel.setLayoutX(330);
@@ -4567,7 +4653,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void loadEditRatingForRestaurantForUserScreen(Stage primaryStage){
+    public void loadEditRatingForFoodForUserScreen(Stage primaryStage,Rating rating) {
         Pane pane52 = new Pane();
 
         Label editRatingLabel = new Label("Edit Rating");
@@ -4575,11 +4661,217 @@ public class Main extends Application {
         editRatingLabel.setLayoutY(60);
         editRatingLabel.setFont(new Font(20));
 
-        Label currentRatingLabel = new Label("current rating : rating");
+        Label currentRatingLabel = new Label("current rating : " + rating.rating);
         currentRatingLabel.setLayoutX(75);
         currentRatingLabel.setLayoutY(175);
 
-        Label instructionLabel = new Label("You can enter new rating ...");
+        Label instructionLabel = new Label("You can submit your new rating ...");
+        instructionLabel.setLayoutX(75);
+        instructionLabel.setLayoutY(125);
+
+        Label notifLabel = new Label();
+        notifLabel.setLayoutX(75);
+        notifLabel.setLayoutY(310);
+        notifLabel.setFont(new Font(10));
+        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+
+        Slider ratingSlider = new Slider();
+        ratingSlider.setLayoutX(75);
+        ratingSlider.setLayoutY(220);
+        ratingSlider.setMax(5);
+        ratingSlider.setPrefSize(200, 20);
+
+        Button confirmBtn = new Button("Confirm");
+        confirmBtn.setLayoutX(75);
+        confirmBtn.setLayoutY(270);
+        confirmBtn.setPrefWidth(80);
+        confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                rating.rating = ratingSlider.getValue();
+                notifLabel.setText("Rating successfully edited !!!");
+                currentRatingLabel.setText("current rating : " + rating.rating);
+            }
+        });
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(195);
+        backBtn.setLayoutY(270);
+        backBtn.setPrefWidth(80);
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadRatingsForFoodForUserScreen(primaryStage);
+            }
+        });
+
+        Label ratingRangeLabel = new Label("0 ............... 1 ............... 2 ............... 3 ............... 4 ............... 5");
+        ratingRangeLabel.setLayoutX(90);
+        ratingRangeLabel.setLayoutY(235);
+        ratingRangeLabel.setFont(new Font(8));
+
+        pane52.getChildren().addAll(editRatingLabel, currentRatingLabel, instructionLabel, notifLabel, confirmBtn, backBtn, ratingSlider, ratingRangeLabel);
+
+        Scene scene = new Scene(pane52, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void loadCommentsForRestaurantForUserScreen(Stage primaryStage) {
+        Restaurant restaurant = Restaurant.loggedInRestaurantForUser;
+        Pane pane47 = new Pane();
+
+        ListView<String> commentsListView = new ListView<>();
+        commentsListView.setLayoutX(200);
+        commentsListView.setLayoutY(75);
+        commentsListView.setPrefSize(375, 250);
+        commentsListView.getItems().addAll(Functions.showRestaurantComments(restaurant));
+
+        TextField commentIdTextField = new TextField();
+        commentIdTextField.setLayoutX(25);
+        commentIdTextField.setLayoutY(145);
+        commentIdTextField.setPrefSize(150, 25);
+        commentIdTextField.setPromptText("comment ID");
+
+        Button addCommentBtn = new Button("Add new comments");
+        addCommentBtn.setLayoutX(25);
+        addCommentBtn.setLayoutY(225);
+        addCommentBtn.setPrefSize(150, 20);
+        addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadAddCommentForRestaurantForUserScreen(primaryStage);
+            }
+        });
+
+        Label editCommentIdLabel = new Label("Please enter comment ID to edit ");
+        editCommentIdLabel.setLayoutX(25);
+        editCommentIdLabel.setLayoutY(120);
+        editCommentIdLabel.setPrefSize(150, 25);
+        editCommentIdLabel.setFont(new Font(10));
+
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(25);
+        errorLabel.setLayoutY(300);
+        errorLabel.setFont(new Font(10));
+        errorLabel.setTextFill(Color.RED);
+
+        Button editCommentBtn = new Button("Edit comments");
+        editCommentBtn.setLayoutX(25);
+        editCommentBtn.setLayoutY(185);
+        editCommentBtn.setPrefSize(150, 25);
+        editCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                int k = Functions.editRestaurantComment(commentIdTextField.getText());
+                if (k == -1)
+                    errorLabel.setText("Comment not found !!!");
+                else {
+                    if (Role.loggedInRole.equals(Restaurant.loggedInRestaurantForUser.restaurantCommentsArrayList.get(k).commentedUser))
+                        loadEditCommentForRestaurantForUserScreen(primaryStage,restaurant.restaurantCommentsArrayList.get(k));
+                    else
+                        errorLabel.setText("This comment is Not yours !!!");
+                }
+            }
+        });
+
+        Label commentsLabel = new Label("COMMENTS");
+        commentsLabel.setLayoutX(25);
+        commentsLabel.setLayoutY(80);
+        commentsLabel.setFont(new Font(20));
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(25);
+        backBtn.setLayoutY(265);
+        backBtn.setPrefWidth(150);
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadRestaurantForUserScreen(primaryStage);
+            }
+        });
+
+        pane47.getChildren().addAll(commentsListView, commentIdTextField, addCommentBtn, editCommentIdLabel, editCommentBtn,
+                commentsLabel, backBtn, errorLabel);
+
+        Scene scene = new Scene(pane47, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void loadAddCommentForRestaurantForUserScreen(Stage primaryStage) {
+        Pane pane48 = new Pane();
+
+        Label addCommentLabel = new Label("ADD NEW COMMENTS");
+        addCommentLabel.setLayoutX(75);
+        addCommentLabel.setLayoutY(60);
+        addCommentLabel.setFont(new Font(20));
+
+        Label enterCommentLabel = new Label("Please enter your new comments ....");
+        enterCommentLabel.setLayoutX(75);
+        enterCommentLabel.setLayoutY(125);
+
+        TextField newCommentTextField = new TextField();
+        newCommentTextField.setLayoutX(75);
+        newCommentTextField.setLayoutY(170);
+        newCommentTextField.setPrefWidth(190);
+        newCommentTextField.setPromptText("new comments");
+
+        Label notifLabel = new Label();
+        notifLabel.setLayoutX(75);
+        notifLabel.setLayoutY(260);
+        notifLabel.setFont(new Font(10));
+        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+
+        Button addCommentBtn = new Button("Add");
+        addCommentBtn.setLayoutX(75);
+        addCommentBtn.setLayoutY(220);
+        addCommentBtn.setPrefWidth(80);
+        addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Functions.addRestaurantComment(staticArrayLists,newCommentTextField.getText());
+                notifLabel.setText("Thanks for your oponion :)");
+            }
+        });
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(185);
+        backBtn.setLayoutY(220);
+        backBtn.setPrefWidth(80);
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadCommentsForRestaurantForUserScreen(primaryStage);
+            }
+        });
+
+        pane48.getChildren().addAll(addCommentLabel, enterCommentLabel, notifLabel, newCommentTextField, addCommentBtn, backBtn);
+
+        Scene scene = new Scene(pane48, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void loadEditCommentForRestaurantForUserScreen(Stage primaryStage,Comment comment) {
+        Pane pane49 = new Pane();
+
+        Label editCommentLabel = new Label("Edit Comment");
+        editCommentLabel.setLayoutX(75);
+        editCommentLabel.setLayoutY(60);
+        editCommentLabel.setFont(new Font(20));
+
+        Label currentCommentLabel = new Label("current comment : " + comment.comment);
+        currentCommentLabel.setLayoutX(75);
+        currentCommentLabel.setLayoutY(175);
+
+        TextField newCommentTextField = new TextField();
+        newCommentTextField.setLayoutX(75);
+        newCommentTextField.setLayoutY(215);
+        newCommentTextField.setPrefWidth(200);
+        newCommentTextField.setPromptText("new comment");
+
+        Label instructionLabel = new Label("You can enter new comment on the fields and click confirm to set");
         instructionLabel.setLayoutX(75);
         instructionLabel.setLayoutY(125);
 
@@ -4596,12 +4888,212 @@ public class Main extends Application {
         confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                notifLabel.setText("Rating successfully edited !!!");
-                currentRatingLabel.setText("current rating : new rating");
+                comment.comment = newCommentTextField.getText();
+                notifLabel.setText("Comment successfully edited !!!");
+                currentCommentLabel.setText("current comment : " + comment.comment);
             }
         });
-        confirmBtn.setStyle(buttonStyle);
-        confirmBtn.setTextFill(Color.rgb(57,115,157));
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(195);
+        backBtn.setLayoutY(270);
+        backBtn.setPrefWidth(80);
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadCommentsForRestaurantForUserScreen(primaryStage);
+            }
+        });
+
+        pane49.getChildren().addAll(editCommentLabel, currentCommentLabel, notifLabel, newCommentTextField, instructionLabel, confirmBtn, backBtn);
+
+        Scene scene = new Scene(pane49, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void loadRatingsForRestaurantForUserScreen(Stage primaryStage) {
+        Pane pane50 = new Pane();
+        Restaurant restaurant = Restaurant.loggedInRestaurantForUser;
+        User user = (User)Role.loggedInRole;
+
+        Label addRatingLabel = new Label("ADD NEW RATINGS");
+        addRatingLabel.setLayoutX(85);
+        addRatingLabel.setLayoutY(70);
+        addRatingLabel.setFont(new Font(20));
+
+        Label currentRatingLabel = new Label("Restaurant current rating : " + restaurant.getRating());
+        currentRatingLabel.setLayoutX(85);
+        currentRatingLabel.setLayoutY(115);
+
+        Label errorLabel = new Label();
+        errorLabel.setLayoutX(85);
+        errorLabel.setLayoutY(130);
+        errorLabel.setFont(new Font(10));
+        errorLabel.setTextFill(Color.RED);
+
+        Button addRatingBtn = new Button("Add new rating");
+        addRatingBtn.setLayoutX(85);
+        addRatingBtn.setLayoutY(185);
+        addRatingBtn.setPrefWidth(100);
+        addRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                int k = Functions.getRestaurantRating(user,restaurant);
+                if (k != -1)
+                    errorLabel.setText("You have already rated this restaurant");
+                else
+                    loadSubmitRatingForRestaurantForUserScreen(primaryStage);
+            }
+        });
+
+        Button editRatingBtn = new Button("Edit rating");
+        editRatingBtn.setLayoutX(85);
+        editRatingBtn.setLayoutY(220);
+        editRatingBtn.setPrefWidth(100);
+        editRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                int k = Functions.getRestaurantRating(user,restaurant);
+                if (k == -1)
+                    errorLabel.setText("You should submit rating first ...");
+                else
+                    loadEditRatingForRestaurantForUserScreen(primaryStage,restaurant.restaurantRatingsArrayList.get(k));
+            }
+        });
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(85);
+        backBtn.setLayoutY(255);
+        backBtn.setPrefWidth(100);
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadRestaurantForUserScreen(primaryStage);
+            }
+        });
+
+        ListView<String> ratingsListView = new ListView<>();
+        ratingsListView.setLayoutX(250);
+        ratingsListView.setLayoutY(170);
+        ratingsListView.setPrefWidth(260);
+        ratingsListView.setPrefHeight(150);
+        ratingsListView.getItems().addAll(Functions.showRestaurantRatings(Restaurant.loggedInRestaurantForUser));
+
+        pane50.getChildren().addAll(addRatingLabel, currentRatingLabel, addRatingBtn, editRatingBtn, backBtn, ratingsListView, errorLabel);
+
+        Scene scene = new Scene(pane50, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void loadSubmitRatingForRestaurantForUserScreen(Stage primaryStage) {
+        Pane pane51 = new Pane();
+        Restaurant restaurant = Restaurant.loggedInRestaurantForUser;
+        User user = (User)Role.loggedInRole;
+
+        Label addRatingLabel = new Label("ADD NEW RATING");
+        addRatingLabel.setLayoutX(75);
+        addRatingLabel.setLayoutY(60);
+        addRatingLabel.setFont(new Font(20));
+
+        Label instructionLabel = new Label("Please submit your new rating ....");
+        instructionLabel.setLayoutX(75);
+        instructionLabel.setLayoutY(125);
+
+        Label notifLabel = new Label();
+        notifLabel.setLayoutX(75);
+        notifLabel.setLayoutY(210);
+        notifLabel.setFont(new Font(10));
+        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+
+        Slider ratingSlider = new Slider();
+        ratingSlider.setLayoutX(313);
+        ratingSlider.setLayoutY(125);
+        ratingSlider.setMax(5);
+        ratingSlider.setPrefSize(200, 20);
+
+        Button submitBtn = new Button("Submit");
+        submitBtn.setLayoutX(75);
+        submitBtn.setLayoutY(170);
+        submitBtn.setPrefWidth(80);
+        submitBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                restaurant.restaurantRatingsArrayList.add(new Rating());
+                restaurant.restaurantRatingsArrayList.get(restaurant.restaurantRatingsArrayList.size()-1).rating = ratingSlider.getValue();
+                restaurant.restaurantRatingsArrayList.get(restaurant.restaurantRatingsArrayList.size()-1).ratingID = Functions.setID("rating",staticArrayLists);
+                restaurant.restaurantRatingsArrayList.get(restaurant.restaurantRatingsArrayList.size()-1).ratedUser = user;
+                ratingSlider.setDisable(true);
+                notifLabel.setText("Rating submited !!!");
+            }
+        });
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(178);
+        backBtn.setLayoutY(170);
+        backBtn.setPrefWidth(80);
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadRatingsForRestaurantForUserScreen(primaryStage);
+            }
+        });
+
+        Label ratingRangeLabel = new Label("0 ............... 1 ............... 2 ............... 3 ............... 4 ............... 5");
+        ratingRangeLabel.setLayoutX(330);
+        ratingRangeLabel.setLayoutY(143);
+        ratingRangeLabel.setFont(new Font(8));
+
+        pane51.getChildren().addAll(addRatingLabel, instructionLabel, notifLabel, submitBtn, backBtn, ratingSlider, ratingRangeLabel);
+
+        Scene scene = new Scene(pane51, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void loadEditRatingForRestaurantForUserScreen(Stage primaryStage,Rating rating) {
+        Pane pane52 = new Pane();
+        Restaurant restaurant = Restaurant.loggedInRestaurantForUser;
+        User user = (User)Role.loggedInRole;
+
+        Label editRatingLabel = new Label("Edit Rating");
+        editRatingLabel.setLayoutX(75);
+        editRatingLabel.setLayoutY(60);
+        editRatingLabel.setFont(new Font(20));
+
+        Label currentRatingLabel = new Label("current rating : " + rating.rating);
+        currentRatingLabel.setLayoutX(75);
+        currentRatingLabel.setLayoutY(175);
+
+        Label instructionLabel = new Label("You can submit your new rating ...");
+        instructionLabel.setLayoutX(75);
+        instructionLabel.setLayoutY(125);
+
+        Label notifLabel = new Label();
+        notifLabel.setLayoutX(75);
+        notifLabel.setLayoutY(310);
+        notifLabel.setFont(new Font(10));
+        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+
+        Slider ratingSlider = new Slider();
+        ratingSlider.setLayoutX(75);
+        ratingSlider.setLayoutY(220);
+        ratingSlider.setMax(5);
+        ratingSlider.setPrefSize(200, 20);
+
+        Button confirmBtn = new Button("Confirm");
+        confirmBtn.setLayoutX(75);
+        confirmBtn.setLayoutY(270);
+        confirmBtn.setPrefWidth(80);
+        confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                rating.rating = ratingSlider.getValue();
+                notifLabel.setText("Rating successfully edited !!!");
+                currentRatingLabel.setText("current rating : " + rating.rating);
+            }
+        });
 
         Button backBtn = new Button("Back");
         backBtn.setLayoutX(195);
@@ -4613,14 +5105,6 @@ public class Main extends Application {
                 loadRatingsForRestaurantForUserScreen(primaryStage);
             }
         });
-        backBtn.setStyle(buttonStyle);
-        backBtn.setTextFill(Color.rgb(57,115,157));
-
-        Slider ratingSlider = new Slider();
-        ratingSlider.setLayoutX(75);
-        ratingSlider.setLayoutY(220);
-        ratingSlider.setMax(5);
-        ratingSlider.setPrefSize(200,20);
 
         Label ratingRangeLabel = new Label("0 ............... 1 ............... 2 ............... 3 ............... 4 ............... 5");
         ratingRangeLabel.setLayoutX(90);
@@ -4634,8 +5118,29 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    public static void serializeObjects(StaticArrayLists staticArrayLists) {
+        try {
+            FileOutputStream fileout = new FileOutputStream("F:\\CP Projects\\OOP\\Phase2\\src\\StaticArrayLists.txt");
+            ObjectOutputStream out = new ObjectOutputStream(fileout);
+            out.writeObject(staticArrayLists);
+            out.close();
+            fileout.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) {
+        try {
+            FileInputStream fileIn = new FileInputStream("F:\\CP Projects\\OOP\\Phase2\\src\\StaticArrayLists.txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            staticArrayLists = (StaticArrayLists) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("DeSerialize failed !");
+        }
         loadWellcomeScreen(primaryStage);
     }
 }
