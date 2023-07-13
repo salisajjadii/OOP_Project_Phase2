@@ -383,7 +383,7 @@ public class Functions implements Serializable {
             Order order = restaurant.restaurantOrders.get(i);
             String entry = (i + 1) + ". ";
             for (Food food : order.orderFoods) {
-                entry += "  " + food.number + " " + food.foodName + " * " + order.orderID + "\n";
+                entry += "  " + food.number + " " + food.foodName + " * " + order.orderID + "\t";
             }
             orderList.add(entry);
         }
@@ -396,10 +396,8 @@ public class Functions implements Serializable {
         for (int i = 0; i < restaurant.restaurantOrdersHistory.size(); i++) {
             Order order = restaurant.restaurantOrdersHistory.get(i);
             String entry = (i + 1) + ". ";
-            for (Food food : order.orderFoods) {
-                entry += "  " + food.foodName + " * " + food.foodID;
-                //System.out.println("  "+order.orderFoods.get(j).foodName+" * "+order.orderFoods.get(j).foodID);
-            }
+            for (Food food : order.orderFoods)
+                entry += "  " + food.number + food.foodName + " * " + food.foodID;
             orderHistory.add(entry);
         }
         return orderHistory;
@@ -410,7 +408,7 @@ public class Functions implements Serializable {
         User user = (User) Role.loggedInRole;
         for (int i = 0; i < user.userOrders.size(); i++) {
             Order order = user.userOrders.get(i);
-            String entry = (i + 1) + ". Restaurant : " + order.orderedRestaurant + " orderID : " + order.orderID;
+            String entry = (i + 1) + ". Restaurant : " + order.orderedRestaurant.restaurantName + " orderID : " + order.orderID;
             orderHistory.add(entry);
         }
         return orderHistory;
@@ -432,7 +430,7 @@ public class Functions implements Serializable {
         List<String> orderDetails = new ArrayList<>();
         int i = 1;
         for (Food food : order.orderFoods) {
-            String entry = i + ". " + food.foodName + " - " + food.foodCost;
+            String entry = i + ". " + food.number + food.foodName + " - " + food.foodCost + "$";
             i++;
             orderDetails.add(entry);
         }
@@ -715,7 +713,7 @@ public class Functions implements Serializable {
         List<String> orderDetails = new ArrayList<>();
         int i = 1;
         for (Food food : order.orderFoods) {
-            String entry = i + "- " + food.number + " " + food.foodName;
+            String entry = i + "- " + food.number + " " + food.foodName + " with the ID: " + food.foodID;
             orderDetails.add(entry);
         }
         return orderDetails;
@@ -749,7 +747,6 @@ public class Functions implements Serializable {
 
     public static String[] selectOrderForDelivery(StaticArrayLists staticArrayLists, String orderID, Map map) {
         String[] answer = {"false", ""};
-        //answer structure = {orderIdExistance,orderID}
         Delivery delivery = (Delivery) Role.loggedInRole;
         boolean orderExistance = false;
         int orderIndex = 0;
@@ -767,6 +764,7 @@ public class Functions implements Serializable {
             order.deliveryOfOrder = delivery;
             staticArrayLists.StaticOrderDelivery = order;
             delivery.activeOrderBoolean = true;
+            staticArrayLists.OrdersWithoutDeliveryArrayList.remove(order);
         }
         return answer;
     }

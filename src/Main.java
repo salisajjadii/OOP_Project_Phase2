@@ -2,7 +2,6 @@ import Functions.Functions;
 import Map.Map;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -1546,6 +1545,8 @@ public class Main extends Application {
         noticeLabel.setLayoutX(25.0);
         noticeLabel.setLayoutY(285.0);
         pane9.getChildren().add(noticeLabel);
+        noticeLabel.setFont(new Font(10));
+        noticeLabel.setTextFill(Color.RED);
 
         Button button1 = new Button();
         button1.setLayoutX(25.0);
@@ -1779,6 +1780,8 @@ public class Main extends Application {
         Label labelError = new Label();
         labelError.setLayoutX(25.0);
         labelError.setLayoutY(285.0);
+        labelError.setTextFill(Color.RED);
+        labelError.setFont(new Font(10));
         pane11.getChildren().add(labelError);
 
         Button editOrderButton = new Button();
@@ -1808,12 +1811,6 @@ public class Main extends Application {
                 }
             }
         });
-
-        Label label3 = new Label();
-        label3.setLayoutX(215.0);
-        label3.setLayoutY(197.0);
-        label3.setText("active orders must print here with ID and userID and restaurantID");
-        pane11.getChildren().add(label3);
 
         Label label4 = new Label();
         label4.setLayoutX(25.0);
@@ -1856,11 +1853,6 @@ public class Main extends Application {
         orderListView.getItems().addAll(Functions.showOrderHistory());
         orderListView.setPrefWidth(500.0);
 
-        Label orderDetailsLabel = new Label("order details must print here");
-        orderDetailsLabel.setContentDisplay(ContentDisplay.CENTER);
-        orderDetailsLabel.setLayoutX(224.0);
-        orderDetailsLabel.setLayoutY(209.0);
-
         Button backButton = new Button("Back");
         backButton.setLayoutX(470);
         backButton.setLayoutY(42);
@@ -1872,7 +1864,7 @@ public class Main extends Application {
             }
         });
 
-        pane12.getChildren().addAll(titleLabel, orderListView, orderDetailsLabel, backButton);
+        pane12.getChildren().addAll(titleLabel, orderListView, backButton);
 
         Scene scene = new Scene(pane12, 600, 400);
         primaryStage.setScene(scene);
@@ -1984,6 +1976,7 @@ public class Main extends Application {
         Button confirmBtn = new Button();
         confirmBtn.setLayoutX(50.0);
         confirmBtn.setLayoutY(305.0);
+        confirmBtn.setPrefWidth(80);
         confirmBtn.setText("Confirm");
         pane14.getChildren().add(confirmBtn);
         confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -2010,6 +2003,7 @@ public class Main extends Application {
         addBtn.setLayoutY(180.0);
         addBtn.setText("Add");
         pane14.getChildren().add(addBtn);
+        addBtn.setPrefWidth(80);
         addBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2028,6 +2022,7 @@ public class Main extends Application {
         backBtn.setLayoutY(305.0);
         backBtn.setText("Back");
         pane14.getChildren().add(backBtn);
+        backBtn.setPrefWidth(80);
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2708,9 +2703,13 @@ public class Main extends Application {
         editOrderLabel.setLayoutY(60);
         editOrderLabel.setFont(new Font(20));
 
-        Label currentDeliveryTimeLabel = new Label("Current delivery time : delivery time");
+        Label currentDeliveryTimeLabel = new Label("Current delivery time : " + order.deliveryTimeRemains);
         currentDeliveryTimeLabel.setLayoutX(75);
         currentDeliveryTimeLabel.setLayoutY(175);
+
+        Label currentOrderStatusLabel = new Label("Current order status : " + order.orderStatus.toString());
+        currentOrderStatusLabel.setLayoutX(330);
+        currentOrderStatusLabel.setLayoutY(175);
 
         TextField newDeliveryTimeTextField = new TextField();
         newDeliveryTimeTextField.setLayoutX(75);
@@ -2759,27 +2758,40 @@ public class Main extends Application {
                     if (!newDeliveryTimeTextField.getText().equals("") && toggleGroup.getSelectedToggle() == null) {
                         long time = Long.parseLong(newDeliveryTimeTextField.getText());
                         order.deliveryTimeRemains = time;
+                        currentDeliveryTimeLabel.setText("Current delivery time : " + order.deliveryTimeRemains);
                     } else if (newDeliveryTimeTextField.getText().equals("") && toggleGroup.getSelectedToggle() != null) {
                         if (toggleGroup.getSelectedToggle() == cookingRadioButton)
                             order.orderStatus = STATUS.COOKING;
-                        else if (toggleGroup.getSelectedToggle() == sentRadioButton)
+                        else if (toggleGroup.getSelectedToggle() == sentRadioButton) {
                             order.orderStatus = STATUS.SENT;
+                            Restaurant.loggedInRestaurantForAdmin.restaurantOrders.remove(order);
+                            Restaurant.loggedInRestaurantForAdmin.restaurantOrdersHistory.add(order);
+                            staticArrayLists.OrdersWithoutDeliveryArrayList.add(order);
+                        }
                         else if (toggleGroup.getSelectedToggle() == deliveredRadioButton)
                             order.orderStatus = STATUS.DELIVERED;
                         else if (toggleGroup.getSelectedToggle() == readyRadioButton)
                             order.orderStatus = STATUS.READYFORSENDING;
+                        currentOrderStatusLabel.setText("Current order status : " + order.orderStatus.toString());
                     } else {
                         long time = Long.parseLong(newDeliveryTimeTextField.getText());
                         order.deliveryTimeRemains = time;
 
                         if (toggleGroup.getSelectedToggle() == cookingRadioButton)
                             order.orderStatus = STATUS.COOKING;
-                        else if (toggleGroup.getSelectedToggle() == sentRadioButton)
+                        else if (toggleGroup.getSelectedToggle() == sentRadioButton) {
                             order.orderStatus = STATUS.SENT;
+                            Restaurant.loggedInRestaurantForAdmin.restaurantOrders.remove(order);
+                            Restaurant.loggedInRestaurantForAdmin.restaurantOrdersHistory.add(order);
+                            staticArrayLists.OrdersWithoutDeliveryArrayList.add(order);
+                        }
                         else if (toggleGroup.getSelectedToggle() == deliveredRadioButton)
                             order.orderStatus = STATUS.DELIVERED;
                         else if (toggleGroup.getSelectedToggle() == readyRadioButton)
                             order.orderStatus = STATUS.READYFORSENDING;
+
+                        currentDeliveryTimeLabel.setText("Current delivery time : " + order.deliveryTimeRemains);
+                        currentOrderStatusLabel.setText("Current order status : " + order.orderStatus.toString());
                     }
                 } else {
                     noticeLabel.setText("please enter at least one value !!! ");
@@ -2797,10 +2809,6 @@ public class Main extends Application {
                 loadOpenOrderScreen(primaryStage, Restaurant.loggedInRestaurantForAdmin.restaurantID);
             }
         });
-
-        Label currentOrderStatusLabel = new Label("Current order status : order status");
-        currentOrderStatusLabel.setLayoutX(330);
-        currentOrderStatusLabel.setLayoutY(175);
 
         pane23.getChildren().addAll(editOrderLabel, currentDeliveryTimeLabel, newDeliveryTimeTextField,
                 promptLabel, confirmButton, backButton, cookingRadioButton, sentRadioButton, deliveredRadioButton, readyRadioButton, currentOrderStatusLabel);
@@ -2841,7 +2849,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if (!newResponseTextField.getText().equals("")) {
-                    if (!comment.commentResponse.equals("")) {
+                    if (comment.commentResponse.equals("")) {
                         comment.commentResponse = newResponseTextField.getText();
                         notifLabel.setText("you responsed to this comment successfully !!!");
                     } else {
@@ -3330,6 +3338,8 @@ public class Main extends Application {
         Label noticeLabel = new Label();
         noticeLabel.setLayoutX(25.0);
         noticeLabel.setLayoutY(235.0);
+        noticeLabel.setTextFill(Color.RED);
+        noticeLabel.setFont(new Font(10));
 
         Button selectButton = new Button("Select");
         selectButton.setLayoutX(25.0);
@@ -3373,7 +3383,7 @@ public class Main extends Application {
         orderHistoryLabel.setFont(new Font(20.0));
 
         pane29.getChildren().addAll(orderListView, orderTextField, orderLabel, selectButton,
-                backButton, orderHistoryLabel);
+                backButton, orderHistoryLabel, noticeLabel);
 
         Scene scene = new Scene(pane29, 600, 400);
         primaryStage.setScene(scene);
@@ -3589,6 +3599,8 @@ public class Main extends Application {
         noticeLabel.setLayoutY(270.0);
         noticeLabel.setPrefWidth(150.0);
         noticeLabel.setPrefHeight(25.0);
+        noticeLabel.setFont(new Font(10));
+        noticeLabel.setTextFill(Color.RED);
 
         Button editButton = new Button("Edit");
         editButton.setLayoutX(25.0);
@@ -3636,6 +3648,8 @@ public class Main extends Application {
                     user.userCart.cartorders.get(k).orderStatus = STATUS.COOKING ;
                     user.userOrders.add(user.userCart.cartorders.get(k));
                     user.userCart.cartorders.remove(k) ;
+                    orderListView.getItems().addAll(Functions.showCartStatus((User) Role.loggedInRole));
+                    noticeLabel.setText("Order successfully confirmed !!!");
                 }
             }
         });
@@ -3668,7 +3682,7 @@ public class Main extends Application {
         orderLabel.setLayoutY(60.0);
         orderLabel.setFont(new Font(20.0));
 
-        Label orderedRestaurantLabel = new Label("orderedRestaurant:" + order.orderedRestaurant.restaurantName);
+        Label orderedRestaurantLabel = new Label("orderedRestaurant: " + order.orderedRestaurant.restaurantName);
         orderedRestaurantLabel.setLayoutX(200.0);
         orderedRestaurantLabel.setLayoutY(65.0);
 
@@ -3835,11 +3849,11 @@ public class Main extends Application {
 
         Separator separator1 = new Separator();
         separator1.setLayoutX(25.0);
-        separator1.setLayoutY(160.0);
+        separator1.setLayoutY(150.0);
         separator1.setPrefWidth(550.0);
         separator1.setPrefHeight(10.0);
 
-        Label deliveryLocationLabel = new Label("Delivery location");
+        Label deliveryLocationLabel = new Label("Delivery location: " + delivery.deliveryLocation);
         deliveryLocationLabel.setLayoutX(40.0);
         deliveryLocationLabel.setLayoutY(100.0);
         deliveryLocationLabel.setPrefWidth(145.0);
@@ -3859,7 +3873,7 @@ public class Main extends Application {
 
         Separator separator2 = new Separator();
         separator2.setLayoutX(25.0);
-        separator2.setLayoutY(245.0);
+        separator2.setLayoutY(235.0);
         separator2.setPrefWidth(550.0);
         separator2.setPrefHeight(10.0);
 
@@ -3879,16 +3893,26 @@ public class Main extends Application {
         row1.setPrefHeight(28.8);
         gridPane.getRowConstraints().add(row1);
 
-        Button showOrdersButton = new Button("Show Orders");
-        showOrdersButton.setPrefWidth(145.0);
-        showOrdersButton.setPrefHeight(50.0);
-        showOrdersButton.setFont(new Font(15.0));
-        GridPane.setConstraints(showOrdersButton, 0, 0);
+        Button showOrdersOrEndingDeliveryButton = new Button();
+        showOrdersOrEndingDeliveryButton.setPrefWidth(145.0);
+        showOrdersOrEndingDeliveryButton.setPrefHeight(50.0);
+        showOrdersOrEndingDeliveryButton.setFont(new Font(15.0));
+        GridPane.setConstraints(showOrdersOrEndingDeliveryButton, 0, 0);
 
         if (delivery.activeOrderBoolean) {
-            showOrdersButton.setDisable(true);
+            showOrdersOrEndingDeliveryButton.setText("End delivering");
+            showOrdersOrEndingDeliveryButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    delivery.activeOrderBoolean = false;
+                    delivery.deliveryOrdersHistory.add(delivery.activeOrder);
+                    delivery.activeOrder = null;
+                    loadDeliveryPanelScreen(primaryStage,deliverID);
+                }
+            });
         } else {
-            showOrdersButton.setOnAction(new EventHandler<ActionEvent>() {
+            showOrdersOrEndingDeliveryButton.setText("Show Orders");
+            showOrdersOrEndingDeliveryButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     loadConfirmOrderForDeliveryScreen(primaryStage);
@@ -3896,17 +3920,24 @@ public class Main extends Application {
             });
         }
 
-        Button pathToRestaurantButton = new Button("Path to restaurant");
-        pathToRestaurantButton.setPrefWidth(145.0);
-        pathToRestaurantButton.setPrefHeight(50.0);
-        pathToRestaurantButton.setFont(new Font(15.0));
-        GridPane.setConstraints(pathToRestaurantButton, 1, 0);
+        Button pathButton = new Button("Path");
+        pathButton.setPrefWidth(145.0);
+        pathButton.setPrefHeight(50.0);
+        pathButton.setFont(new Font(15.0));
+        GridPane.setConstraints(pathButton, 1, 0);
 
-        Button pathToUserButton = new Button("Path to user");
-        pathToUserButton.setPrefWidth(145.0);
-        pathToUserButton.setPrefHeight(50.0);
-        pathToUserButton.setFont(new Font(15.0));
-        GridPane.setConstraints(pathToUserButton, 2, 0);
+        Button editLocationButton = new Button("Edit location");
+        editLocationButton.setPrefWidth(145.0);
+        editLocationButton.setPrefHeight(50.0);
+        editLocationButton.setFont(new Font(15.0));
+        GridPane.setConstraints(editLocationButton, 2, 0);
+        editLocationButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadEditLocationForDeliveryScreen(primaryStage);
+            }
+        });
+
 
         Button logoutButton = new Button("LOGOUT");
         logoutButton.setPrefWidth(145.0);
@@ -3920,7 +3951,7 @@ public class Main extends Application {
             }
         });
 
-        gridPane.getChildren().addAll(showOrdersButton, pathToRestaurantButton, pathToUserButton, logoutButton);
+        gridPane.getChildren().addAll(showOrdersOrEndingDeliveryButton, pathButton, editLocationButton, logoutButton);
 
         pane36.getChildren().addAll(deliveryPanelLabel, separator1, deliveryLocationLabel, imageView, logoLabel, separator2, gridPane);
 
@@ -3993,7 +4024,10 @@ public class Main extends Application {
                         errorLabel1.setText("There is no order exist");
                         errorLabel2.setText("with this id !!!");
                     } else {
-                        // show path to restaurant
+                        listView.getItems().clear();
+                        listView.getItems().addAll(Functions.showOrdersListForDelivery(staticArrayLists));
+                        errorLabel1.setText("Successfully confirmed !!!");
+                        //show path to restaurant
                     }
                 } else {
                     errorLabel1.setText("Please enter order id");
@@ -4015,14 +4049,80 @@ public class Main extends Application {
             }
         });
 
-        Label ordersLabel = new Label("orders that should be delivered must print here with order ID and user location");
-        ordersLabel.setLayoutX(213.0);
-        ordersLabel.setLayoutY(193.0);
-        ordersLabel.setFont(new Font(10.0));
-
         pane37.getChildren().addAll(confirmOrderLabel, toConfirmLabel, listView, pleaseEnterOrderIdLabel,
-                orderIdTextField, confirmButton, backButton, ordersLabel, errorLabel1, errorLabel2);
+                orderIdTextField, confirmButton, backButton, errorLabel1, errorLabel2);
         Scene scene = new Scene(pane37, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void loadEditLocationForDeliveryScreen(Stage primaryStage) {
+        Pane pane31 = new Pane();
+        Delivery delivery = (Delivery) Role.loggedInRole;
+        Label titleLabel = new Label("EDIT LOCATION");
+        titleLabel.setFont(new Font(20));
+        titleLabel.setLayoutX(50);
+        titleLabel.setLayoutY(60);
+        pane31.getChildren().add(titleLabel);
+
+        Label locationLabel = new Label("Enter the new location");
+        locationLabel.setLayoutX(50);
+        locationLabel.setLayoutY(110);
+        pane31.getChildren().add(locationLabel);
+
+        TextField locationTextField = new TextField();
+        locationTextField.setLayoutX(50);
+        locationTextField.setLayoutY(140);
+        locationTextField.setPrefWidth(200);
+        locationTextField.setPrefHeight(25);
+        locationTextField.setPromptText("new location");
+        pane31.getChildren().add(locationTextField);
+
+        Label notifLabel = new Label();
+        notifLabel.setLayoutX(50.0);
+        notifLabel.setLayoutY(225.0);
+        notifLabel.setTextFill(javafx.scene.paint.Color.RED);
+        pane31.getChildren().add(notifLabel);
+
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setLayoutX(50);
+        confirmButton.setLayoutY(185);
+        confirmButton.setPrefSize(80, 20);
+        pane31.getChildren().add(confirmButton);
+        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (!locationTextField.getText().equals("")) {
+                    try {
+                        int location = Integer.parseInt(locationTextField.getText());
+                        if (location > 0 && location < 1000) {
+                            delivery.deliveryLocation = location;
+                            notifLabel.setText("New location successfully confirmed !!!");
+                        } else {
+                            notifLabel.setText("location must be a number between 0 and 1000 !!!");
+                        }
+                    } catch (Exception exception) {
+                        notifLabel.setText("please enter a number !!!");
+                    }
+                } else {
+                    notifLabel.setText("please enter a number !!!");
+                }
+            }
+        });
+
+        Button backButton = new Button("Back");
+        backButton.setLayoutX(170);
+        backButton.setLayoutY(185);
+        backButton.setPrefSize(80, 20);
+        pane31.getChildren().add(backButton);
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                loadDeliveryPanelScreen(primaryStage,delivery.deliveryID);
+            }
+        });
+
+        Scene scene = new Scene(pane31, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
