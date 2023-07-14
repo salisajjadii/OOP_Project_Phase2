@@ -43,6 +43,7 @@ public class Main extends Application {
         loginButton.setLayoutX(150);
         loginButton.setLayoutY(140);
         loginButton.setPrefSize(90, 35);
+        loginButton.setId("adminID");
         pane.getChildren().add(loginButton);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -56,6 +57,7 @@ public class Main extends Application {
         signUpButton.setLayoutX(255);
         signUpButton.setLayoutY(140);
         signUpButton.setPrefSize(90, 35);
+        signUpButton.setId("userID");
         pane.getChildren().add(signUpButton);
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -68,6 +70,7 @@ public class Main extends Application {
         exitButton.setFont(Font.font("Calibri", 18));
         exitButton.setLayoutX(360);
         exitButton.setLayoutY(140);
+        exitButton.setId("deliveryID");
         exitButton.setPrefSize(90, 35);
         pane.getChildren().add(exitButton);
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -85,7 +88,12 @@ public class Main extends Application {
         productLabel.setTextFill(javafx.scene.paint.Color.valueOf("#404040"));
         pane.getChildren().add(productLabel);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane.setBackground(new Background(myBackground));
+
         Scene scene = new Scene(pane, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -152,13 +160,16 @@ public class Main extends Application {
         String value = firstNumbr + secondNumbr + thirdNumbr + fourthNumbr;
 
         TextField textField = new TextField();
+        textField.setId("textfield");
         textField.setPrefWidth(150);
 
         Button buttonNext = new Button("Next");
         buttonNext.setPrefSize(80,20);
+        buttonNext.setId("userID");
 
         Button buttonBack = new Button("Back");
         buttonBack.setPrefSize(80,20);
+        buttonBack.setId("deliveryID");
 
         HBox hBoxOne = new HBox(0, firstImageView, secondImageView, thirdImageView, fourthImageView);
         hBoxOne.setAlignment(Pos.CENTER);
@@ -174,6 +185,7 @@ public class Main extends Application {
         captchaLabel.setFont(new Font(20));
         captchaLabel.setLayoutX(230);
         captchaLabel.setLayoutY(50);
+        captchaLabel.setId("fontWhite");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(130);
@@ -200,6 +212,11 @@ public class Main extends Application {
                 loadWellcomeScreen(primaryStage);
             }
         });
+
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane.setBackground(new Background(myBackground));
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -236,12 +253,15 @@ public class Main extends Application {
 
         TextField textField = new TextField();
         textField.setPrefWidth(150);
+        textField.setId("textfield");
 
         Button buttonNext = new Button("Next");
         buttonNext.setPrefSize(80,20);
+        buttonNext.setId("userID");
 
         Button buttonBack = new Button("Back");
         buttonBack.setPrefSize(80,20);
+        buttonBack.setId("deliveryID");
 
         HBox hBoxOne = new HBox(0, firstImageView, secondImageView, thirdImageView, fourthImageView);
         hBoxOne.setAlignment(Pos.CENTER);
@@ -257,6 +277,7 @@ public class Main extends Application {
         captchaLabel.setFont(new Font(20));
         captchaLabel.setLayoutX(230);
         captchaLabel.setLayoutY(50);
+        captchaLabel.setId("fontWhite");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(130);
@@ -266,6 +287,7 @@ public class Main extends Application {
 
         pane0.getChildren().addAll(hBoxOne,hboxTwo, notifLabel, captchaLabel);
         Scene scene = new Scene(pane0);
+        scene.getStylesheets().add("styles.css");
         buttonNext.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -283,6 +305,9 @@ public class Main extends Application {
                 loadWellcomeScreen(primaryStage);
             }
         });
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane0.setBackground(new Background(myBackground));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -294,14 +319,17 @@ public class Main extends Application {
         RadioButton asAdminRadioButton = new RadioButton("as Admin");
         asAdminRadioButton.setLayoutX(50);
         asAdminRadioButton.setLayoutY(100);
+        asAdminRadioButton.setId("fontWhite") ;
 
         RadioButton asUserRadioButton = new RadioButton("as User");
         asUserRadioButton.setLayoutX(50);
         asUserRadioButton.setLayoutY(130);
+        asUserRadioButton.setId("fontWhite") ;
 
         RadioButton asDeliveryRadioButton = new RadioButton("as Delivery");
         asDeliveryRadioButton.setLayoutX(50);
         asDeliveryRadioButton.setLayoutY(160);
+        asDeliveryRadioButton.setId("fontWhite") ;
 
         ToggleGroup toggleGroup1 = new ToggleGroup();
         asAdminRadioButton.setToggleGroup(toggleGroup1);
@@ -320,26 +348,31 @@ public class Main extends Application {
         usernameTextField.setLayoutY(110);
         usernameTextField.setPrefSize(180, 20);
         usernameTextField.setPromptText("Abcdefgh");
+        usernameTextField.setId("textfield");
 
         Label usernameLabel = new Label("Username:");
         usernameLabel.setLayoutX(198);
         usernameLabel.setLayoutY(112);
+        usernameLabel.setId("fontWhite");
 
         Label passwordLabel = new Label("Password:");
         passwordLabel.setLayoutX(198);
         passwordLabel.setLayoutY(153);
+        passwordLabel.setId("fontWhite");
 
         PasswordField passwordTextField = new PasswordField();
         passwordTextField.setLayoutX(280);
         passwordTextField.setLayoutY(150);
         passwordTextField.setPrefSize(180, 20);
         passwordTextField.setPromptText("Abcd1234");
+        passwordTextField.setId("textfield");
 
         Button forgetPassButton = new Button("Forget Pass");
         forgetPassButton.setLayoutX(280);
         forgetPassButton.setLayoutY(215);
         forgetPassButton.setPrefWidth(80);
         forgetPassButton.setPrefHeight(20);
+        forgetPassButton.setId("adminID");
         forgetPassButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -352,6 +385,7 @@ public class Main extends Application {
         backButton.setLayoutY(255);
         backButton.setPrefWidth(180);
         backButton.setPrefHeight(20);
+        backButton.setId("deliveryID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -365,23 +399,27 @@ public class Main extends Application {
         errorLabel.setPrefSize(178, 30);
         errorLabel.setTextFill(Color.RED);
         errorLabel.setFont(new Font("Calibri", 10));
+        errorLabel.setId("fontWhite");
 
         Label titleLabel = new Label("LOGIN PAGE");
         titleLabel.setLayoutY(30);
         titleLabel.setLayoutX(80);
         titleLabel.setFont(new Font(20));
+        titleLabel.setId("fontWhite");
 
         Label creditsLabel = new Label("Producted by Mahdi, MoMehdi, Seyedali");
         creditsLabel.setLayoutY(386);
         creditsLabel.setPrefSize(298, 17);
         creditsLabel.setTextFill(Color.rgb(64, 64, 64));
         creditsLabel.setFont(new Font(8));
+        creditsLabel.setId("fontWhite");
 
         Button loginButton = new Button("Login");
         loginButton.setLayoutX(380);
         loginButton.setLayoutY(215);
         loginButton.setPrefWidth(80);
         loginButton.setPrefHeight(20);
+        loginButton.setId("userID");
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -449,7 +487,11 @@ public class Main extends Application {
                 usernameLabel, passwordLabel, passwordTextField, loginButton, forgetPassButton, backButton,
                 asDeliveryRadioButton, errorLabel, titleLabel, creditsLabel);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane1.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane1);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -460,18 +502,21 @@ public class Main extends Application {
         RadioButton radioBtnAdmin = new RadioButton();
         radioBtnAdmin.setLayoutX(50.0);
         radioBtnAdmin.setLayoutY(100.0);
+        radioBtnAdmin.setId("fontWhite");
         radioBtnAdmin.setText("as Admin");
         pane3.getChildren().add(radioBtnAdmin);
 
         RadioButton radioBtnUser = new RadioButton();
         radioBtnUser.setLayoutX(50.0);
         radioBtnUser.setLayoutY(130.0);
+        radioBtnUser.setId("fontWhite");
         radioBtnUser.setText("as User");
         pane3.getChildren().add(radioBtnUser);
 
         RadioButton radioBtnDelivery = new RadioButton();
         radioBtnDelivery.setLayoutX(50.0);
         radioBtnDelivery.setLayoutY(160.0);
+        radioBtnDelivery.setId("fontWhite");
         radioBtnDelivery.setText("as Delivery");
         pane3.getChildren().add(radioBtnDelivery);
 
@@ -495,12 +540,14 @@ public class Main extends Application {
         textFieldUsername.setPrefWidth(180.0);
         textFieldUsername.setPromptText("username");
         pane3.getChildren().add(textFieldUsername);
+        textFieldUsername.setId("textfield");
 
         Label labelUsername = new Label("Username :");
         labelUsername.setLayoutX(198.0);
         labelUsername.setLayoutY(152.0);
         labelUsername.setPrefHeight(20.0);
         labelUsername.setPrefWidth(70.0);
+        labelUsername.setId("fontWhite");
         pane3.getChildren().add(labelUsername);
 
         Label labelError = new Label();
@@ -508,7 +555,7 @@ public class Main extends Application {
         labelError.setLayoutY(293.0);
         labelError.setPrefHeight(30.0);
         labelError.setPrefWidth(178.0);
-        labelError.setTextFill(javafx.scene.paint.Color.RED);
+        labelError.setId("fontWhite");
         labelError.setFont(new Font("Calibri", 10.0));
         pane3.getChildren().add(labelError);
 
@@ -519,6 +566,7 @@ public class Main extends Application {
         buttonBack.setPrefHeight(20.0);
         buttonBack.setPrefWidth(80.0);
         buttonBack.setText("Back");
+        buttonBack.setId("deliveryID");
         pane3.getChildren().add(buttonBack);
         buttonBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -533,6 +581,7 @@ public class Main extends Application {
         buttonNext.setMnemonicParsing(false);
         buttonNext.setPrefHeight(20.0);
         buttonNext.setPrefWidth(80.0);
+        buttonNext.setId("userID");
         pane3.getChildren().add(buttonNext);
         buttonNext.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -563,6 +612,7 @@ public class Main extends Application {
         labelTitle.setLayoutX(80);
         labelTitle.setText("FORGET PASSWORD PAGE");
         labelTitle.setFont(new Font(20.0));
+        labelTitle.setId("fontWhite");
         pane3.getChildren().add(labelTitle);
 
         Label labelCredits = new Label();
@@ -570,7 +620,7 @@ public class Main extends Application {
         labelCredits.setPrefHeight(17.0);
         labelCredits.setPrefWidth(298.0);
         labelCredits.setText("Producted by Mahdi, MoMehdi, Seyedali");
-        labelCredits.setTextFill(javafx.scene.paint.Color.web("#404040"));
+        labelCredits.setId("fontWhite");
         labelCredits.setFont(new Font(8.0));
         pane3.getChildren().add(labelCredits);
 
@@ -579,11 +629,16 @@ public class Main extends Application {
         labelPrompt.setLayoutY(107.0);
         labelPrompt.setPrefHeight(20.0);
         labelPrompt.setPrefWidth(262.0);
+        labelPrompt.setId("fontWhite");
         labelPrompt.setText("Please enter your username to reset your password");
         labelPrompt.setFont(new Font(11.5));
         pane3.getChildren().add(labelPrompt);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane3.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane3, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -597,6 +652,7 @@ public class Main extends Application {
         radioBtnAdmin.setText("as Admin");
         pane3.getChildren().add(radioBtnAdmin);
         radioBtnAdmin.setDisable(true);
+        radioBtnAdmin.setId("fontWhite");
 
         RadioButton radioBtnUser = new RadioButton();
         radioBtnUser.setLayoutX(50.0);
@@ -604,6 +660,7 @@ public class Main extends Application {
         radioBtnUser.setText("as User");
         pane3.getChildren().add(radioBtnUser);
         radioBtnUser.setDisable(true);
+        radioBtnUser.setId("fontWhite");
 
         RadioButton radioBtnDelivery = new RadioButton();
         radioBtnDelivery.setLayoutX(50.0);
@@ -611,6 +668,7 @@ public class Main extends Application {
         radioBtnDelivery.setText("as Delivery");
         pane3.getChildren().add(radioBtnDelivery);
         radioBtnDelivery.setDisable(true);
+        radioBtnDelivery.setId("fontWhite");
 
         Separator separator = new Separator();
         separator.setLayoutX(150.0);
@@ -630,6 +688,7 @@ public class Main extends Application {
         textFieldUsername.setEditable(false);
         textFieldUsername.setDisable(true);
         textFieldUsername.setText(username);
+        textFieldUsername.setId("textfield");
 
         Label labelUsername = new Label("Username :");
         labelUsername.setLayoutX(198.0);
@@ -637,6 +696,7 @@ public class Main extends Application {
         labelUsername.setPrefHeight(20.0);
         labelUsername.setPrefWidth(70.0);
         pane3.getChildren().add(labelUsername);
+        labelUsername.setId("fontWhite");
 
         Label labelTitle = new Label();
         labelTitle.setLayoutY(30);
@@ -644,15 +704,17 @@ public class Main extends Application {
         labelTitle.setText("FORGET PASSWORD PAGE");
         labelTitle.setFont(new Font(20.0));
         pane3.getChildren().add(labelTitle);
+        labelTitle.setId("fontWhite");
 
         Label labelCredits = new Label();
         labelCredits.setLayoutY(386.0);
         labelCredits.setPrefHeight(17.0);
         labelCredits.setPrefWidth(298.0);
         labelCredits.setText("Producted by Mahdi, MoMehdi, Seyedali");
-        labelCredits.setTextFill(javafx.scene.paint.Color.web("#404040"));
+        labelCredits.setId("fontWhite");
         labelCredits.setFont(new Font(8.0));
         pane3.getChildren().add(labelCredits);
+        labelCredits.setId("fontWhite");
 
         Label labelPrompt = new Label();
         labelPrompt.setLayoutX(198.0);
@@ -662,6 +724,7 @@ public class Main extends Application {
         labelPrompt.setText("Please enter your username to reset your password");
         labelPrompt.setFont(new Font(11.5));
         pane3.getChildren().add(labelPrompt);
+        labelPrompt.setId("fontWhite");
 
         textFieldUsername.setEditable(false);
 
@@ -679,6 +742,7 @@ public class Main extends Application {
         questionLabel.setPrefWidth(262.0);
         questionLabel.setFont(new Font(11.7));
         pane3.getChildren().add(questionLabel);
+        questionLabel.setId("fontWhite");
 
         int roleIndex = Functions.findRoleIndex(username, RoleString, staticArrayLists);
 
@@ -686,6 +750,7 @@ public class Main extends Application {
         securityQuestionLabel.setLayoutX(198.0);
         securityQuestionLabel.setLayoutY(240.0);
         pane3.getChildren().add(securityQuestionLabel);
+        securityQuestionLabel.setId("fontWhite");
 
         if (RoleString.equals("ADMIN")) {
             System.out.println(staticArrayLists.adminStaticArrayList.size());
@@ -700,6 +765,7 @@ public class Main extends Application {
         }
 
         TextField securityAnswerTextField = new TextField();
+        securityAnswerTextField.setId("textfield");
         securityAnswerTextField.setLayoutX(198.0);
         securityAnswerTextField.setLayoutY(270.0);
         securityAnswerTextField.setPrefHeight(20.0);
@@ -715,11 +781,13 @@ public class Main extends Application {
         errorLabel.setTextFill(javafx.scene.paint.Color.RED);
         errorLabel.setFont(new Font("Calibri", 10.0));
         pane3.getChildren().add(errorLabel);
+        errorLabel.setId("fontWhite");
 
         Button resetButton = new Button("Reset");
         resetButton.setLayoutX(198.0);
         resetButton.setLayoutY(310.0);
         resetButton.setPrefSize(80, 30);
+        resetButton.setId("userID");
         pane3.getChildren().add(resetButton);
         resetButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -753,6 +821,7 @@ public class Main extends Application {
         backButton.setLayoutX(298);
         backButton.setLayoutY(310);
         backButton.setPrefSize(80, 30);
+        backButton.setId("deliveryID");
         pane3.getChildren().add(backButton);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -761,7 +830,11 @@ public class Main extends Application {
             }
         });
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane3.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane3, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -773,11 +846,13 @@ public class Main extends Application {
         newPasswordLabel.setLayoutX(115);
         newPasswordLabel.setLayoutY(85);
         pane6.getChildren().add(newPasswordLabel);
+        newPasswordLabel.setId("fontWhite");
 
         Label confirmNewPasswordLabel = new Label("Confirm New Password:");
         confirmNewPasswordLabel.setLayoutX(115);
         confirmNewPasswordLabel.setLayoutY(130);
         pane6.getChildren().add(confirmNewPasswordLabel);
+        confirmNewPasswordLabel.setId("fontWhite");
 
         PasswordField newPasswordField = new PasswordField();
         newPasswordField.setLayoutX(255);
@@ -785,6 +860,7 @@ public class Main extends Application {
         newPasswordField.setPrefHeight(20);
         newPasswordField.setPrefWidth(180);
         pane6.getChildren().add(newPasswordField);
+        newPasswordField.setId("textfield");
 
         PasswordField confirmNewPasswordField = new PasswordField();
         confirmNewPasswordField.setLayoutX(255);
@@ -792,6 +868,7 @@ public class Main extends Application {
         confirmNewPasswordField.setPrefHeight(20);
         confirmNewPasswordField.setPrefWidth(180);
         pane6.getChildren().add(confirmNewPasswordField);
+        confirmNewPasswordField.setId("textfield");
 
         Label successLabel = new Label();
         successLabel.setLayoutX(275);
@@ -801,11 +878,13 @@ public class Main extends Application {
         successLabel.setTextFill(Color.RED);
         successLabel.setFont(new Font(10));
         pane6.getChildren().add(successLabel);
+        successLabel.setId("fontWhite");
 
         Button resetButton = new Button("Reset");
         resetButton.setLayoutX(255);
         resetButton.setLayoutY(169);
         resetButton.setPrefSize(80, 20);
+        resetButton.setId("userID");
         pane6.getChildren().add(resetButton);
         resetButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -839,6 +918,7 @@ public class Main extends Application {
         backButton.setLayoutX(355);
         backButton.setLayoutY(169);
         backButton.setPrefSize(80, 20);
+        backButton.setId("deliveryID");
         pane6.getChildren().add(backButton);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -855,8 +935,11 @@ public class Main extends Application {
                 }
             }
         });
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane6.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane6, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -867,14 +950,17 @@ public class Main extends Application {
         RadioButton asAdminRadioButton = new RadioButton("as Admin");
         asAdminRadioButton.setLayoutX(50.0);
         asAdminRadioButton.setLayoutY(100.0);
+        asAdminRadioButton.setId("fontWhite");
 
         RadioButton asUserRadioButton = new RadioButton("as User");
         asUserRadioButton.setLayoutX(50.0);
         asUserRadioButton.setLayoutY(130.0);
+        asUserRadioButton.setId("fontWhite");
 
         RadioButton asDeliveryRadioButton = new RadioButton("as Delivery");
         asDeliveryRadioButton.setLayoutX(50.0);
         asDeliveryRadioButton.setLayoutY(160.0);
+        asDeliveryRadioButton.setId("fontWhite");
 
         ToggleGroup toggleGroup3 = new ToggleGroup();
         asAdminRadioButton.setToggleGroup(toggleGroup3);
@@ -890,29 +976,34 @@ public class Main extends Application {
 
         TextField usernameTextField = new TextField();
         usernameTextField.setLayoutX(280.0);
-        usernameTextField.setLayoutY(105.0);
+        usernameTextField.setLayoutY(95);
         usernameTextField.setPrefSize(180, 20);
         usernameTextField.setPromptText("username");
+        usernameTextField.setId("textfield");
 
         Label usernameLabel = new Label("Username :");
         usernameLabel.setLayoutX(198.0);
         usernameLabel.setLayoutY(107.0);
+        usernameLabel.setId("fontWhite");
 
         Label passwordLabel = new Label("Password :");
         passwordLabel.setLayoutX(198.0);
         passwordLabel.setLayoutY(133.0);
+        passwordLabel.setId("fontWhite");
 
         PasswordField passwordPasswordField = new PasswordField();
         passwordPasswordField.setLayoutX(280.0);
-        passwordPasswordField.setLayoutY(130.0);
+        passwordPasswordField.setLayoutY(130);
         passwordPasswordField.setPrefSize(180, 20);
         passwordPasswordField.setPromptText("pass");
+        passwordPasswordField.setId("textfield");
 
         PasswordField confirmPasswordField = new PasswordField();
         confirmPasswordField.setLayoutX(280.0);
-        confirmPasswordField.setLayoutY(154.0);
+        confirmPasswordField.setLayoutY(165);
         confirmPasswordField.setPrefSize(180, 20);
         confirmPasswordField.setPromptText("enter your pass again");
+        confirmPasswordField.setId("textfield");
 
         Label errorLabel = new Label();
         errorLabel.setLayoutX(280);
@@ -920,12 +1011,14 @@ public class Main extends Application {
         errorLabel.setPrefHeight( 30);
         errorLabel.setTextFill(Color.RED);
         errorLabel.setFont(new Font("Calibri", 10));
+        errorLabel.setId("fontWhite");
 
         Button nextButton = new Button("Next");
         nextButton.setLayoutX(280.0);
         nextButton.setLayoutY(215.0);
         nextButton.setPrefWidth(80);
         nextButton.setPrefHeight(20);
+        nextButton.setId("userID");
         nextButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -1020,6 +1113,7 @@ public class Main extends Application {
         backButton.setLayoutY(215);
         backButton.setPrefWidth(80);
         backButton.setPrefHeight(20);
+        backButton.setId("deliveryID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -1032,16 +1126,22 @@ public class Main extends Application {
         pageTitleLabel.setLayoutY(30);
         pageTitleLabel.setLayoutX(80);
         pageTitleLabel.setFont(new Font(20.0));
+        pageTitleLabel.setId("fontWhite");
 
         Label creditLabel = new Label("Producted by Mahdi, MoMehdi, Seyedali");
         creditLabel.setLayoutY(386.0);
         creditLabel.setTextFill(Color.web("#404040"));
         creditLabel.setFont(new Font(8.0));
+        creditLabel.setId("fontWhite");
 
         pane2.getChildren().addAll(asAdminRadioButton, asUserRadioButton, separator, usernameTextField, usernameLabel, passwordLabel,
                 passwordPasswordField, nextButton, backButton, asDeliveryRadioButton, errorLabel, confirmPasswordField, pageTitleLabel, creditLabel);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane2.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane2, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1053,18 +1153,21 @@ public class Main extends Application {
         radioButton1.setLayoutY(100.0);
         radioButton1.setMnemonicParsing(false);
         radioButton1.setDisable(true);
+        radioButton1.setId("fontWhite");
 
         RadioButton radioButton2 = new RadioButton("as User");
         radioButton2.setLayoutX(50.0);
         radioButton2.setLayoutY(130.0);
         radioButton2.setMnemonicParsing(false);
         radioButton2.setDisable(true);
+        radioButton2.setId("fontWhite");
 
         RadioButton radioButton3 = new RadioButton("as Delivery");
         radioButton3.setLayoutX(50.0);
         radioButton3.setLayoutY(160.0);
         radioButton3.setMnemonicParsing(false);
         radioButton3.setDisable(true);
+        radioButton3.setId("fontWhite");
 
         Separator separator = new Separator();
         separator.setLayoutX(150.0);
@@ -1075,24 +1178,27 @@ public class Main extends Application {
 
         TextField textField1 = new TextField();
         textField1.setLayoutX(280.0);
-        textField1.setLayoutY(105.0);
+        textField1.setLayoutY(95);
         textField1.setPrefHeight(20.0);
         textField1.setPrefWidth(180.0);
         textField1.setPromptText("username");
         textField1.setEditable(false);
         textField1.setDisable(true);
+        textField1.setId("textfield");
 
         Label label1 = new Label("Username :");
         label1.setLayoutX(198.0);
         label1.setLayoutY(107.0);
         label1.setPrefHeight(20.0);
         label1.setPrefWidth(70.0);
+        label1.setId("fontWhite");
 
         Label label2 = new Label("Password :");
         label2.setLayoutX(199.0);
         label2.setLayoutY(133.0);
         label2.setPrefHeight(20.0);
         label2.setPrefWidth(70.0);
+        label2.setId("fontWhite");
 
         PasswordField passField2 = new PasswordField();
         passField2.setLayoutX(280.0);
@@ -1102,15 +1208,17 @@ public class Main extends Application {
         passField2.setPromptText("pass");
         passField2.setEditable(false);
         passField2.setDisable(true);
+        passField2.setId("textfield");
 
         PasswordField passField3 = new PasswordField();
         passField3.setLayoutX(280.0);
-        passField3.setLayoutY(154.0);
+        passField3.setLayoutY(165);
         passField3.setPrefHeight(20.0);
         passField3.setPrefWidth(180.0);
         passField3.setPromptText("enter your pass again");
         passField3.setEditable(false);
         passField3.setDisable(true);
+        passField3.setId("textfield");
 
         TextField textField4 = new TextField();
         textField4.setLayoutX(198.0);
@@ -1118,12 +1226,14 @@ public class Main extends Application {
         textField4.setPrefHeight(20.0);
         textField4.setPrefWidth(262.0);
         textField4.setPromptText("Security Question's Answer");
+        textField4.setId("textfield");
 
         Label label3 = new Label();
         label3.setLayoutX(80.0);
         label3.setLayoutY(30.0);
         label3.setText("SIGN UP PAGE");
         label3.setFont(new Font(20.0));
+        label3.setId("fontWhite");
 
         Label label4 = new Label("Producted by Mahdi,MoMehdi,Seyedali");
         label4.setLayoutY(386.0);
@@ -1131,6 +1241,7 @@ public class Main extends Application {
         label4.setPrefWidth(298.0);
         label4.setTextFill(javafx.scene.paint.Color.web("#404040"));
         label4.setFont(new Font(8.0));
+        label4.setId("fontWhite");
 
         Separator separator2 = new Separator();
         separator2.setLayoutX(230.0);
@@ -1144,23 +1255,26 @@ public class Main extends Application {
         label5.setPrefHeight(20.0);
         label5.setPrefWidth(262.0);
         label5.setFont(new Font(11.7));
+        label5.setId("fontWhite");
 
         Label label6 = new Label(Functions.makeSecurityQuestion(role));
         label6.setLayoutX(198.0);
         label6.setLayoutY(240.0);
         label6.setPrefHeight(20.0);
         label6.setPrefWidth(262.0);
+        label6.setId("fontWhite");
 
         Label label7 = new Label();
         label7.setLayoutX(198);
         label7.setLayoutY(350);
-        label7.setTextFill(javafx.scene.paint.Color.RED);
+        label7.setId("fontWhite");
 
         Button signUpButton = new Button("Sign Up");
         signUpButton.setLayoutX(199.0);
         signUpButton.setLayoutY(310.0);
         signUpButton.setPrefHeight(20.0);
         signUpButton.setPrefWidth(80.0);
+        signUpButton.setId("userID");
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -1177,6 +1291,7 @@ public class Main extends Application {
         backButton.setLayoutX(298);
         backButton.setLayoutY(310);
         backButton.setPrefSize(80, 20);
+        backButton.setId("deliveryID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -1187,7 +1302,11 @@ public class Main extends Application {
         pane5.getChildren().addAll(signUpButton, label1, label2, label3, label4, label5, label6, label7, separator, separator2, radioButton1, radioButton2,
                 radioButton3, textField1, passField2, passField3, textField4, backButton);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("background.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane5.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane5, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1216,6 +1335,7 @@ public class Main extends Application {
         textField.setPrefWidth(150);
         pane7.getChildren().add(textField);
         textField.setPromptText("restaurant ID");
+        textField.setId("textfield");
 
         Label label = new Label();
         label.setLayoutX(25);
@@ -1236,6 +1356,7 @@ public class Main extends Application {
         selectButton.setPrefHeight(20);
         selectButton.setPrefWidth(150);
         selectButton.setText("Select");
+        selectButton.setId("adminID");
         pane7.getChildren().add(selectButton);
         selectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1263,6 +1384,7 @@ public class Main extends Application {
         addRestaurantButton.setPrefHeight(25);
         addRestaurantButton.setPrefWidth(150);
         addRestaurantButton.setText("Add new restaurant");
+        addRestaurantButton.setId("adminID");
         pane7.getChildren().add(addRestaurantButton);
         addRestaurantButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1277,6 +1399,7 @@ public class Main extends Application {
         logoutButton.setPrefHeight(25);
         logoutButton.setPrefWidth(150);
         logoutButton.setText("LOGOUT");
+        logoutButton.setId("adminID");
         pane7.getChildren().add(logoutButton);
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1285,7 +1408,11 @@ public class Main extends Application {
             }
         });
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane7.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane7, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1339,6 +1466,7 @@ public class Main extends Application {
         button1.setPrefHeight(50.0);
         button1.setPrefWidth(145.0);
         button1.setText("Menu");
+        button1.setId("adminID");
         GridPane.setHalignment(button1, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(button1, javafx.geometry.VPos.CENTER);
         button1.setOnAction(new EventHandler<ActionEvent>() {
@@ -1352,6 +1480,7 @@ public class Main extends Application {
         button2.setMnemonicParsing(false);
         button2.setPrefHeight(50.0);
         button2.setPrefWidth(145.0);
+        button2.setId("adminID");
         button2.setText("Open orders");
         GridPane.setHalignment(button2, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(button2, 1);
@@ -1368,6 +1497,7 @@ public class Main extends Application {
         button3.setPrefHeight(50.0);
         button3.setPrefWidth(145.0);
         button3.setText("Display comments");
+        button3.setId("adminID");
         GridPane.setColumnIndex(button3, 1);
         GridPane.setRowIndex(button3, 0);
         GridPane.setHalignment(button3, javafx.geometry.HPos.CENTER);
@@ -1383,6 +1513,7 @@ public class Main extends Application {
         button4.setMnemonicParsing(false);
         button4.setPrefHeight(50.0);
         button4.setPrefWidth(145.0);
+        button4.setId("adminID");
         button4.setText("Order history");
         GridPane.setColumnIndex(button4, 1);
         GridPane.setHalignment(button4, javafx.geometry.HPos.CENTER);
@@ -1399,6 +1530,7 @@ public class Main extends Application {
         button5.setMnemonicParsing(false);
         button5.setPrefHeight(50.0);
         button5.setPrefWidth(145.0);
+        button5.setId("adminID");
         button5.setText("Show foodtype");
         GridPane.setColumnIndex(button5, 2);
         GridPane.setRowIndex(button5, 0);
@@ -1415,6 +1547,7 @@ public class Main extends Application {
         button6.setMnemonicParsing(false);
         button6.setPrefHeight(50.0);
         button6.setPrefWidth(145.0);
+        button6.setId("adminID");
         button6.setText("Edit location");
         GridPane.setColumnIndex(button6, 2);
         GridPane.setRowIndex(button6, 1);
@@ -1431,6 +1564,7 @@ public class Main extends Application {
         button7.setMnemonicParsing(false);
         button7.setPrefHeight(50.0);
         button7.setPrefWidth(145.0);
+        button7.setId("adminID");
         button7.setText("Edit foodtype");
         GridPane.setColumnIndex(button7, 3);
         GridPane.setRowIndex(button7, 0);
@@ -1447,7 +1581,9 @@ public class Main extends Application {
         button8.setMnemonicParsing(false);
         button8.setPrefHeight(50.0);
         button8.setPrefWidth(145.0);
+        button8.setId("adminID");
         button8.setText("Back");
+
         button8.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -1511,7 +1647,11 @@ public class Main extends Application {
 
         pane8.getChildren().addAll(gridPane, separator1, separator2, restaurantNameLabel, restaurantRatingLabel, restaurantLocationLabel, notificationLabel, logoImageView, logoTextLabel);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane8.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane8, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1534,6 +1674,7 @@ public class Main extends Application {
         textField.setPrefWidth(150.0);
         pane9.getChildren().add(textField);
         textField.setPromptText("food ID");
+        textField.setId("textfield");
 
         Label label1 = new Label();
         label1.setLayoutX(25.0);
@@ -1555,6 +1696,7 @@ public class Main extends Application {
         button1.setPrefHeight(20.0);
         button1.setPrefWidth(150.0);
         button1.setText("Select");
+        button1.setId("adminID");
         pane9.getChildren().add(button1);
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1589,6 +1731,7 @@ public class Main extends Application {
         button2.setMnemonicParsing(false);
         button2.setPrefHeight(25.0);
         button2.setPrefWidth(150.0);
+        button2.setId("adminID");
         button2.setText("Add new food");
         pane9.getChildren().add(button2);
         button2.setOnAction(new EventHandler<ActionEvent>() {
@@ -1604,6 +1747,7 @@ public class Main extends Application {
         button3.setMnemonicParsing(false);
         button3.setPrefHeight(25.0);
         button3.setPrefWidth(150.0);
+        button3.setId("adminID");
         button3.setText("Back");
         pane9.getChildren().add(button3);
         button3.setOnAction(new EventHandler<ActionEvent>() {
@@ -1619,7 +1763,11 @@ public class Main extends Application {
         label3.setFont(new Font(20.0));
         pane9.getChildren().add(label3);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane9.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane9, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1642,6 +1790,7 @@ public class Main extends Application {
         textField.setPrefWidth(150.0);
         textField.setPromptText("comment ID");
         pane10.getChildren().add(textField);
+        textField.setId("textfield");
 
         Label label1 = new Label();
         label1.setLayoutX(25.0);
@@ -1662,6 +1811,7 @@ public class Main extends Application {
         addButton.setPrefHeight(20.0);
         addButton.setPrefWidth(150.0);
         addButton.setText("Add new response");
+        addButton.setId("adminID");
         pane10.getChildren().add(addButton);
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1695,6 +1845,7 @@ public class Main extends Application {
         editButton.setPrefHeight(25.0);
         editButton.setPrefWidth(150.0);
         editButton.setText("Edit response");
+        editButton.setId("adminID");
         pane10.getChildren().add(editButton);
         editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1730,6 +1881,7 @@ public class Main extends Application {
         backButton.setLayoutY(285.0);
         backButton.setPrefWidth(150.0);
         backButton.setText("Back");
+        backButton.setId("adminID");
         pane10.getChildren().add(backButton);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1738,7 +1890,11 @@ public class Main extends Application {
             }
         });
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane10.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane10, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1761,6 +1917,7 @@ public class Main extends Application {
         textField.setPrefWidth(150.0);
         textField.setPromptText("order ID");
         pane11.getChildren().add(textField);
+        textField.setId("textfield");
 
         Label label1 = new Label();
         label1.setLayoutX(25.0);
@@ -1776,7 +1933,6 @@ public class Main extends Application {
         label2.setText("Please enter order ID");
         pane11.getChildren().add(label2);
 
-
         Label labelError = new Label();
         labelError.setLayoutX(25.0);
         labelError.setLayoutY(285.0);
@@ -1790,6 +1946,7 @@ public class Main extends Application {
         editOrderButton.setMnemonicParsing(false);
         editOrderButton.setPrefHeight(25.0);
         editOrderButton.setPrefWidth(150.0);
+        editOrderButton.setId("adminID");
         editOrderButton.setText("Edit order");
         pane11.getChildren().add(editOrderButton);
         editOrderButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -1825,6 +1982,7 @@ public class Main extends Application {
         backButton.setMnemonicParsing(false);
         backButton.setPrefWidth(150.0);
         backButton.setText("Back");
+        backButton.setId("adminID");
         pane11.getChildren().add(backButton);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1833,7 +1991,11 @@ public class Main extends Application {
             }
         });
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane11.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane11, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1856,6 +2018,7 @@ public class Main extends Application {
         Button backButton = new Button("Back");
         backButton.setLayoutX(470);
         backButton.setLayoutY(42);
+        backButton.setId("adminID");
         backButton.setPrefSize(80, 20);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -1866,7 +2029,11 @@ public class Main extends Application {
 
         pane12.getChildren().addAll(titleLabel, orderListView, backButton);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane12.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane12, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1891,6 +2058,7 @@ public class Main extends Application {
         backButton.setLayoutY(109.0);
         backButton.setPrefHeight(20.0);
         backButton.setPrefWidth(85.0);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -1899,8 +2067,11 @@ public class Main extends Application {
         });
 
         pane13.getChildren().addAll(label, listView, backButton);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane13.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane13, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1928,6 +2099,7 @@ public class Main extends Application {
         textField1.setPrefWidth(200.0);
         textField1.setPromptText("foodtype");
         pane14.getChildren().add(textField1);
+        textField1.setId("textfield");
 
         Separator separator1 = new Separator();
         separator1.setLayoutX(50.0);
@@ -1978,6 +2150,7 @@ public class Main extends Application {
         confirmBtn.setLayoutY(305.0);
         confirmBtn.setPrefWidth(80);
         confirmBtn.setText("Confirm");
+        confirmBtn.setId("adminID");
         pane14.getChildren().add(confirmBtn);
         confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -2002,6 +2175,7 @@ public class Main extends Application {
         addBtn.setLayoutX(50.0);
         addBtn.setLayoutY(180.0);
         addBtn.setText("Add");
+        addBtn.setId("adminID");
         pane14.getChildren().add(addBtn);
         addBtn.setPrefWidth(80);
         addBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -2021,6 +2195,7 @@ public class Main extends Application {
         backBtn.setLayoutX(170.0);
         backBtn.setLayoutY(305.0);
         backBtn.setText("Back");
+        backBtn.setId("adminID");
         pane14.getChildren().add(backBtn);
         backBtn.setPrefWidth(80);
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -2030,7 +2205,11 @@ public class Main extends Application {
             }
         });
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane14.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane14, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2056,6 +2235,7 @@ public class Main extends Application {
         locationTextField.setPrefHeight(25);
         locationTextField.setPromptText("new location");
         pane15.getChildren().add(locationTextField);
+        locationTextField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(50.0);
@@ -2067,6 +2247,7 @@ public class Main extends Application {
         confirmButton.setLayoutX(50);
         confirmButton.setLayoutY(185);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("adminID");
         pane15.getChildren().add(confirmButton);
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -2093,6 +2274,7 @@ public class Main extends Application {
         backButton.setLayoutX(170);
         backButton.setLayoutY(185);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         pane15.getChildren().add(backButton);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -2101,7 +2283,11 @@ public class Main extends Application {
             }
         });
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane15.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane15, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2126,6 +2312,7 @@ public class Main extends Application {
         foodNameField.setPrefWidth(190);
         foodNameField.setPromptText("food name");
         pane16.getChildren().add(foodNameField);
+        foodNameField.setId("textfield");
 
         TextField foodPriceField = new TextField();
         foodPriceField.setLayoutX(285);
@@ -2133,6 +2320,7 @@ public class Main extends Application {
         foodPriceField.setPrefWidth(190);
         foodPriceField.setPromptText("food price");
         pane16.getChildren().add(foodPriceField);
+        foodPriceField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(75);
@@ -2144,6 +2332,7 @@ public class Main extends Application {
         addButton.setLayoutX(75);
         addButton.setLayoutY(220);
         addButton.setPrefWidth(80);
+        addButton.setId("adminID");
         pane16.getChildren().add(addButton);
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -2177,6 +2366,7 @@ public class Main extends Application {
         backButton.setLayoutX(185);
         backButton.setLayoutY(220);
         backButton.setPrefWidth(80);
+        backButton.setId("adminID");
         pane16.getChildren().add(backButton);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -2185,7 +2375,11 @@ public class Main extends Application {
             }
         });
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane16.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane16, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2244,6 +2438,7 @@ public class Main extends Application {
         Button activeBtn = new Button("Active");
         activeBtn.setFont(new Font(15));
         activeBtn.setPrefSize(145, 50);
+        activeBtn.setId("adminID");
         GridPane.setHalignment(activeBtn, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(activeBtn, javafx.geometry.VPos.CENTER);
         activeBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -2256,6 +2451,7 @@ public class Main extends Application {
         Button discountBtn = new Button("Discount");
         discountBtn.setFont(new Font(15));
         discountBtn.setPrefSize(145, 50);
+        discountBtn.setId("adminID");
         GridPane.setHalignment(discountBtn, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(discountBtn, javafx.geometry.VPos.CENTER);
         discountBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -2268,6 +2464,7 @@ public class Main extends Application {
         Button deactiveBtn = new Button("Deactive");
         deactiveBtn.setFont(new Font(15));
         deactiveBtn.setPrefSize(145, 50);
+        deactiveBtn.setId("adminID");
         GridPane.setHalignment(deactiveBtn, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(deactiveBtn, javafx.geometry.VPos.CENTER);
         deactiveBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -2280,6 +2477,7 @@ public class Main extends Application {
         Button deleteBtn = new Button("Delete");
         deleteBtn.setFont(new Font(15));
         deleteBtn.setPrefSize(145, 50);
+        deleteBtn.setId("adminID");
         GridPane.setHalignment(deleteBtn, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(deleteBtn, javafx.geometry.VPos.CENTER);
         deleteBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -2292,6 +2490,7 @@ public class Main extends Application {
         Button backBtn = new Button("Back");
         backBtn.setFont(new Font(15));
         backBtn.setPrefSize(145, 50);
+        backBtn.setId("adminID");
         GridPane.setHalignment(backBtn, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(backBtn, javafx.geometry.VPos.CENTER);
 
@@ -2343,7 +2542,11 @@ public class Main extends Application {
         logoLbl.setLayoutY(90);
 
         pane17.getChildren().addAll(foodNameLbl, foodRatingLbl, logoImg, logoLbl);
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane17.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane17, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2370,12 +2573,14 @@ public class Main extends Application {
         textFieldNewName.setLayoutY(173.0);
         textFieldNewName.setPrefWidth(200.0);
         textFieldNewName.setPromptText("new name");
+        textFieldNewName.setId("textfield");
 
         TextField textFieldNewPrice = new TextField();
         textFieldNewPrice.setLayoutX(350.0);
         textFieldNewPrice.setLayoutY(213.0);
         textFieldNewPrice.setPrefWidth(200.0);
         textFieldNewPrice.setPromptText("new price");
+        textFieldNewPrice.setId("textfield");
 
         Label labelInstruction = new Label("You can enter new name and price on the fields and click confirm to set");
         labelInstruction.setLayoutX(75.0);
@@ -2389,6 +2594,7 @@ public class Main extends Application {
         buttonConfirm.setLayoutX(350.0);
         buttonConfirm.setLayoutY(270.0);
         buttonConfirm.setPrefSize(80, 20);
+        buttonConfirm.setId("adminID");
         buttonConfirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2413,6 +2619,7 @@ public class Main extends Application {
         buttonBack.setLayoutX(470.0);
         buttonBack.setLayoutY(270.0);
         buttonBack.setPrefSize(80, 20);
+        buttonBack.setId("adminID");
         buttonBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2423,7 +2630,11 @@ public class Main extends Application {
         pane18.getChildren().addAll(labelEditFood, labelCurrentName, labelCurrentPrice, textFieldNewName,
                 textFieldNewPrice, labelInstruction, buttonConfirm, buttonBack);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane18.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane18, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2444,6 +2655,7 @@ public class Main extends Application {
         discountTextField.setLayoutX(75.0);
         discountTextField.setLayoutY(165.0);
         discountTextField.setPrefWidth(200.0);
+        discountTextField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(75);
@@ -2454,6 +2666,7 @@ public class Main extends Application {
         confirmButton.setLayoutX(75.0);
         confirmButton.setLayoutY(210.0);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("adminID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2475,6 +2688,7 @@ public class Main extends Application {
         backButton.setLayoutX(195.0);
         backButton.setLayoutY(210.0);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2483,7 +2697,11 @@ public class Main extends Application {
         });
 
         pane19.getChildren().addAll(discountLabel, questionLabel, notifLabel, discountTextField, confirmButton, backButton);
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane19.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane19, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2522,6 +2740,7 @@ public class Main extends Application {
         confirmButton.setLayoutX(75.0);
         confirmButton.setLayoutY(175.0);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("adminID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2539,6 +2758,7 @@ public class Main extends Application {
         backButton.setLayoutX(170.0);
         backButton.setLayoutY(175.0);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2548,7 +2768,11 @@ public class Main extends Application {
 
         pane20.getChildren().addAll(label1, label2, notifLabel, confirmButton, backButton, yesRadioButton, noRadioButton);
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane20.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane20, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2588,6 +2812,7 @@ public class Main extends Application {
         confirmButton.setLayoutX(75);
         confirmButton.setLayoutY(175);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("adminID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2610,6 +2835,7 @@ public class Main extends Application {
         backButton.setLayoutX(170);
         backButton.setLayoutY(175);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2619,7 +2845,11 @@ public class Main extends Application {
 
         pane21.getChildren().addAll(activeLabel, promptLabel, confirmButton,
                 backButton, yesRadioButton, noRadioButton, alreadyActiveLabel);
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane21.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane21, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2654,11 +2884,11 @@ public class Main extends Application {
         alreadyDeactiveLabel.setTextFill(javafx.scene.paint.Color.RED);
         alreadyDeactiveLabel.setFont(new Font(10));
 
-
         Button confirmButton = new Button("Confirm");
         confirmButton.setLayoutX(75);
         confirmButton.setLayoutY(175);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("adminID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2681,6 +2911,7 @@ public class Main extends Application {
         backButton.setLayoutX(170);
         backButton.setLayoutY(175);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2690,7 +2921,11 @@ public class Main extends Application {
 
         pane22.getChildren().addAll(deactiveLabel, promptLabel, confirmButton,
                 backButton, yesRadioButton, noRadioButton, alreadyDeactiveLabel);
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane22.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane22, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2716,6 +2951,7 @@ public class Main extends Application {
         newDeliveryTimeTextField.setLayoutY(215);
         newDeliveryTimeTextField.setPrefWidth(200);
         newDeliveryTimeTextField.setPromptText("new delivery time");
+        newDeliveryTimeTextField.setId("textfield");
 
         Label promptLabel = new Label("You can enter new details for the orders on the fields and click confirm to set");
         promptLabel.setLayoutX(75);
@@ -2751,6 +2987,7 @@ public class Main extends Application {
         confirmButton.setLayoutX(75);
         confirmButton.setLayoutY(270);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("adminID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2803,6 +3040,7 @@ public class Main extends Application {
         backButton.setLayoutX(195);
         backButton.setLayoutY(270);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2812,7 +3050,11 @@ public class Main extends Application {
 
         pane23.getChildren().addAll(editOrderLabel, currentDeliveryTimeLabel, newDeliveryTimeTextField,
                 promptLabel, confirmButton, backButton, cookingRadioButton, sentRadioButton, deliveredRadioButton, readyRadioButton, currentOrderStatusLabel);
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane23.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane23, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2834,6 +3076,7 @@ public class Main extends Application {
         newResponseTextField.setLayoutY(170);
         newResponseTextField.setPrefWidth(190);
         newResponseTextField.setPromptText("new response");
+        newResponseTextField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(75);
@@ -2845,6 +3088,7 @@ public class Main extends Application {
         addButton.setLayoutX(75);
         addButton.setLayoutY(220);
         addButton.setPrefSize(80, 20);
+        addButton.setId("adminID");
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2865,6 +3109,7 @@ public class Main extends Application {
         backButton.setLayoutX(185);
         backButton.setLayoutY(220);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2873,7 +3118,11 @@ public class Main extends Application {
         });
 
         pane24.getChildren().addAll(addNewResponseLabel, promptLabel, notifLabel, newResponseTextField, addButton, backButton);
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane24.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane24, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2895,6 +3144,7 @@ public class Main extends Application {
         newResponseTextField.setLayoutY(215);
         newResponseTextField.setPrefWidth(200);
         newResponseTextField.setPromptText("new response");
+        newResponseTextField.setId("textfield");
 
         Label promptLabel = new Label("You can enter new response on the fields and click confirm to set");
         promptLabel.setLayoutX(75);
@@ -2904,6 +3154,7 @@ public class Main extends Application {
         confirmButton.setLayoutX(75);
         confirmButton.setLayoutY(270);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("adminID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2916,6 +3167,7 @@ public class Main extends Application {
         backButton.setLayoutX(195);
         backButton.setLayoutY(270);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2925,7 +3177,11 @@ public class Main extends Application {
 
         pane25.getChildren().addAll(editResponseLabel, currentResponseLabel, newResponseTextField,
                 promptLabel, confirmButton, backButton);
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane25.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane25, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -2947,6 +3203,7 @@ public class Main extends Application {
         restaurantNameField.setLayoutY(170.0);
         restaurantNameField.setPrefWidth(190.0);
         restaurantNameField.setPromptText("restaurant name");
+        restaurantNameField.setId("textfield");
 
         Label infoLabel2 = new Label("Please enter restaurant food type");
         infoLabel2.setLayoutX(75.0);
@@ -2957,6 +3214,7 @@ public class Main extends Application {
         restaurantFoodTypeField.setLayoutY(260.0);
         restaurantFoodTypeField.setPrefWidth(190.0);
         restaurantFoodTypeField.setPromptText("restaurant foodtype");
+        restaurantFoodTypeField.setId("textfield");
 
         Label successLabel = new Label();
         successLabel.setLayoutX(75.0);
@@ -2968,6 +3226,7 @@ public class Main extends Application {
         addButton.setLayoutX(75.0);
         addButton.setLayoutY(310.0);
         addButton.setPrefSize(80, 20);
+        addButton.setId("adminID");
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -2999,6 +3258,7 @@ public class Main extends Application {
         backButton.setLayoutX(185.0);
         backButton.setLayoutY(310.0);
         backButton.setPrefSize(80, 20);
+        backButton.setId("adminID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3007,7 +3267,11 @@ public class Main extends Application {
         });
 
         pane26.getChildren().addAll(titleLabel, infoLabel, infoLabel2, restaurantFoodTypeField, restaurantNameField, addButton, backButton, successLabel);
+        BackgroundImage myBackground = new BackgroundImage(new Image("admin.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane26.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane26, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3028,11 +3292,13 @@ public class Main extends Application {
         restaurantIdField.setPrefWidth(150.0);
         restaurantIdField.setPrefHeight(25.0);
         restaurantIdField.setPromptText("restaurant ID");
+        restaurantIdField.setId("textfield");
 
         TextField restaurantNameField = new TextField();
         restaurantNameField.setLayoutX(25.0);
         restaurantNameField.setLayoutY(235.0);
         restaurantNameField.setPromptText("restaurant name");
+        restaurantNameField.setId("textfield");
 
         Label restaurantIdLabel = new Label("please enter restaurant ID");
         restaurantIdLabel.setLayoutX(25.0);
@@ -3049,6 +3315,7 @@ public class Main extends Application {
         selectButton.setLayoutY(155.0);
         selectButton.setPrefWidth(150.0);
         selectButton.setPrefHeight(20.0);
+        selectButton.setId("userID");
         selectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3069,6 +3336,7 @@ public class Main extends Application {
         searchButton.setLayoutY(268.0);
         searchButton.setPrefWidth(150.0);
         searchButton.setPrefHeight(25.0);
+        searchButton.setId("userID");
         searchButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3083,6 +3351,7 @@ public class Main extends Application {
         suggestButton.setLayoutY(185.0);
         suggestButton.setPrefWidth(150.0);
         suggestButton.setPrefHeight(25.0);
+        suggestButton.setId("userID");
         suggestButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3103,6 +3372,7 @@ public class Main extends Application {
         backButton.setLayoutY(300.0);
         backButton.setPrefWidth(150.0);
         backButton.setPrefHeight(25.0);
+        backButton.setId("userID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3118,8 +3388,11 @@ public class Main extends Application {
         pane27.getChildren().addAll(restaurantsListView, restaurantIdField, restaurantIdLabel, selectButton,
                 restaurantListLabel, suggestButton, backButton, restaurantNameField,
                 separator, searchButton, errorLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane27.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane27, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3168,6 +3441,7 @@ public class Main extends Application {
         restaurantListButton.setMnemonicParsing(false);
         restaurantListButton.setPrefHeight(50.0);
         restaurantListButton.setPrefWidth(145.0);
+        restaurantListButton.setId("userID");
         GridPane.setHalignment(restaurantListButton, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(restaurantListButton, javafx.geometry.VPos.CENTER);
         restaurantListButton.setFont(new Font(15.0));
@@ -3182,6 +3456,7 @@ public class Main extends Application {
         cartStatusButton.setMnemonicParsing(false);
         cartStatusButton.setPrefHeight(50.0);
         cartStatusButton.setPrefWidth(145.0);
+        cartStatusButton.setId("userID");
         GridPane.setHalignment(cartStatusButton, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(cartStatusButton, 1);
         GridPane.setValignment(cartStatusButton, javafx.geometry.VPos.CENTER);
@@ -3197,6 +3472,7 @@ public class Main extends Application {
         orderHistoryButton.setMnemonicParsing(false);
         orderHistoryButton.setPrefHeight(50.0);
         orderHistoryButton.setPrefWidth(145.0);
+        orderHistoryButton.setId("userID");
         GridPane.setColumnIndex(orderHistoryButton, 1);
         GridPane.setHalignment(orderHistoryButton, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(orderHistoryButton, javafx.geometry.VPos.CENTER);
@@ -3212,6 +3488,7 @@ public class Main extends Application {
         chargeAccountButton.setMnemonicParsing(false);
         chargeAccountButton.setPrefHeight(50.0);
         chargeAccountButton.setPrefWidth(145.0);
+        chargeAccountButton.setId("userID");
         GridPane.setColumnIndex(chargeAccountButton, 1);
         GridPane.setHalignment(chargeAccountButton, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(chargeAccountButton, 1);
@@ -3228,6 +3505,7 @@ public class Main extends Application {
         editLocationButton.setMnemonicParsing(false);
         editLocationButton.setPrefHeight(50.0);
         editLocationButton.setPrefWidth(145.0);
+        editLocationButton.setId("userID");
         GridPane.setColumnIndex(editLocationButton, 2);
         GridPane.setHalignment(editLocationButton, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(editLocationButton, javafx.geometry.VPos.CENTER);
@@ -3243,6 +3521,7 @@ public class Main extends Application {
         logoutButton.setMnemonicParsing(false);
         logoutButton.setPrefHeight(50.0);
         logoutButton.setPrefWidth(145.0);
+        logoutButton.setId("userID");
         GridPane.setColumnIndex(logoutButton, 2);
         GridPane.setHalignment(logoutButton, javafx.geometry.HPos.CENTER);
         GridPane.setRowIndex(logoutButton, 1);
@@ -3308,8 +3587,11 @@ public class Main extends Application {
 
         pane28.getChildren().addAll(gridPane, separator1, userPanelLabel, userChargeLabel, separator2,
                 logoImage, logoLabel, userLocationLabel, setLocationLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane28.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane28, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3330,6 +3612,7 @@ public class Main extends Application {
         orderTextField.setPrefWidth(150.0);
         orderTextField.setPrefHeight(25.0);
         orderTextField.setPromptText("order ID");
+        orderTextField.setId("textfield");
 
         Label orderLabel = new Label("please enter order ID");
         orderLabel.setLayoutX(25.0);
@@ -3347,6 +3630,7 @@ public class Main extends Application {
         selectButton.setMnemonicParsing(false);
         selectButton.setPrefWidth(150.0);
         selectButton.setPrefHeight(20.0);
+        selectButton.setId("userID");
         selectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3370,6 +3654,7 @@ public class Main extends Application {
         backButton.setMnemonicParsing(false);
         backButton.setPrefWidth(150.0);
         backButton.setPrefHeight(25.0);
+        backButton.setId("userID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3384,8 +3669,11 @@ public class Main extends Application {
 
         pane29.getChildren().addAll(orderListView, orderTextField, orderLabel, selectButton,
                 backButton, orderHistoryLabel, noticeLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane29.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane29, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3410,18 +3698,21 @@ public class Main extends Application {
         showPathButton.setLayoutY(42.0);
         showPathButton.setMnemonicParsing(false);
         showPathButton.setPrefWidth(80.0);
+        showPathButton.setId("userID");
 
         Button showTimeButton = new Button("Show estimated delivery time");
         showTimeButton.setLayoutX(380.0);
         showTimeButton.setLayoutY(42.0);
         showTimeButton.setMnemonicParsing(false);
         showTimeButton.setPrefWidth(80.0);
+        showTimeButton.setId("userID");
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(470.0);
         backButton.setLayoutY(42.0);
         backButton.setMnemonicParsing(false);
         backButton.setPrefWidth(80.0);
+        backButton.setId("userID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3430,8 +3721,11 @@ public class Main extends Application {
         });
 
         pane30.getChildren().addAll(orderDetailsLabel, orderDetailsListView, backButton, showPathButton, showTimeButton);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane30.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane30, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3457,6 +3751,7 @@ public class Main extends Application {
         locationTextField.setPrefHeight(25);
         locationTextField.setPromptText("new location");
         pane31.getChildren().add(locationTextField);
+        locationTextField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(50.0);
@@ -3467,6 +3762,7 @@ public class Main extends Application {
         Button confirmButton = new Button("Confirm");
         confirmButton.setLayoutX(50);
         confirmButton.setLayoutY(185);
+        confirmButton.setId("userID");
         confirmButton.setPrefSize(80, 20);
         pane31.getChildren().add(confirmButton);
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -3494,6 +3790,7 @@ public class Main extends Application {
         backButton.setLayoutX(170);
         backButton.setLayoutY(185);
         backButton.setPrefSize(80, 20);
+        backButton.setId("userID");
         pane31.getChildren().add(backButton);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -3501,8 +3798,11 @@ public class Main extends Application {
                 loadUserPanelScreen(primaryStage, user.userID);
             }
         });
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane31.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane31, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3523,6 +3823,7 @@ public class Main extends Application {
         discountTextField.setLayoutX(75.0);
         discountTextField.setLayoutY(165.0);
         discountTextField.setPrefWidth(200.0);
+        discountTextField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(75);
@@ -3533,6 +3834,7 @@ public class Main extends Application {
         confirmButton.setLayoutX(75.0);
         confirmButton.setLayoutY(210.0);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("userID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3554,6 +3856,7 @@ public class Main extends Application {
         backButton.setLayoutX(195.0);
         backButton.setLayoutY(210.0);
         backButton.setPrefSize(80, 20);
+        backButton.setId("userID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3562,8 +3865,11 @@ public class Main extends Application {
         });
 
         pane32.getChildren().addAll(discountLabel, questionLabel, notifLabel, discountTextField, confirmButton, backButton);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane32.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane32, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3593,6 +3899,7 @@ public class Main extends Application {
         orderIdTextField.setPrefWidth(150.0);
         orderIdTextField.setPrefHeight(25.0);
         orderIdTextField.setPromptText("order ID");
+        orderIdTextField.setId("textfield");
 
         Label noticeLabel = new Label();
         noticeLabel.setLayoutX(25.0);
@@ -3608,6 +3915,7 @@ public class Main extends Application {
         editButton.setPrefWidth(150.0);
         editButton.setPrefHeight(20.0);
         editButton.setMnemonicParsing(false);
+        editButton.setId("userID");
         editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3634,6 +3942,7 @@ public class Main extends Application {
         confirmButton.setPrefWidth(150.0);
         confirmButton.setPrefHeight(25.0);
         confirmButton.setMnemonicParsing(false);
+        confirmButton.setId("userID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3660,6 +3969,7 @@ public class Main extends Application {
         backButton.setPrefWidth(150.0);
         backButton.setPrefHeight(25.0);
         backButton.setMnemonicParsing(false);
+        backButton.setId("userID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3668,8 +3978,11 @@ public class Main extends Application {
         });
 
         pane33.getChildren().addAll(userCartLabel, orderListView, orderIdLabel, orderIdTextField, editButton, toSeeOrdersLabel, confirmButton, backButton, noticeLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane33.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane33, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3703,6 +4016,7 @@ public class Main extends Application {
         foodIdTextField.setPrefWidth(150.0);
         foodIdTextField.setPrefHeight(25.0);
         foodIdTextField.setPromptText("food ID");
+        foodIdTextField.setId("textfield");
 
         Label noticeLabel = new Label();
         noticeLabel.setLayoutX(25);
@@ -3716,6 +4030,7 @@ public class Main extends Application {
         editButton.setPrefWidth(150.0);
         editButton.setPrefHeight(20.0);
         editButton.setMnemonicParsing(false);
+        editButton.setId("userID");
         editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3742,6 +4057,7 @@ public class Main extends Application {
         deleteButton.setPrefWidth(150.0);
         deleteButton.setPrefHeight(25.0);
         deleteButton.setMnemonicParsing(false);
+        deleteButton.setId("userID");
         deleteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3765,6 +4081,7 @@ public class Main extends Application {
         backButton.setPrefWidth(150.0);
         backButton.setPrefHeight(25.0);
         backButton.setMnemonicParsing(false);
+        backButton.setId("userID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3777,8 +4094,11 @@ public class Main extends Application {
         totalCostLabel.setLayoutY(335.0);
 
         pane34.getChildren().addAll(orderLabel, noticeLabel, orderedRestaurantLabel, orderDetailsListView, orderIdLabel, foodIdTextField, editButton, toSeeOrdersLabel, deleteButton, backButton, totalCostLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane34.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane34, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3812,6 +4132,7 @@ public class Main extends Application {
         confirmButton.setLayoutY(170.0);
         confirmButton.setPrefWidth(80.0);
         confirmButton.setMnemonicParsing(false);
+        confirmButton.setId("userID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3825,6 +4146,7 @@ public class Main extends Application {
         backButton.setLayoutY(170.0);
         backButton.setPrefWidth(80.0);
         backButton.setMnemonicParsing(false);
+        backButton.setId("userID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -3833,8 +4155,11 @@ public class Main extends Application {
         });
 
         pane35.getChildren().addAll(numberOfFoodLabel, howManyLabel, noticeLabel, choiceBox, confirmButton, backButton);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane35.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane35, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3897,6 +4222,7 @@ public class Main extends Application {
         showOrdersOrEndingDeliveryButton.setPrefWidth(145.0);
         showOrdersOrEndingDeliveryButton.setPrefHeight(50.0);
         showOrdersOrEndingDeliveryButton.setFont(new Font(15.0));
+        showOrdersOrEndingDeliveryButton.setId("deliveryID");
         GridPane.setConstraints(showOrdersOrEndingDeliveryButton, 0, 0);
 
         if (delivery.activeOrderBoolean) {
@@ -3924,12 +4250,14 @@ public class Main extends Application {
         pathButton.setPrefWidth(145.0);
         pathButton.setPrefHeight(50.0);
         pathButton.setFont(new Font(15.0));
+        pathButton.setId("deliveryID");
         GridPane.setConstraints(pathButton, 1, 0);
 
         Button editLocationButton = new Button("Edit location");
         editLocationButton.setPrefWidth(145.0);
         editLocationButton.setPrefHeight(50.0);
         editLocationButton.setFont(new Font(15.0));
+        editLocationButton.setId("deliveryID");
         GridPane.setConstraints(editLocationButton, 2, 0);
         editLocationButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -3943,6 +4271,7 @@ public class Main extends Application {
         logoutButton.setPrefWidth(145.0);
         logoutButton.setPrefHeight(50.0);
         logoutButton.setFont(new Font(15.0));
+        logoutButton.setId("deliveryID");
         GridPane.setConstraints(logoutButton, 3, 0);
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -3954,8 +4283,11 @@ public class Main extends Application {
         gridPane.getChildren().addAll(showOrdersOrEndingDeliveryButton, pathButton, editLocationButton, logoutButton);
 
         pane36.getChildren().addAll(deliveryPanelLabel, separator1, deliveryLocationLabel, imageView, logoLabel, separator2, gridPane);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("delivery.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane36.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane36, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -3991,6 +4323,7 @@ public class Main extends Application {
         orderIdTextField.setLayoutY(125.0);
         orderIdTextField.setPrefWidth(150.0);
         orderIdTextField.setPrefHeight(25.0);
+        orderIdTextField.setId("textfield");
 
         Label errorLabel1 = new Label();
         errorLabel1.setLayoutX(25.0);
@@ -4014,6 +4347,7 @@ public class Main extends Application {
         confirmButton.setPrefWidth(150.0);
         confirmButton.setPrefHeight(20.0);
         confirmButton.setMnemonicParsing(false);
+        confirmButton.setId("deliveryID");
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4042,6 +4376,7 @@ public class Main extends Application {
         backButton.setPrefWidth(150.0);
         backButton.setPrefHeight(25.0);
         backButton.setMnemonicParsing(false);
+        backButton.setId("deliveryID");
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4051,7 +4386,11 @@ public class Main extends Application {
 
         pane37.getChildren().addAll(confirmOrderLabel, toConfirmLabel, listView, pleaseEnterOrderIdLabel,
                 orderIdTextField, confirmButton, backButton, errorLabel1, errorLabel2);
+        BackgroundImage myBackground = new BackgroundImage(new Image("delivery.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane37.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane37, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4077,6 +4416,7 @@ public class Main extends Application {
         locationTextField.setPrefHeight(25);
         locationTextField.setPromptText("new location");
         pane31.getChildren().add(locationTextField);
+        locationTextField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(50.0);
@@ -4088,6 +4428,7 @@ public class Main extends Application {
         confirmButton.setLayoutX(50);
         confirmButton.setLayoutY(185);
         confirmButton.setPrefSize(80, 20);
+        confirmButton.setId("deliveryID");
         pane31.getChildren().add(confirmButton);
         confirmButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -4114,6 +4455,7 @@ public class Main extends Application {
         backButton.setLayoutX(170);
         backButton.setLayoutY(185);
         backButton.setPrefSize(80, 20);
+        backButton.setId("deliveryID");
         pane31.getChildren().add(backButton);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -4122,7 +4464,11 @@ public class Main extends Application {
             }
         });
 
+        BackgroundImage myBackground = new BackgroundImage(new Image("delivery.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane31.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane31, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4153,6 +4499,7 @@ public class Main extends Application {
 
         Button menuBtn = new Button("Menu");
         menuBtn.setPrefSize(130, 50);
+        menuBtn.setId("userID");
         gridPane.add(menuBtn, 0, 0);
         menuBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -4162,6 +4509,7 @@ public class Main extends Application {
         });
 
         Button commentsBtn = new Button("Display comments");
+        commentsBtn.setId("userID");
         commentsBtn.setPrefSize(130, 50);
         gridPane.add(commentsBtn, 1, 0);
         commentsBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -4172,6 +4520,7 @@ public class Main extends Application {
         });
 
         Button ratingsBtn = new Button("Display Ratings");
+        ratingsBtn.setId("userID");
         ratingsBtn.setPrefSize(130, 50);
         gridPane.add(ratingsBtn, 2, 0);
         ratingsBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -4182,6 +4531,7 @@ public class Main extends Application {
         });
 
         Button backBtn = new Button("Back");
+        backBtn.setId("userID");
         backBtn.setPrefSize(130, 50);
         gridPane.add(backBtn, 3, 0);
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -4224,8 +4574,11 @@ public class Main extends Application {
         logoLabel.setLayoutY(90);
 
         pane38.getChildren().addAll(gridPane, separator1, nameLabel, locationLabel, separator2, logoImg, logoLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane38.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane38, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4245,12 +4598,14 @@ public class Main extends Application {
         foodIdTextField.setLayoutY(130);
         foodIdTextField.setPrefSize(150, 25);
         foodIdTextField.setPromptText("food ID");
+        foodIdTextField.setId("textfield");
 
         TextField foodNameTextField = new TextField();
         foodNameTextField.setLayoutX(25);
         foodNameTextField.setLayoutY(195);
         foodNameTextField.setPrefSize(150, 25);
         foodNameTextField.setPromptText("food name");
+        foodNameTextField.setId("textfield");
 
         Label foodIdLabel = new Label("please enter food ID");
         foodIdLabel.setLayoutX(25);
@@ -4266,6 +4621,7 @@ public class Main extends Application {
         selectBtn.setLayoutX(25);
         selectBtn.setLayoutY(165);
         selectBtn.setPrefSize(150, 20);
+        selectBtn.setId("userID");
         selectBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4287,6 +4643,7 @@ public class Main extends Application {
         searchBtn.setLayoutX(25);
         searchBtn.setLayoutY(230);
         searchBtn.setPrefSize(150, 20);
+        searchBtn.setId("userID");
         searchBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4299,6 +4656,7 @@ public class Main extends Application {
         backBtn.setLayoutX(25);
         backBtn.setLayoutY(260);
         backBtn.setPrefSize(150, 20);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4307,8 +4665,11 @@ public class Main extends Application {
         });
 
         pane39.getChildren().addAll(foodListView, foodIdTextField, foodIdLabel, selectBtn, foodListLabel, backBtn, foodNameTextField, errorLabel, searchBtn);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane39.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane39, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4345,6 +4706,7 @@ public class Main extends Application {
         errorLabel.setTextFill(Color.RED);
 
         Button addToCartBtn = new Button("Add this food to cart");
+        addToCartBtn.setId("userID");
         addToCartBtn.setPrefSize(130, 50);
         gridPane.add(addToCartBtn, 0, 0);
         addToCartBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -4356,6 +4718,7 @@ public class Main extends Application {
         });
 
         Button commentsBtn = new Button("Display comments");
+        commentsBtn.setId("userID");
         commentsBtn.setPrefSize(130, 50);
         gridPane.add(commentsBtn, 1, 0);
         commentsBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -4366,6 +4729,7 @@ public class Main extends Application {
         });
 
         Button ratingsBtn = new Button("Display Ratings");
+        ratingsBtn.setId("userID");
         ratingsBtn.setPrefSize(130, 50);
         gridPane.add(ratingsBtn, 2, 0);
         ratingsBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -4376,6 +4740,7 @@ public class Main extends Application {
         });
 
         Button backBtn = new Button("Back");
+        backBtn.setId("userID");
         backBtn.setPrefSize(130, 50);
         gridPane.add(backBtn, 3, 0);
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -4414,8 +4779,11 @@ public class Main extends Application {
         logoLabel.setLayoutY(90);
 
         pane40.getChildren().addAll(gridPane, separator1, foodNameLabel, separator2, logoImg, logoLabel, errorLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane40.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane40, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4435,11 +4803,13 @@ public class Main extends Application {
         commentIdTextField.setLayoutY(145);
         commentIdTextField.setPrefSize(150, 25);
         commentIdTextField.setPromptText("comment ID");
+        commentIdTextField.setId("textfield");
 
         Button addCommentBtn = new Button("Add new comments");
         addCommentBtn.setLayoutX(25);
         addCommentBtn.setLayoutY(225);
         addCommentBtn.setPrefSize(150, 20);
+        addCommentBtn.setId("userID");
         addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4463,6 +4833,7 @@ public class Main extends Application {
         editCommentBtn.setLayoutX(25);
         editCommentBtn.setLayoutY(185);
         editCommentBtn.setPrefSize(150, 25);
+        editCommentBtn.setId("userID");
         editCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4487,6 +4858,7 @@ public class Main extends Application {
         backBtn.setLayoutX(25);
         backBtn.setLayoutY(265);
         backBtn.setPrefWidth(150);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4496,8 +4868,11 @@ public class Main extends Application {
 
         pane47.getChildren().addAll(commentsListView, commentIdTextField, addCommentBtn, editCommentIdLabel, editCommentBtn,
                 commentsLabel, backBtn, errorLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane47.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane47, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4519,6 +4894,7 @@ public class Main extends Application {
         newCommentTextField.setLayoutY(170);
         newCommentTextField.setPrefWidth(190);
         newCommentTextField.setPromptText("new comments");
+        newCommentTextField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(75);
@@ -4530,6 +4906,7 @@ public class Main extends Application {
         addCommentBtn.setLayoutX(75);
         addCommentBtn.setLayoutY(220);
         addCommentBtn.setPrefWidth(80);
+        addCommentBtn.setId("userID");
         addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4542,6 +4919,7 @@ public class Main extends Application {
         backBtn.setLayoutX(185);
         backBtn.setLayoutY(220);
         backBtn.setPrefWidth(80);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4550,8 +4928,11 @@ public class Main extends Application {
         });
 
         pane48.getChildren().addAll(addCommentLabel, enterCommentLabel, notifLabel, newCommentTextField, addCommentBtn, backBtn);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane48.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane48, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4573,6 +4954,7 @@ public class Main extends Application {
         newCommentTextField.setLayoutY(215);
         newCommentTextField.setPrefWidth(200);
         newCommentTextField.setPromptText("new comment");
+        newCommentTextField.setId("textfield");
 
         Label instructionLabel = new Label("You can enter new comment on the fields and click confirm to set");
         instructionLabel.setLayoutX(75);
@@ -4588,6 +4970,7 @@ public class Main extends Application {
         confirmBtn.setLayoutX(75);
         confirmBtn.setLayoutY(270);
         confirmBtn.setPrefWidth(80);
+        confirmBtn.setId("userID");
         confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4601,6 +4984,7 @@ public class Main extends Application {
         backBtn.setLayoutX(195);
         backBtn.setLayoutY(270);
         backBtn.setPrefWidth(80);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4609,8 +4993,11 @@ public class Main extends Application {
         });
 
         pane49.getChildren().addAll(editCommentLabel, currentCommentLabel, notifLabel, newCommentTextField, instructionLabel, confirmBtn, backBtn);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane49.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane49, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4638,6 +5025,7 @@ public class Main extends Application {
         addRatingBtn.setLayoutX(85);
         addRatingBtn.setLayoutY(185);
         addRatingBtn.setPrefWidth(100);
+        addRatingBtn.setId("userID");
         addRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4653,6 +5041,7 @@ public class Main extends Application {
         editRatingBtn.setLayoutX(85);
         editRatingBtn.setLayoutY(220);
         editRatingBtn.setPrefWidth(100);
+        editRatingBtn.setId("userID");
         editRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4668,6 +5057,7 @@ public class Main extends Application {
         backBtn.setLayoutX(85);
         backBtn.setLayoutY(255);
         backBtn.setPrefWidth(100);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4683,8 +5073,11 @@ public class Main extends Application {
         ratingsListView.getItems().addAll(Functions.showFoodRatings());
 
         pane50.getChildren().addAll(addRatingLabel, currentRatingLabel, addRatingBtn, editRatingBtn, backBtn, ratingsListView, errorLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane50.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane50, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4718,6 +5111,7 @@ public class Main extends Application {
         submitBtn.setLayoutX(75);
         submitBtn.setLayoutY(170);
         submitBtn.setPrefWidth(80);
+        submitBtn.setId("userID");
         submitBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4734,6 +5128,7 @@ public class Main extends Application {
         backBtn.setLayoutX(178);
         backBtn.setLayoutY(170);
         backBtn.setPrefWidth(80);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4747,8 +5142,11 @@ public class Main extends Application {
         ratingRangeLabel.setFont(new Font(8));
 
         pane51.getChildren().addAll(addRatingLabel, instructionLabel, notifLabel, submitBtn, backBtn, ratingSlider, ratingRangeLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane51.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane51, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4785,6 +5183,7 @@ public class Main extends Application {
         confirmBtn.setLayoutX(75);
         confirmBtn.setLayoutY(270);
         confirmBtn.setPrefWidth(80);
+        confirmBtn.setId("userID");
         confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4798,6 +5197,7 @@ public class Main extends Application {
         backBtn.setLayoutX(195);
         backBtn.setLayoutY(270);
         backBtn.setPrefWidth(80);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4811,8 +5211,11 @@ public class Main extends Application {
         ratingRangeLabel.setFont(new Font(8));
 
         pane52.getChildren().addAll(editRatingLabel, currentRatingLabel, instructionLabel, notifLabel, confirmBtn, backBtn, ratingSlider, ratingRangeLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane52.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane52, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4832,11 +5235,13 @@ public class Main extends Application {
         commentIdTextField.setLayoutY(145);
         commentIdTextField.setPrefSize(150, 25);
         commentIdTextField.setPromptText("comment ID");
+        commentIdTextField.setId("textfield");
 
         Button addCommentBtn = new Button("Add new comments");
         addCommentBtn.setLayoutX(25);
         addCommentBtn.setLayoutY(225);
         addCommentBtn.setPrefSize(150, 20);
+        addCommentBtn.setId("userID");
         addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4860,6 +5265,7 @@ public class Main extends Application {
         editCommentBtn.setLayoutX(25);
         editCommentBtn.setLayoutY(185);
         editCommentBtn.setPrefSize(150, 25);
+        editCommentBtn.setId("userID");
         editCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4884,6 +5290,7 @@ public class Main extends Application {
         backBtn.setLayoutX(25);
         backBtn.setLayoutY(265);
         backBtn.setPrefWidth(150);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4893,8 +5300,11 @@ public class Main extends Application {
 
         pane47.getChildren().addAll(commentsListView, commentIdTextField, addCommentBtn, editCommentIdLabel, editCommentBtn,
                 commentsLabel, backBtn, errorLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane47.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane47, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4916,6 +5326,7 @@ public class Main extends Application {
         newCommentTextField.setLayoutY(170);
         newCommentTextField.setPrefWidth(190);
         newCommentTextField.setPromptText("new comments");
+        newCommentTextField.setId("textfield");
 
         Label notifLabel = new Label();
         notifLabel.setLayoutX(75);
@@ -4927,6 +5338,7 @@ public class Main extends Application {
         addCommentBtn.setLayoutX(75);
         addCommentBtn.setLayoutY(220);
         addCommentBtn.setPrefWidth(80);
+        addCommentBtn.setId("userID");
         addCommentBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4939,6 +5351,7 @@ public class Main extends Application {
         backBtn.setLayoutX(185);
         backBtn.setLayoutY(220);
         backBtn.setPrefWidth(80);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4947,8 +5360,11 @@ public class Main extends Application {
         });
 
         pane48.getChildren().addAll(addCommentLabel, enterCommentLabel, notifLabel, newCommentTextField, addCommentBtn, backBtn);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane48.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane48, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -4970,6 +5386,7 @@ public class Main extends Application {
         newCommentTextField.setLayoutY(215);
         newCommentTextField.setPrefWidth(200);
         newCommentTextField.setPromptText("new comment");
+        newCommentTextField.setId("textfield");
 
         Label instructionLabel = new Label("You can enter new comment on the fields and click confirm to set");
         instructionLabel.setLayoutX(75);
@@ -4985,6 +5402,7 @@ public class Main extends Application {
         confirmBtn.setLayoutX(75);
         confirmBtn.setLayoutY(270);
         confirmBtn.setPrefWidth(80);
+        confirmBtn.setId("userID");
         confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -4998,6 +5416,7 @@ public class Main extends Application {
         backBtn.setLayoutX(195);
         backBtn.setLayoutY(270);
         backBtn.setPrefWidth(80);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -5006,8 +5425,11 @@ public class Main extends Application {
         });
 
         pane49.getChildren().addAll(editCommentLabel, currentCommentLabel, notifLabel, newCommentTextField, instructionLabel, confirmBtn, backBtn);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane49.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane49, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -5036,6 +5458,7 @@ public class Main extends Application {
         addRatingBtn.setLayoutX(85);
         addRatingBtn.setLayoutY(185);
         addRatingBtn.setPrefWidth(100);
+        addRatingBtn.setId("userID");
         addRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -5051,6 +5474,7 @@ public class Main extends Application {
         editRatingBtn.setLayoutX(85);
         editRatingBtn.setLayoutY(220);
         editRatingBtn.setPrefWidth(100);
+        editRatingBtn.setId("userID");
         editRatingBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -5066,6 +5490,7 @@ public class Main extends Application {
         backBtn.setLayoutX(85);
         backBtn.setLayoutY(255);
         backBtn.setPrefWidth(100);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -5081,8 +5506,11 @@ public class Main extends Application {
         ratingsListView.getItems().addAll(Functions.showRestaurantRatings(Restaurant.loggedInRestaurantForUser));
 
         pane50.getChildren().addAll(addRatingLabel, currentRatingLabel, addRatingBtn, editRatingBtn, backBtn, ratingsListView, errorLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane50.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane50, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -5117,6 +5545,7 @@ public class Main extends Application {
         submitBtn.setLayoutX(75);
         submitBtn.setLayoutY(170);
         submitBtn.setPrefWidth(80);
+        submitBtn.setId("userID");
         submitBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -5133,6 +5562,7 @@ public class Main extends Application {
         backBtn.setLayoutX(178);
         backBtn.setLayoutY(170);
         backBtn.setPrefWidth(80);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -5146,8 +5576,11 @@ public class Main extends Application {
         ratingRangeLabel.setFont(new Font(8));
 
         pane51.getChildren().addAll(addRatingLabel, instructionLabel, notifLabel, submitBtn, backBtn, ratingSlider, ratingRangeLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane51.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane51, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -5186,6 +5619,7 @@ public class Main extends Application {
         confirmBtn.setLayoutX(75);
         confirmBtn.setLayoutY(270);
         confirmBtn.setPrefWidth(80);
+        confirmBtn.setId("userID");
         confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -5199,6 +5633,7 @@ public class Main extends Application {
         backBtn.setLayoutX(195);
         backBtn.setLayoutY(270);
         backBtn.setPrefWidth(80);
+        backBtn.setId("userID");
         backBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -5212,8 +5647,11 @@ public class Main extends Application {
         ratingRangeLabel.setFont(new Font(8));
 
         pane52.getChildren().addAll(editRatingLabel, currentRatingLabel, instructionLabel, notifLabel, confirmBtn, backBtn, ratingSlider, ratingRangeLabel);
-
+        BackgroundImage myBackground = new BackgroundImage(new Image("user.jpg",600,400,false,true),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT) ;
+        pane52.setBackground(new Background(myBackground));
         Scene scene = new Scene(pane52, 600, 400);
+        scene.getStylesheets().add("styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
